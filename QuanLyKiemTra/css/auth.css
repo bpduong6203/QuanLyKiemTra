@@ -1,0 +1,125 @@
+﻿/* Background của trang đăng nhập */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+    padding: 0 20px;
+}
+
+/* Card đăng nhập */
+.register-card {
+    background: #ffffff;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px; /* Tăng chiều rộng để chứa hai cột */
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Card đăng nhập */
+.login-card {
+    background: #ffffff;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px; /* Tăng chiều rộng để chứa hai cột */
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Tiêu đề */
+.login-title h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.login-title p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Container cho hai cột */
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Cột form */
+.form-column {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Nhóm form */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    color: #374151;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #f9fafb;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+    .form-input:focus {
+        border-color: #475569;
+    }
+
+/* Nút chính (Đăng nhập) */
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #475569;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #64748b;
+    }
+
+/* Footer */
+.form-footer {
+    margin-top: 20px;
+}
+
+    .form-footer a {
+        color: #2563eb;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+    }
+}
