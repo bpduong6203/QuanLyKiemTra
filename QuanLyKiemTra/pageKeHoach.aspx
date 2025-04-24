@@ -5,12 +5,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="container">
-        <h2>Danh sách văn bản kiểm tra</h2>
+        <h4>Danh sách văn bản kiểm tra</h4>
         <asp:Label ID="lblReport" runat="server" ForeColor="Green" CssClass="form-label" />
     </div>
 
     <div class="container">
-        <h2>Kế Hoạch Kiểm Tra</h2>
+        <h4>Kế Hoạch Kiểm Tra</h4>
 
         <div class="form-group">
             <asp:Label ID="Label1" runat="server" Text="Chọn đơn vị kiểm tra:" CssClass="form-label" AssociatedControlID="DropDownList1" />

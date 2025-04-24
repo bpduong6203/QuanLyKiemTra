@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="container">
-        <h2>Danh Sách Nguồn Nhận Thông Báo Kiểm Tra</h2>
+        <h4>Danh Sách Nguồn Nhận Thông Báo Kiểm Tra</h4>
 
         <!-- Danh sách nguồn nhận thông báo kiểm tra -->
         <asp:GridView ID="gvNotificationSources" runat="server" CssClass="grid-view" AutoGenerateColumns="False">
@@ -17,7 +17,7 @@
         </asp:GridView>
     </div>
     <div class="container">
-        <h2>Thông Báo Kiểm Tra</h2>
+        <h4>Thông Báo Kiểm Tra</h4>
 
         <!-- Chọn kế hoạch kiểm tra -->
         <div class="form-group">

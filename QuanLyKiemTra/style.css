@@ -17,18 +17,18 @@
         color: #ffffff;
         padding: 10px 20px;
         display: block;
-        text-decoration: none;
+        text-decoration: none;=
     }
 
         .sidebar a:hover {
             margin: 8px 5px 5px 5px;
-            border-radius: 0 30px 30px 0;
+            border-radius: 10px;
             background-color: #334155;
             box-shadow: inset 0px 0px 5px rgba(0,0,0,0.3);
         }
 
         .sidebar a.active {
-            border-radius: 0 30px 30px 0;
+            border-radius: 10px;
             margin: 8px 5px 5px 5px;
             background-color: #1e293b;
             color: #ffffff;
@@ -48,10 +48,9 @@
     padding-left: 20px;
 }
 
-h2 {
+h4 {
     color: #003087;
-    font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 13px;
 }
 
 .container {
@@ -122,6 +121,24 @@ h2 {
     overflow-y: auto;
     padding: 20px;
 }
+
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #f9fafb;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+    .form-input:focus {
+        border-color: #475569;
+    }
+
+
 
 /* Nút menu cho màn hình nhỏ */
 .menu-toggle {

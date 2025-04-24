@@ -17,7 +17,7 @@ namespace QuanLyKiemTra
             if (username == "admin" && password == "12345")
             {
                 Session["UserLoggedIn"] = true;
-                Response.Redirect("pageThanhTra.aspx");
+                Response.Redirect("pageCaNhan.aspx");
             }
             else
             {

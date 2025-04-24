@@ -72,13 +72,13 @@
     <Content Include="css\profile.css" />
     <Content Include="Global.asax" />
     <Content Include="pageCaNhan.aspx" />
+    <Content Include="pageCapNhatCaNhan.aspx" />
     <Content Include="pageDanhSach.aspx" />
     <Content Include="pageKeHoach.aspx" />
     <Content Include="pageKetLuan.aspx" />
     <Content Include="pageKiemTra.aspx" />
     <Content Include="pageLogin.aspx" />
     <Content Include="pageRegister.aspx" />
-    <Content Include="pageThanhTra.aspx" />
     <Content Include="pageThongBao.aspx" />
     <Content Include="style.css" />
     <Content Include="viewQuanTri\pageDanhSach.aspx" />
@@ -101,6 +101,13 @@
     </Compile>
     <Compile Include="pageCaNhan.aspx.designer.cs">
       <DependentUpon>pageCaNhan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pageCapNhatCaNhan.aspx.cs">
+      <DependentUpon>pageCapNhatCaNhan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pageCapNhatCaNhan.aspx.designer.cs">
+      <DependentUpon>pageCapNhatCaNhan.aspx</DependentUpon>
     </Compile>
     <Compile Include="pageDanhSach.aspx.cs">
       <DependentUpon>pageDanhSach.aspx</DependentUpon>
@@ -143,13 +150,6 @@
     </Compile>
     <Compile Include="pageRegister.aspx.designer.cs">
       <DependentUpon>pageRegister.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="pageThanhTra.aspx.cs">
-      <DependentUpon>pageThanhTra.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pageThanhTra.aspx.designer.cs">
-      <DependentUpon>pageThanhTra.aspx</DependentUpon>
     </Compile>
     <Compile Include="pageThongBao.aspx.cs">
       <DependentUpon>pageThongBao.aspx</DependentUpon>

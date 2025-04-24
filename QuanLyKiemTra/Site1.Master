@@ -25,7 +25,7 @@
 
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
-                <a href="#" class="navbar-brand">Quản Lý Kiểm Tra</a>
+                <p href="#" class="navbar-brand">Quản Lý Kiểm Tra</p>
                 <hr class="text-white" />
                 <!-- Phần trên -->
                 <div class="sidebar-top">
@@ -40,7 +40,7 @@
                     <!-- Menu con -->
                     <div class="submenu" id="submenuCaNhan">
                         <a href="pageCaNhan.aspx"><i class="fas fa-id-card me-2"></i>Thông tin cá nhân</a>
-                        <a href="settings.aspx"><i class="fas fa-cog me-2"></i>Cài đặt tài khoản</a>
+                        <a href="pageCapNhatCaNhan.aspx"><i class="fas fa-cog me-2"></i>Cài đặt tài khoản</a>
                         <a href="logout.aspx"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a>
                     </div>
                 </div>

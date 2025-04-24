@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="container">
-        <h2>Danh Sách Nguồn Nhận Yêu Cầu Giải Trình</h2>
+        <h4>Danh Sách Nguồn Nhận Yêu Cầu Giải Trình</h4>
 
         <!-- Danh sách nguồn nhận yêu cầu giải trình -->
         <asp:GridView ID="gvExplanationSources" runat="server" CssClass="grid-view" AutoGenerateColumns="False">
@@ -18,7 +18,7 @@
     </div>
 
     <div class="container">
-        <h2>Nội Dung Yêu Cầu Giải Trình</h2>
+        <h4>Nội Dung Yêu Cầu Giải Trình</h4>
 
         <!-- Danh sách nội dung yêu cầu giải trình -->
         <asp:GridView ID="gvExplanationContent" runat="server" CssClass="grid-view" AutoGenerateColumns="False">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="container">
-        <h2>Kiểm Tra Trực Tuyến</h2>
+        <h4>Kiểm Tra Trực Tuyến</h4>
 
         <!-- Chọn kế hoạch kiểm tra -->
         <div class="form-group">
