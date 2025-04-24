@@ -84,24 +84,6 @@
         border-color: #475569;
     }
 
-/* Nút chính (Đăng nhập) */
-.btn-primary {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #475569;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-    .btn-primary:hover {
-        background-color: #64748b;
-    }
-
 /* Footer */
 .form-footer {
     margin-top: 20px;

@@ -29,7 +29,7 @@
 
 
         <div class="form-group">
-            <asp:Button ID="btnSavePlan" runat="server" Text="Lưu" CssClass="btn-custom" />
+            <asp:Button ID="btnSavePlan" runat="server" Text="Lưu" CssClass="btn-primary" />
         </div>
     </div>
 </asp:Content>

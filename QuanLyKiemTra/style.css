@@ -6,37 +6,40 @@
     min-height: 100vh;
     background: #475569;
     padding-top: 20px;
-    position: fixed;
     width: 250px;
+    position: fixed;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
 }
 
-
     .sidebar a {
+        margin: 8px 5px 5px 5px;
         color: #ffffff;
-        padding: 15px 20px;
+        padding: 10px 20px;
         display: block;
         text-decoration: none;
     }
 
         .sidebar a:hover {
+            margin: 8px 5px 5px 5px;
+            border-radius: 0 30px 30px 0;
             background-color: #334155;
             box-shadow: inset 0px 0px 5px rgba(0,0,0,0.3);
         }
 
-
         .sidebar a.active {
-            border-radius: 5px;
-            margin: 0 5px 0 5px;
-            background-color: #37474f;
+            border-radius: 0 30px 30px 0;
+            margin: 8px 5px 5px 5px;
+            background-color: #1e293b;
             color: #ffffff;
             font-weight: bold;
             transition: 0.3s ease-in-out;
         }
 
-
 .content {
     margin-left: 250px;
     padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
 }
 
 .navbar-brand {
@@ -44,7 +47,6 @@
     font-size: 1.5rem;
     padding-left: 20px;
 }
-
 
 h2 {
     color: #003087;
@@ -59,29 +61,6 @@ h2 {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
 }
-
-.btn-custom {
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 8px;
-    background: #003087;
-    color: white;
-    border: none;
-    transition: background 0.3s ease;
-}
-
-    .btn-custom:hover {
-        background: #005bb5;
-    }
-
-.btn-secondary-custom {
-    background: #6c757d;
-}
-
-    .btn-secondary-custom:hover {
-        background: #5a6268;
-    }
 
 .form-label {
     font-size: 16px;
@@ -124,8 +103,6 @@ h2 {
         background: #f8f9fa;
     }
 
-
-
 .sidebar-top {
 }
 
@@ -145,3 +122,202 @@ h2 {
     overflow-y: auto;
     padding: 20px;
 }
+
+/* Nút menu cho màn hình nhỏ */
+.menu-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+    display: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-250px);
+    }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Submenu styles */
+.submenu {
+    position: absolute;
+    bottom: 100%; /* Đặt submenu phía trên nút Cá nhân */
+    left: 0;
+    right: 0;
+    background-color: #64748b;
+    padding: 10px 0;
+    border-radius: 6px 6px 0 0; /* Bo góc trên, không bo góc dưới */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2); /* Bóng đổ phía trên */
+    opacity: 0;
+    transform: translateY(10px); /* Hiệu ứng trượt lên */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1001;
+    display: none;
+}
+
+    .submenu.active {
+        opacity: 1;
+        transform: translateY(0);
+        display: block;
+    }
+
+    .submenu a {
+        color: #ffffff;
+        padding: 10px 20px;
+        display: block;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .submenu a:hover {
+            background-color: #475569;
+        }
+
+/* Icon trạng thái submenu */
+.submenu-icon {
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle.active .submenu-icon {
+    transform: rotate(180deg); /* Xoay mũi tên khi submenu mở */
+}
+
+
+
+
+
+
+
+/* Button styles */
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #475569;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #64748b;
+    }
+
+.btn-secondary {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+.btn-danger {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-danger:hover {
+        background-color: #b02a37;
+    }
+
+.btn-success {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+.btn-warning {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+.btn-info {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #17a2b8;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-info:hover {
+        background-color: #138496;
+    }
+
+.btn-outline {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #475569;
+    background-color: transparent;
+    border: 2px solid #475569;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .btn-outline:hover {
+        background-color: #475569;
+        color: #ffffff;
+    }

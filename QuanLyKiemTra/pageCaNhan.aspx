@@ -32,7 +32,13 @@
                         <asp:Label ID="lblUnit" runat="server" Text="Đơn vị" CssClass="form-label" />
                         <asp:TextBox ID="txtUnit" runat="server" CssClass="form-input" Placeholder="Đơn vị" ReadOnly="true" />
                     </div>
+
+                    <div style="border-top: 2px solid #475569; width: 100%; margin: 20px 0;"></div>
+
                 </div>
+
+
+                
 
                 <!-- Cột phải: Đổi mật khẩu -->
                 <div class="form-column">
@@ -48,6 +54,10 @@
                         <asp:Label ID="lblConfirmNewPassword" runat="server" Text="Xác nhận mật khẩu mới" CssClass="form-label" />
                         <asp:TextBox ID="txtConfirmNewPassword" runat="server" CssClass="form-input" TextMode="Password" Placeholder="Nhập lại mật khẩu mới" />
                     </div>
+
+                    <div style="border-top: 2px solid #475569; width: 100%; margin: 20px 0;"></div>
+
+
                     <div class="form-group">
                         <asp:Button ID="btnChangePassword" runat="server" Text="Đổi Mật Khẩu" CssClass="btn-primary" />
                     </div>

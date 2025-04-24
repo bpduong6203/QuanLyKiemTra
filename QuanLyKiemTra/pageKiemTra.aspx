@@ -46,13 +46,13 @@
 
         <!-- Xem trước nội dung kiểm tra -->
         <div class="form-group">
-            <asp:Button ID="btnPreviewInspection" runat="server" Text="Xem Trước Nội Dung Kiểm Tra" CssClass="btn-custom"/>
+            <asp:Button ID="btnPreviewInspection" runat="server" Text="Xem Trước Nội Dung Kiểm Tra" CssClass="btn-primary"/>
         </div>
 
 
         <!-- Yêu cầu gửi giải trình -->
         <div class="form-group">
-            <asp:Button ID="btnRequestExplanation" runat="server" Text="Yêu Cầu Gửi Giải Trình" CssClass="btn-custom btn-secondary-custom" />
+            <asp:Button ID="btnRequestExplanation" runat="server" Text="Yêu Cầu Gửi Giải Trình" CssClass="btn-secondary" />
         </div>
     </div>
 </asp:Content>

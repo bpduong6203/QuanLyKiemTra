@@ -9,11 +9,10 @@
 }
 
 /* Card chính */
-.profile-card, .login-card {
+.profile-card{
     background: #ffffff;
     padding: 20px;
     width: 100%;
-    max-width: 800px;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -38,6 +37,7 @@
 
 /* Container cho hai cột */
 .form-container {
+    padding-top: 20px;
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -45,8 +45,10 @@
 
 /* Cột form */
 .form-column {
+    padding: 20px;
     flex: 1;
     min-width: 0;
+    max-width: 400px;
 }
 
 /* Nhóm form */
@@ -77,23 +79,6 @@
         border-color: #475569;
     }
 
-/* Nút chính */
-.btn-primary {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #475569;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-    .btn-primary:hover {
-        background-color: #64748b;
-    }
 
 /* Footer */
 .form-footer {

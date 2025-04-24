@@ -31,12 +31,12 @@
 
         <!-- Gửi thông báo kiểm tra -->
         <div class="form-group">
-            <button class="btn-custom">Gửi Thông Báo Kiểm Tra</button>
+            <button class="btn-primary">Gửi Thông Báo Kiểm Tra</button>
         </div>
 
         <!-- Xuất biên bản thông báo kiểm tra -->
         <div class="form-group">
-            <button class="btn-custom btn-secondary-custom">Xuất Biên Bản Thông Báo Kiểm Tra</button>
+            <button class="btn-secondary">Xuất Biên Bản Thông Báo Kiểm Tra</button>
         </div>
     </div>
 </asp:Content>
