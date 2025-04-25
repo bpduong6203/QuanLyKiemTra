@@ -68,6 +68,25 @@ h4 {
     margin-bottom: 10px;
 }
 
+.file-upload {
+    margin: 5px;
+    border: 2px dashed #475569; 
+    padding: 8px; 
+    background-color: #f9fafb; 
+    width: 100%; 
+    max-width: 300px; 
+    font-size: 14px; 
+    color: #475569;
+    border-radius: 5px;
+    text-align: center; 
+}
+
+    .file-upload:hover {
+        background-color: #e2e8f0;
+        cursor: pointer; 
+    }
+
+
 .dropdown-custom {
     padding: 12px;
     font-size: 16px;
@@ -183,6 +202,7 @@ h4 {
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 1001;
     display: none;
+    margin: 5px;
 }
 
     .submenu.active {
@@ -220,6 +240,8 @@ h4 {
 
 /* Button styles */
 .btn-primary {
+    margin-top: 10px;
+    max-width: 400px;
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -237,6 +259,8 @@ h4 {
     }
 
 .btn-secondary {
+    margin-top: 10px;
+    max-width: 400px;
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -254,6 +278,8 @@ h4 {
     }
 
 .btn-danger {
+    margin-top: 10px;
+    max-width: 400px;
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -271,6 +297,8 @@ h4 {
     }
 
 .btn-success {
+    margin-top: 10px;
+    max-width: 400px;
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -288,6 +316,8 @@ h4 {
     }
 
 .btn-warning {
+    margin-top: 10px;
+    max-width: 400px;
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -305,6 +335,8 @@ h4 {
     }
 
 .btn-info {
+    margin-top: 10px;
+    max-width: 400px;
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -322,6 +354,8 @@ h4 {
     }
 
 .btn-outline {
+    margin-top: 10px;
+    max-width: 400px;
     width: 100%;
     padding: 10px;
     font-size: 16px;

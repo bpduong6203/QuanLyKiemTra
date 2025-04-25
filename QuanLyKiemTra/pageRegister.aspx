@@ -54,15 +54,18 @@
                         <asp:Label ID="lblConfirmPassword" runat="server" Text="Xác nhận mật khẩu" CssClass="form-label" />
                         <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-input" TextMode="Password" Placeholder="Nhập lại mật khẩu" />
                     </div>
+                    <div class="form-group">
+                        <asp:Button ID="btnRegister" runat="server" Text="Đăng Ký" style="margin-top: 30px" CssClass="btn-primary" />
+                    </div>
+
                 </div>
+
+
             </div>
 
             <!-- Nút đăng ký -->
-            <div class="form-group">
-                <asp:Button ID="btnRegister" runat="server" Text="Đăng Ký" CssClass="btn-primary" />
-            </div>
 
-             <div class="form-footer">
+            <div class="form-footer">
                 <a>Bạn đã có tài khoản?</a>
                 <a href="pageLogin.aspx">Đăng nhập</a>
             </div>
