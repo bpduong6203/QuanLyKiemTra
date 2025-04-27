@@ -13,9 +13,17 @@
         </div>
         <div style="border-top: 2px solid #475569; width: 100%; margin: 20px 0;"></div>
 
+        <asp:Label ID="Label1" runat="server" Text="Tên kế hoạch" CssClass="form-label" />
+
+        <div class="form-group">
+            <asp:TextBox ID="txtKeHoach" runat="server" CssClass="form-input btn-large" Placeholder="Nhập tên kế hoạch" />
+        </div>
+
+        <div style="border-top: 2px solid #475569; width: 100%; margin: 20px 0;"></div>
+
+
         <!-- Thông báo -->
         <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="False"></asp:Label>
-
         <!-- Bước 1: Chọn đơn vị kiểm tra -->
         <div class="form-group">
             <asp:Label ID="lblDonVi" runat="server" Text="Chọn đơn vị kiểm tra:" CssClass="form-label" AssociatedControlID="ddlDonVi" />
@@ -31,8 +39,8 @@
         <div class="form-group">
             <asp:Label ID="lblQuyetDinh" runat="server" Text="Quyết định kiểm tra:" CssClass="form-label" />
             <div class="file-upload-group">
-                <asp:Button ID="btnExportQuyetDinh" runat="server" Text="Xuất Quyết Định" CssClass="btn-primary" OnClick="btnExportQuyetDinh_Click" />
                 <asp:FileUpload ID="fuQuyetDinh" runat="server" CssClass="file-upload" />
+                <asp:Button ID="btnExportQuyetDinh" runat="server" Text="Xuất Quyết Định" CssClass="btn-primary btn-small" OnClick="btnExportQuyetDinh_Click" />
             </div>
         </div>
 
@@ -49,7 +57,7 @@
         <!-- Bước 4: Chọn thành viên và phân công nhiệm vụ -->
         <div class="form-group">
             <asp:Label ID="lblThanhVien" runat="server" Text="Phân công thành viên:" CssClass="form-label" />
-            <asp:GridView ID="gvThanhVien" runat="server" AutoGenerateColumns="False" CssClass="grid-view" 
+            <asp:GridView ID="gvThanhVien" runat="server" AutoGenerateColumns="False" CssClass="grid-view"
                 DataKeyNames="MaThanhVien" OnRowCommand="gvThanhVien_RowCommand">
                 <Columns>
                     <asp:BoundField DataField="HoTen" HeaderText="Họ và Tên" />
@@ -70,12 +78,12 @@
 
         <!-- Bước 5: Xuất văn bản phân công -->
         <div class="form-group">
-            <asp:Button ID="btnExportPhanCong" runat="server" Text="Xuất Văn Bản Phân Công" CssClass="btn-primary" OnClick="btnExportPhanCong_Click" />
+            <asp:Button ID="btnExportPhanCong" runat="server" Text="Xuất Văn Bản Phân Công" CssClass="btn-primary btn-small" OnClick="btnExportPhanCong_Click" />
         </div>
 
         <!-- Nút lưu kế hoạch -->
         <div class="form-group">
-            <asp:Button ID="btnSavePlan" runat="server" Text="Lưu Kế Hoạch" CssClass="btn-primary" OnClick="btnSavePlan_Click" />
+            <asp:Button ID="btnSavePlan" runat="server" Text="Lưu Kế Hoạch" CssClass="btn-primary btn-small" OnClick="btnSavePlan_Click" />
         </div>
     </div>
 </asp:Content>

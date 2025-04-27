@@ -15,6 +15,24 @@ namespace QuanLyKiemTra
     {
 
         /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// txtKeHoach control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtKeHoach;
+
+        /// <summary>
         /// lblMessage control.
         /// </summary>
         /// <remarks>
@@ -51,15 +69,6 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Label lblQuyetDinh;
 
         /// <summary>
-        /// btnExportQuyetDinh control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportQuyetDinh;
-
-        /// <summary>
         /// fuQuyetDinh control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace QuanLyKiemTra
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fuQuyetDinh;
+
+        /// <summary>
+        /// btnExportQuyetDinh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportQuyetDinh;
 
         /// <summary>
         /// fuDeCuong control.
