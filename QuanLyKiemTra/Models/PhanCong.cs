@@ -1,9 +1,12 @@
-using System.ComponentModel.DataAnnotations;
-
-public class PhanCong
+namespace QuanLyKiemTra.Models
 {
-    [Key]
-    public string Id { get; set; }
-    public string NoiDung { get; set; }
-    public string linkfile { get; set; }
+    using System.ComponentModel.DataAnnotations;
+
+    public class PhanCong
+    {
+        [Key]
+        public string Id { get; set; }
+        public string NoiDung { get; set; }
+        public string linkfile { get; set; }
+    }
 }

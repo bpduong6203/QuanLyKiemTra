@@ -7,15 +7,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="login-container">
         <div class="register-card">
-            <!-- Tiêu đề -->
             <div class="login-title">
                 <h2>Đăng Ký</h2>
                 <p>Tạo tài khoản mới để sử dụng hệ thống</p>
             </div>
 
-            <!-- Form đăng ký -->
+            <div class="form-group">
+                <asp:Label ID="lblMessage" runat="server" CssClass="error-message" Visible="false" />
+            </div>
+
             <div class="form-container">
-                <!-- Cột trái: Thông tin người dùng -->
                 <div class="form-column">
                     <div class="form-group">
                         <asp:Label ID="lblFullName" runat="server" Text="Họ và tên" CssClass="form-label" />
@@ -33,14 +34,11 @@
                         <asp:Label ID="lblUnit" runat="server" Text="Chọn đơn vị" CssClass="form-label" />
                         <asp:DropDownList ID="ddlUnit" runat="server" CssClass="form-input">
                             <asp:ListItem Text="--- Chọn đơn vị ---" Value="" />
-                            <asp:ListItem Text="Đơn vị 1" Value="Unit1" />
-                            <asp:ListItem Text="Đơn vị 2" Value="Unit2" />
-                            <asp:ListItem Text="Đơn vị 3" Value="Unit3" />
                         </asp:DropDownList>
+                        <!-- Bỏ RequiredFieldValidator cho ddlUnit -->
                     </div>
                 </div>
 
-                <!-- Cột phải: Thông tin đăng nhập -->
                 <div class="form-column">
                     <div class="form-group">
                         <asp:Label ID="lblUsername" runat="server" Text="Tên đăng nhập" CssClass="form-label" />
@@ -55,15 +53,10 @@
                         <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-input" TextMode="Password" Placeholder="Nhập lại mật khẩu" />
                     </div>
                     <div class="form-group">
-                        <asp:Button ID="btnRegister" runat="server" Text="Đăng Ký" style="margin-top: 30px" CssClass="btn-primary" />
+                        <asp:Button ID="btnRegister" runat="server" Text="Đăng Ký" style="margin-top: 30px" CssClass="btn-primary" OnClick="btnRegister_Click" />
                     </div>
-
                 </div>
-
-
             </div>
-
-            <!-- Nút đăng ký -->
 
             <div class="form-footer">
                 <a>Bạn đã có tài khoản?</a>

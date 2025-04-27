@@ -5,12 +5,18 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="login-container">
         <div class="login-card">
             <!-- Tiêu đề -->
             <div class="login-title">
                 <h2>Đăng Nhập</h2>
                 <p>Chào mừng bạn trở lại!</p>
+            </div>
+
+            <!-- Thông báo lỗi -->
+            <div class="form-group">
+                <asp:Label ID="lblMessage" runat="server" CssClass="error-message" Visible="false" />
             </div>
 
             <!-- Form đăng nhập -->
