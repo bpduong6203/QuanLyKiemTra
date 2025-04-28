@@ -16,9 +16,5 @@ namespace QuanLyKiemTra.Models
         public bool DaXem { get; set; }
         virtual public NguoiDung NguoiDung { get; set; }
         virtual public KeHoach KeHoach { get; set; }
-
-
-        //public string ThongBaoID { get; set; }
-        //public List<ThongBao> ThongBaos { get; set; }
     }
 }
