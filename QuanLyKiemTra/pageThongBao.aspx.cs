@@ -1,4 +1,5 @@
-﻿using QuanLyKiemTra.Models;
+﻿
+using QuanLyKiemTra.Models;
 using System;
 using System.IO;
 using System.Linq;
@@ -30,21 +31,14 @@ namespace QuanLyKiemTra
             {
                 using (var context = new MyDbContext())
                 {
-                    string username = Session["Username"]?.ToString();
-                    var user = context.NguoiDungs.FirstOrDefault(u => u.username == username);
-                    if (user == null)
-                    {
-                        ShowError("Không tìm thấy người dùng hiện tại. Vui lòng đăng nhập lại.");
-                        return;
-                    }
-
                     var thongBaos = context.ThongBao_Users
-                        .Where(t => t.UserID == user.Id)
                         .Select(t => new
                         {
                             t.Id,
                             TenKeHoach = t.KeHoach != null ? t.KeHoach.TenKeHoach : "Chưa có kế hoạch",
                             TenDonVi = t.KeHoach != null && t.KeHoach.DonVi != null ? t.KeHoach.DonVi.TenDonVi : "Không xác định",
+                            ChucVuNguoiDaiDien = t.KeHoach != null && t.KeHoach.DonVi != null ? t.KeHoach.DonVi.ChucVuNguoiDaiDien : "Không xác định",
+                            t.NoiDung,
                             t.NgayTao,
                             t.DaXem,
                             LinkFile = t.KeHoach != null && t.KeHoach.BienBanKiemTra != null ? t.KeHoach.BienBanKiemTra.linkfile : null
@@ -103,7 +97,7 @@ namespace QuanLyKiemTra
                             thongBao.DaXem = true;
                             context.SaveChanges();
                             ShowSuccess("Xác nhận đã xem thành công!");
-                            LoadThongBaoList(); // Tải lại danh sách
+                            LoadThongBaoList();
                         }
                         else
                         {
@@ -158,6 +152,7 @@ namespace QuanLyKiemTra
                             Id = Guid.NewGuid().ToString(),
                             UserID = user.Id,
                             KeHoachID = keHoachId,
+                            NoiDung = $"Thông báo kiểm tra cho kế hoạch: {keHoach.TenKeHoach}",
                             NgayTao = DateTime.Now,
                             DaXem = false
                         };
@@ -239,5 +234,4 @@ namespace QuanLyKiemTra
             lblMessage.Visible = true;
         }
     }
-
 }

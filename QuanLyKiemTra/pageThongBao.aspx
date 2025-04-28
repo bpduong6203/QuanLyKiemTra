@@ -28,10 +28,34 @@
             transition: background-color 0.3s ease;
         }
 
-            .btn-confirm:hover {
-                background-color: #64748b;
-            }
+        .btn-confirm:hover {
+            background-color: #64748b;
+        }
 
+        .error-message {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .success-message {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .grid-view {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .grid-view th, .grid-view td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        .grid-view th {
+            background-color: #f8f9fa;
+        }
     </style>
 </asp:Content>
 
@@ -42,7 +66,7 @@
         <h4>Thông Báo Kiểm Tra</h4>
 
         <!-- Thông báo lỗi hoặc thành công -->
-        <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="False" />
+        <asp:Label ID="lblMessage" runat="server" Visible="False" />
 
         <!-- Danh sách thông báo kiểm tra -->
         <asp:GridView ID="gvThongBao" runat="server" CssClass="grid-view" AutoGenerateColumns="False"
@@ -50,20 +74,21 @@
             <Columns>
                 <asp:BoundField DataField="TenKeHoach" HeaderText="Tên Kế Hoạch" />
                 <asp:BoundField DataField="TenDonVi" HeaderText="Đơn Vị" />
-                <asp:BoundField DataField="NgayTao" HeaderText="Ngày Tạo" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" />
+                <asp:BoundField DataField="NoiDung" HeaderText="Nội Dung" />
                 <asp:TemplateField HeaderText="Biên Bản">
                     <ItemTemplate>
                         <asp:HyperLink ID="lnkBienBan" runat="server" NavigateUrl='<%# Eval("LinkFile") %>'
                             Text="Xem Biên Bản" CssClass="bien-ban-link"
-                            Visible='<%# (bool)Eval("DaXem") && !string.IsNullOrEmpty(Eval("LinkFile")?.ToString()) %>' />
+                            Visible='<%# !string.IsNullOrEmpty(Eval("LinkFile")?.ToString()) %>' />
+                        <asp:Label ID="lblNoBienBan" runat="server" Text="Không có biên bản"
+                            Visible='<%# string.IsNullOrEmpty(Eval("LinkFile")?.ToString()) %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Trạng Thái">
                     <ItemTemplate>
-                        <asp:Button ID="btnConfirm" runat="server" Text="Xác Nhận" CssClass="btn-confirm"
-                            CommandName="ConfirmView" CommandArgument='<%# Container.DataItemIndex %>'
+                        <asp:Label ID="lblConfirmed" runat="server" Text="Chưa xem" CssClass="confirmed-text"
                             Visible='<%# !(bool)Eval("DaXem") %>' />
-                        <asp:Label ID="lblConfirmed" runat="server" Text="Đã xem" CssClass="confirmed-text"
+                        <asp:Label ID="Label1" runat="server" Text="Đã xem" CssClass="confirmed-text"
                             Visible='<%# (bool)Eval("DaXem") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>

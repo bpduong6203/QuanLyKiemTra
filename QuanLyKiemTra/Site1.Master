@@ -19,17 +19,11 @@
             </asp:ContentPlaceHolder>
         </div>
         <div class="d-flex">
-            <!-- Nút Menu cho màn hình nhỏ -->
-            <button class="menu-toggle btn btn-dark d-md-none" type="button" onclick="toggleSidebar()">
-                <i class="fas fa-bars"></i>
-            </button>
 
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
                 <div class="sidebar-header">
-                    <!-- Biểu tượng dấu X -->
                     <p class="navbar-brand">Quản Lý Kiểm Tra</p>
-
                     <button class="close-sidebar d-md-none" type="button" onclick="toggleSidebar()">
                         <i class="fas fa-times"></i>
                     </button>
@@ -45,7 +39,7 @@
                     <a href="pageNguoiDung.aspx"><i class="fas fa-user-friends me-2"></i>Danh sách người dùng</a>
                     <a href="#"><i class="fas fa-file-alt me-2"></i>Bộ câu hỏi</a>
                     <a href="#"><i class="fas fa-comment me-2"></i>Câu hỏi</a>
-                    <a href="pageDonVi.aspx"><i class="fas fa-comment me-2"></i>Đợn vị</a>
+                    <a href="pageDonVi.aspx"><i class="fas fa-comment me-2"></i>Đơn vị</a>
                 </div>
                 <!-- Phần dưới -->
                 <div class="sidebar-bottom">
@@ -61,6 +55,48 @@
 
             <!-- Main Content -->
             <div class="content w-100">
+                <!-- Navbar -->
+                <nav style="background: #6c757d; border-radius: 10px;" class="navbar navbar-expand-lg navbar-light">
+                    <div class="container-fluid">
+                        <span class="navbar-brand">Hệ thống Quản Lý</span>
+                        <!-- Nút Menu cho tất cả màn hình -->
+                        <button class="menu-toggle btn btn-dark" type="button" onclick="toggleSidebar()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link position-relative" href="#" id="notificationBtn" runat="server" visible="<%# NotificationCount > 0 %>">
+                                        <i style="color: #fafafa;" class="fas fa-bell"></i>
+                                        <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle" runat="server" visible="<%# NotificationCount > 0 %>"><%# NotificationCount %></span>
+                                    </a>
+                                    <!-- Notification Dropdown -->
+                                    <div class="notification-dropdown" id="notificationDropdown" runat="server" visible="<%# NotificationCount > 0 %>">
+                                        <div class="notification-header">
+                                            <h6 class="m-0">Thông báo</h6>
+                                        </div>
+                                        <div class="notification-body">
+                                            <asp:Repeater ID="rptNotifications" runat="server" OnItemCommand="rptNotifications_ItemCommand">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="lnkNotification" runat="server" CssClass="notification-item" CommandName="MarkAsRead" CommandArgument='<%# Eval("Id") %>'>
+                                                        <i class="fas fa-info-circle me-2"></i>
+                                                        <div>
+                                                            <p class="mb-1"><%# Eval("NoiDung") %></p>
+                                                            <small class="text-muted"><%# FormatTimeAgo((DateTime)Eval("NgayTao")) %></small>
+                                                        </div>
+                                                    </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                        <div class="notification-footer">
+                                            <a href="pageThongBao.aspx" class="text-center d-block py-2">Xem tất cả thông báo</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
@@ -95,13 +131,22 @@
             submenu.classList.toggle('active');
         });
 
-        // Đóng submenu và sidebar khi nhấp ra ngoài
+        // Toggle notification dropdown
+        document.getElementById('notificationBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('active');
+        });
+
+        // Đóng submenu, sidebar, và notification khi nhấp ra ngoài
         document.addEventListener('click', function (e) {
             const sidebar = document.getElementById('sidebar');
             const submenu = document.getElementById('submenuCaNhan');
             const btnCaNhan = document.getElementById('btnCaNhan');
             const menuToggle = document.querySelector('.menu-toggle');
             const closeSidebar = document.querySelector('.close-sidebar');
+            const notificationDropdown = document.getElementById('notificationDropdown');
+            const notificationBtn = document.getElementById('notificationBtn');
 
             // Đóng submenu nếu nhấp ra ngoài
             if (!submenu.contains(e.target) && e.target !== btnCaNhan && !btnCaNhan.contains(e.target)) {
@@ -113,6 +158,11 @@
                 sidebar.classList.remove('active');
                 menuToggle.classList.remove('hidden');
             }
+
+            // Đóng notification dropdown nếu nhấp ra ngoài
+            if (!notificationDropdown.contains(e.target) && e.target !== notificationBtn && !notificationBtn.contains(e.target)) {
+                notificationDropdown.classList.remove('active');
+            }
         });
 
         // Đóng submenu khi nhấp vào liên kết trong submenu
@@ -122,6 +172,13 @@
                 // Đóng sidebar trên màn hình nhỏ
                 document.getElementById('sidebar').classList.remove('active');
                 document.querySelector('.menu-toggle').classList.remove('hidden');
+            });
+        });
+
+        // Đóng notification dropdown khi nhấp vào liên kết trong notification
+        document.querySelectorAll('.notification-item').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('notificationDropdown').classList.remove('active');
             });
         });
     </script>

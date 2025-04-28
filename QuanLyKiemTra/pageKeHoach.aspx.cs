@@ -182,7 +182,8 @@ namespace QuanLyKiemTra
                         {
                             Id = Guid.NewGuid().ToString(),
                             UserID = user.Id,
-                            KeHoachID = keHoach.Id, // Gán KeHoachID ngay lập tức
+                            KeHoachID = keHoach.Id,
+                            NoiDung = $"Quyết định kiểm tra: {keHoach.TenKeHoach}.",
                             NgayTao = DateTime.Now,
                             DaXem = false
                         };

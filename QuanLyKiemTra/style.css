@@ -74,7 +74,7 @@
 /* Content */
 .content {
     margin-left: 250px;
-    padding: 20px;
+    padding: 5px;
     transition: margin-left 0.3s ease-in-out;
 }
 
@@ -92,6 +92,99 @@ h4 {
     margin-bottom: 13px;
 }
 
+/* Notification Dropdown */
+.notification-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    display: none;
+    margin-top: 5px;
+}
+
+    .notification-dropdown.active {
+        display: block;
+    }
+
+.notification-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e9ecef;
+    background: #f8f9fa;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.notification-body {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e9ecef;
+    text-decoration: none;
+    color: #333;
+}
+
+    .notification-item:hover {
+        background: #f1f3f5;
+    }
+
+    .notification-item i {
+        color: #6c757d;
+    }
+
+    .notification-item p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .notification-item small {
+        font-size: 0.75rem;
+    }
+
+.notification-footer {
+    border-top: 1px solid #e9ecef;
+    background: #f8f9fa;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+    .notification-footer a {
+        color: #007bff;
+        font-size: 0.85rem;
+        text-decoration: none;
+    }
+
+        .notification-footer a:hover {
+            text-decoration: underline;
+        }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-250px);
+    }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .notification-dropdown {
+        right: 10px;
+        width: 280px;
+    }
+}
 /* Form */
 .form-label {
     font-size: 16px;
@@ -186,7 +279,6 @@ h4 {
 
 /* Nút menu cho màn hình nhỏ */
 .menu-toggle {
-    position: fixed;
     top: 10px;
     left: 10px;
     z-index: 1100;

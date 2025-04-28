@@ -242,6 +242,7 @@
                         Id = c.String(nullable: false, maxLength: 128),
                         UserID = c.String(maxLength: 128),
                         KeHoachID = c.String(maxLength: 128),
+                        NoiDung = c.String(),
                         NgayTao = c.DateTime(nullable: false),
                         DaXem = c.Boolean(nullable: false),
                     })

@@ -12,6 +12,7 @@ namespace QuanLyKiemTra.Models
         public string UserID { get; set; }
         [ForeignKey("KeHoach")]
         public string KeHoachID { get; set; }
+        public string NoiDung { get; set; }
         public DateTime NgayTao { get; set; } = DateTime.Now;
         public bool DaXem { get; set; }
         virtual public NguoiDung NguoiDung { get; set; }

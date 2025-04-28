@@ -7,13 +7,13 @@ namespace QuanLyKiemTra.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class AddRolesSeed : IMigrationMetadata
+    public sealed partial class InitialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRolesSeed));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "202504271412031_AddRolesSeed"; }
+            get { return "202504281436118_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
