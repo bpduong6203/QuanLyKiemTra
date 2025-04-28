@@ -117,10 +117,12 @@
     <Content Include="pageCaNhan.aspx" />
     <Content Include="pageCapNhatCaNhan.aspx" />
     <Content Include="pageDanhSach.aspx" />
+    <Content Include="pageDonVi.aspx" />
     <Content Include="pageKeHoach.aspx" />
     <Content Include="pageKetLuan.aspx" />
     <Content Include="pageKiemTra.aspx" />
     <Content Include="pageLogin.aspx" />
+    <Content Include="pageNguoiDung.aspx" />
     <Content Include="pageRegister.aspx" />
     <Content Include="pageThongBao.aspx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
@@ -145,7 +147,6 @@
     <Content Include="style\css\bootstrap.min.css" />
     <Content Include="style\css\bootstrap.rtl.css" />
     <Content Include="style\css\bootstrap.rtl.min.css" />
-    <Content Include="style\jquery-3.7.1.min.js" />
     <Content Include="style\js\bootstrap.bundle.js" />
     <Content Include="style\js\bootstrap.bundle.min.js" />
     <Content Include="style\js\bootstrap.esm.js" />
@@ -217,6 +218,13 @@
     <Compile Include="pageDanhSach.aspx.designer.cs">
       <DependentUpon>pageDanhSach.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pageDonVi.aspx.cs">
+      <DependentUpon>pageDonVi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pageDonVi.aspx.designer.cs">
+      <DependentUpon>pageDonVi.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pageKeHoach.aspx.cs">
       <DependentUpon>pageKeHoach.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -244,6 +252,13 @@
     </Compile>
     <Compile Include="pageLogin.aspx.designer.cs">
       <DependentUpon>pageLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pageNguoiDung.aspx.cs">
+      <DependentUpon>pageNguoiDung.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pageNguoiDung.aspx.designer.cs">
+      <DependentUpon>pageNguoiDung.aspx</DependentUpon>
     </Compile>
     <Compile Include="pageRegister.aspx.cs">
       <DependentUpon>pageRegister.aspx</DependentUpon>

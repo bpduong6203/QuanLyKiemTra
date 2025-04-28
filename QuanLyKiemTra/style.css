@@ -383,10 +383,42 @@ h4 {
     }
 
 
+
+.btn-extra-small {
+    max-width: 50px;
+}
+
 .btn-small {
+    margin: 10px;
+    max-width: 100px;
+}
+
+.btn-medium {
     max-width: 250px;
 }
 
 .btn-large {
+    max-width: 400px;
+}
+
+.btn-extra-large {
     max-width: 600px;
+}
+
+
+
+
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+}
+
+.success-message {
+    color: green;
+    font-size: 0.9em;
+}
+
+.table-container {
+    margin: 20px;
 }

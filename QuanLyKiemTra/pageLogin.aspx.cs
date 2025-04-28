@@ -68,16 +68,16 @@ namespace QuanLyKiemTra
                     switch (role?.Ten)
                     {
                         case "TruongDoan":
-                            Response.Redirect("TruongDoanDashboard.aspx"); // Trang dành cho Trưởng đoàn
+                            Response.Redirect("TruongDoanDashboard.aspx");
                             break;
                         case "ThanhVien":
-                            Response.Redirect("ThanhVienDashboard.aspx"); // Trang dành cho Thành viên
+                            Response.Redirect("ThanhVienDashboard.aspx");
                             break;
                         case "DonVi":
-                            Response.Redirect("pageCaNhan.aspx"); // Trang dành cho Đơn vị
+                            Response.Redirect("pageCaNhan.aspx");
                             break;
                         default:
-                            Response.Redirect("Default.aspx"); // Trang mặc định
+                            Response.Redirect("Default.aspx");
                             break;
                     }
                 }

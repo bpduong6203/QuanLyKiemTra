@@ -40,7 +40,7 @@
             <asp:Label ID="lblQuyetDinh" runat="server" Text="Quyết định kiểm tra:" CssClass="form-label" />
             <div class="file-upload-group">
                 <asp:FileUpload ID="fuQuyetDinh" runat="server" CssClass="file-upload" />
-                <asp:Button ID="btnExportQuyetDinh" runat="server" Text="Xuất Quyết Định" CssClass="btn-primary btn-small" OnClick="btnExportQuyetDinh_Click" />
+                <asp:Button ID="btnExportQuyetDinh" runat="server" Text="Xuất Quyết Định" CssClass="btn-primary btn-medium" OnClick="btnExportQuyetDinh_Click" />
             </div>
         </div>
 
@@ -78,12 +78,12 @@
 
         <!-- Bước 5: Xuất văn bản phân công -->
         <div class="form-group">
-            <asp:Button ID="btnExportPhanCong" runat="server" Text="Xuất Văn Bản Phân Công" CssClass="btn-primary btn-small" OnClick="btnExportPhanCong_Click" />
+            <asp:Button ID="btnExportPhanCong" runat="server" Text="Xuất Văn Bản Phân Công" CssClass="btn-primary btn-medium" OnClick="btnExportPhanCong_Click" />
         </div>
 
         <!-- Nút lưu kế hoạch -->
         <div class="form-group">
-            <asp:Button ID="btnSavePlan" runat="server" Text="Lưu Kế Hoạch" CssClass="btn-primary btn-small" OnClick="btnSavePlan_Click" />
+            <asp:Button ID="btnSavePlan" runat="server" Text="Lưu Kế Hoạch" CssClass="btn-primary btn-medium" OnClick="btnSavePlan_Click" />
         </div>
     </div>
 </asp:Content>

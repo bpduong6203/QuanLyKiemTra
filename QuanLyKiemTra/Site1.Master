@@ -10,7 +10,7 @@
     <link href="~/style/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="~/style.css" />
-    <script src="~/style/jquery-3.7.1.min.js"></script>
+    <script src="~/Script/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -42,10 +42,10 @@
                     <a href="pageThongBao.aspx"><i class="fas fa-bullhorn me-2"></i>Thông báo kiểm tra</a>
                     <a href="pageKiemTra.aspx"><i class="fas fa-laptop-code me-2"></i>Kiểm tra trực tuyến</a>
                     <a href="pageKetLuan.aspx"><i class="fas fa-clipboard-check me-2"></i>Kết luận kiểm tra</a>
-                    <a href="#"><i class="fas fa-user-friends me-2"></i>Danh sách người dùng</a>
+                    <a href="pageNguoiDung.aspx"><i class="fas fa-user-friends me-2"></i>Danh sách người dùng</a>
                     <a href="#"><i class="fas fa-file-alt me-2"></i>Bộ câu hỏi</a>
                     <a href="#"><i class="fas fa-comment me-2"></i>Câu hỏi</a>
-
+                    <a href="pageDonVi.aspx"><i class="fas fa-comment me-2"></i>Đợn vị</a>
                 </div>
                 <!-- Phần dưới -->
                 <div class="sidebar-bottom">
