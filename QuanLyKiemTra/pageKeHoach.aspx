@@ -42,7 +42,7 @@
         <!-- Ghi chú -->
         <div class="form-group">
             <asp:Label ID="lblGhiChu" runat="server" Text="Ghi chú" CssClass="form-label" AssociatedControlID="txtGhiChu" />
-            <asp:TextBox ID="txtGhiChu" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" Placeholder="Nhập ghi chú" />
+            <asp:TextBox ID="txtGhiChu" runat="server" CssClass="form-control btn-large" TextMode="MultiLine" Rows="4" Placeholder="Nhập ghi chú" />
         </div>
 
         <!-- Bước 1: Chọn đơn vị kiểm tra -->

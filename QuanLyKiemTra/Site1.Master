@@ -31,24 +31,35 @@
                 <hr class="text-white" />
                 <!-- Phần trên -->
                 <div class="sidebar-top">
-                    <a href="pageKeHoach.aspx"><i class="fas fa-tasks me-2"></i>Tạo kế hoạch</a>
-                    <a href="#"><i class="fas fa-list me-2"></i>Danh sách kế hoạch</a>
+                    <div class="dropdown">
+                        <a href="#" id="btnDanhSachKeHoach" class="dropdown-toggle"><i class="fas fa-list me-2"></i>Danh sách kế hoạch</a>
+                        <div class="submenus" id="submenuDanhSachKeHoach">
+                            <a href="pageKeHoach.aspx"><i class="fas fa-tasks me-2"></i>Tạo kế hoạch</a>
+                            <a href="pageKeHoachDaHoanThanh.aspx"><i class="fas fa-check-circle me-2"></i>Phân công</a>
+                        </div>
+                    </div>
                     <a href="pageThongBao.aspx"><i class="fas fa-bullhorn me-2"></i>Thông báo kiểm tra</a>
                     <a href="pageKiemTra.aspx"><i class="fas fa-laptop-code me-2"></i>Kiểm tra trực tuyến</a>
                     <a href="pageKetLuan.aspx"><i class="fas fa-clipboard-check me-2"></i>Kết luận kiểm tra</a>
                     <a href="pageNguoiDung.aspx"><i class="fas fa-user-friends me-2"></i>Danh sách người dùng</a>
-                    <a href="#"><i class="fas fa-file-alt me-2"></i>Bộ câu hỏi</a>
-                    <a href="#"><i class="fas fa-comment me-2"></i>Câu hỏi</a>
+                    <div class="dropdown">
+                        <a href="#" id="btnBoCauHoi" class="dropdown-toggle"><i class="fas fa-list me-2"></i>Danh sách câu hỏi</a>
+                        <div class="submenus" id="submenuBoCauHoi">
+                            <a href="#"><i class="fas fa-tasks me-2"></i>Bộ câu hỏi</a>
+                            <a href="#"><i class="fas fa-check-circle me-2"></i>Câu hỏi</a>
+                        </div>
+                    </div>
                     <a href="pageDonVi.aspx"><i class="fas fa-comment me-2"></i>Đơn vị</a>
                 </div>
                 <!-- Phần dưới -->
                 <div class="sidebar-bottom">
-                    <a href="#" id="btnCaNhan" class="dropdown-toggle"><i class="fas fa-user me-2"></i>Cá nhân</a>
-                    <!-- Menu con -->
-                    <div class="submenu" id="submenuCaNhan">
-                        <a href="pageCaNhan.aspx"><i class="fas fa-id-card me-2"></i>Thông tin cá nhân</a>
-                        <a href="pageCapNhatCaNhan.aspx"><i class="fas fa-cog me-2"></i>Cài đặt tài khoản</a>
-                        <a href="logout.aspx"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a>
+                    <div class="dropdown">
+                        <a href="#" id="btnCaNhan" class="dropdown-toggle"><i class="fas fa-user me-2"></i>Cá nhân</a>
+                        <div class="submenus" id="submenuCaNhan">
+                            <a href="pageCaNhan.aspx"><i class="fas fa-id-card me-2"></i>Thông tin cá nhân</a>
+                            <a href="pageCapNhatCaNhan.aspx"><i class="fas fa-cog me-2"></i>Cài đặt tài khoản</a>
+                            <a href="logout.aspx"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,7 +67,7 @@
             <!-- Main Content -->
             <div class="content w-100">
                 <!-- Navbar -->
-                <nav style="background: #6c757d; border-radius: 10px;" class="navbar navbar-expand-lg navbar-light">
+                <nav style="background: #6c757d; border-radius: 5px;" class="navbar navbar-expand-lg navbar-light">
                     <div class="container-fluid">
                         <span class="navbar-brand">Hệ thống Quản Lý</span>
                         <!-- Nút Menu cho tất cả màn hình -->
@@ -109,77 +120,85 @@
         // Toggle sidebar
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
+            const content = document.querySelector('.content');
             const menuToggle = document.querySelector('.menu-toggle');
             sidebar.classList.toggle('active');
+            content.classList.toggle('sidebar-active');
             menuToggle.classList.toggle('hidden');
         }
+
+        // Toggle submenu
+        document.querySelectorAll('.dropdown-toggle').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const submenu = this.nextElementSibling;
+                const isActive = submenu.classList.contains('active');
+
+                // Đóng tất cả submenu
+                document.querySelectorAll('.submenus').forEach(sub => {
+                    sub.classList.remove('active');
+                });
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                    toggle.classList.remove('active');
+                });
+
+                // Mở submenu hiện tại nếu chưa mở
+                if (!isActive) {
+                    submenu.classList.add('active');
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Đóng submenu khi nhấp ra ngoài
+        document.addEventListener('click', function (e) {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const closeSidebar = document.querySelector('.close-sidebar');
+            const content = document.querySelector('.content');
+
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && !closeSidebar.contains(e.target)) {
+                document.querySelectorAll('.submenus').forEach(sub => {
+                    sub.classList.remove('active');
+                });
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                    toggle.classList.remove('active');
+                });
+                sidebar.classList.remove('active');
+                content.classList.remove('sidebar-active');
+                menuToggle.classList.remove('hidden');
+            }
+        });
+
+        // Đóng submenu khi nhấp vào liên kết trong submenu
+        document.querySelectorAll('.submenus a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelectorAll('.submenus').forEach(sub => {
+                    sub.classList.remove('active');
+                });
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                    toggle.classList.remove('active');
+                });
+                document.getElementById('sidebar').classList.remove('active');
+                document.querySelector('.content').classList.remove('sidebar-active');
+                document.querySelector('.menu-toggle').classList.remove('hidden');
+            });
+        });
 
         // Đánh dấu liên kết active trong sidebar
         const sidebarLinks = document.querySelectorAll('.sidebar a');
         const currentPath = window.location.pathname.split('/').pop();
         sidebarLinks.forEach(link => {
             const linkPath = link.getAttribute('href');
-            if (linkPath === currentPath) {
+            if (linkPath && linkPath === currentPath) {
                 link.classList.add('active');
+                // Nếu liên kết nằm trong submenu, mở submenu đó
+                const parentSubmenu = link.closest('.submenus');
+                if (parentSubmenu) {
+                    parentSubmenu.classList.add('active');
+                    parentSubmenu.previousElementSibling.classList.add('active');
+                }
             }
-        });
-
-        // Toggle submenu
-        document.getElementById('btnCaNhan').addEventListener('click', function (e) {
-            e.preventDefault();
-            const submenu = document.getElementById('submenuCaNhan');
-            submenu.classList.toggle('active');
-        });
-
-        // Toggle notification dropdown
-        document.getElementById('notificationBtn').addEventListener('click', function (e) {
-            e.preventDefault();
-            const dropdown = document.getElementById('notificationDropdown');
-            dropdown.classList.toggle('active');
-        });
-
-        // Đóng submenu, sidebar, và notification khi nhấp ra ngoài
-        document.addEventListener('click', function (e) {
-            const sidebar = document.getElementById('sidebar');
-            const submenu = document.getElementById('submenuCaNhan');
-            const btnCaNhan = document.getElementById('btnCaNhan');
-            const menuToggle = document.querySelector('.menu-toggle');
-            const closeSidebar = document.querySelector('.close-sidebar');
-            const notificationDropdown = document.getElementById('notificationDropdown');
-            const notificationBtn = document.getElementById('notificationBtn');
-
-            // Đóng submenu nếu nhấp ra ngoài
-            if (!submenu.contains(e.target) && e.target !== btnCaNhan && !btnCaNhan.contains(e.target)) {
-                submenu.classList.remove('active');
-            }
-
-            // Đóng sidebar nếu nhấp ra ngoài và sidebar đang mở
-            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && !closeSidebar.contains(e.target) && sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
-                menuToggle.classList.remove('hidden');
-            }
-
-            // Đóng notification dropdown nếu nhấp ra ngoài
-            if (!notificationDropdown.contains(e.target) && e.target !== notificationBtn && !notificationBtn.contains(e.target)) {
-                notificationDropdown.classList.remove('active');
-            }
-        });
-
-        // Đóng submenu khi nhấp vào liên kết trong submenu
-        document.querySelectorAll('.submenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('submenuCaNhan').classList.remove('active');
-                // Đóng sidebar trên màn hình nhỏ
-                document.getElementById('sidebar').classList.remove('active');
-                document.querySelector('.menu-toggle').classList.remove('hidden');
-            });
-        });
-
-        // Đóng notification dropdown khi nhấp vào liên kết trong notification
-        document.querySelectorAll('.notification-item').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('notificationDropdown').classList.remove('active');
-            });
         });
     </script>
 </body>
