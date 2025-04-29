@@ -123,6 +123,7 @@
     <Content Include="pageKiemTra.aspx" />
     <Content Include="pageLogin.aspx" />
     <Content Include="pageNguoiDung.aspx" />
+    <Content Include="pagePhanCong.aspx" />
     <Content Include="pageRegister.aspx" />
     <Content Include="pageThongBao.aspx" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
@@ -256,6 +257,13 @@
     </Compile>
     <Compile Include="pageNguoiDung.aspx.designer.cs">
       <DependentUpon>pageNguoiDung.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pagePhanCong.aspx.cs">
+      <DependentUpon>pagePhanCong.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pagePhanCong.aspx.designer.cs">
+      <DependentUpon>pagePhanCong.aspx</DependentUpon>
     </Compile>
     <Compile Include="pageRegister.aspx.cs">
       <DependentUpon>pageRegister.aspx</DependentUpon>

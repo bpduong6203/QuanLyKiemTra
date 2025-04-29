@@ -22,6 +22,7 @@
 
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
+                <!--
                 <div class="sidebar-header">
                     <p class="navbar-brand">Quản Lý Kiểm Tra</p>
                     <button class="close-sidebar d-md-none" type="button" onclick="toggleSidebar()">
@@ -29,13 +30,14 @@
                     </button>
                 </div>
                 <hr class="text-white" />
+                -->
                 <!-- Phần trên -->
                 <div class="sidebar-top">
                     <div class="dropdown">
-                        <a href="#" id="btnDanhSachKeHoach" class="dropdown-toggle"><i class="fas fa-list me-2"></i>Danh sách kế hoạch</a>
+                        <a href="#" id="btnDanhSachKeHoach" class="dropdown-toggle"><i class="fas fa-list me-2"></i>Kế hoạch kiểm tra</a>
                         <div class="submenus" id="submenuDanhSachKeHoach">
                             <a href="pageKeHoach.aspx"><i class="fas fa-tasks me-2"></i>Tạo kế hoạch</a>
-                            <a href="pageKeHoachDaHoanThanh.aspx"><i class="fas fa-check-circle me-2"></i>Phân công</a>
+                            <a href="pagePhanCong.aspx"><i class="fas fa-check-circle me-2"></i>Phân công</a>
                         </div>
                     </div>
                     <a href="pageThongBao.aspx"><i class="fas fa-bullhorn me-2"></i>Thông báo kiểm tra</a>
@@ -150,12 +152,27 @@
             });
         });
 
+        // Toggle notification dropdown
+        document.getElementById('notificationBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('active');
+        });
+
         // Đóng submenu khi nhấp ra ngoài
         document.addEventListener('click', function (e) {
+            const notificationDropdown = document.getElementById('notificationDropdown');
+            const notificationBtn = document.getElementById('notificationBtn');
             const sidebar = document.getElementById('sidebar');
             const menuToggle = document.querySelector('.menu-toggle');
             const closeSidebar = document.querySelector('.close-sidebar');
             const content = document.querySelector('.content');
+
+
+            // Đóng notification dropdown nếu nhấp ra ngoài
+            if (!notificationDropdown.contains(e.target) && e.target !== notificationBtn && !notificationBtn.contains(e.target)) {
+                notificationDropdown.classList.remove('active');
+            }
 
             if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && !closeSidebar.contains(e.target)) {
                 document.querySelectorAll('.submenus').forEach(sub => {
@@ -201,5 +218,6 @@
             }
         });
     </script>
+
 </body>
 </html>

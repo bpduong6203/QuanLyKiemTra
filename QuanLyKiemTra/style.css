@@ -104,10 +104,15 @@ h4 {
     z-index: 1000;
     display: none;
     margin-top: 5px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
     .notification-dropdown.active {
         display: block;
+        opacity: 1;
+        transform: translateY(0);
     }
 
 .notification-header {
@@ -121,6 +126,7 @@ h4 {
 .notification-body {
     max-height: 250px;
     overflow-y: auto;
+    padding: 0;
 }
 
 .notification-item {
@@ -130,6 +136,7 @@ h4 {
     border-bottom: 1px solid #e9ecef;
     text-decoration: none;
     color: #333;
+    transition: background 0.2s ease;
 }
 
     .notification-item:hover {
@@ -138,6 +145,7 @@ h4 {
 
     .notification-item i {
         color: #6c757d;
+        margin-right: 10px;
     }
 
     .notification-item p {
@@ -147,6 +155,7 @@ h4 {
 
     .notification-item small {
         font-size: 0.75rem;
+        color: #6c757d;
     }
 
 .notification-footer {
@@ -160,12 +169,23 @@ h4 {
         color: #007bff;
         font-size: 0.85rem;
         text-decoration: none;
+        display: block;
+        text-align: center;
+        padding: 10px;
     }
 
         .notification-footer a:hover {
             text-decoration: underline;
+            background: #f1f3f5;
         }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .notification-dropdown {
+        right: 10px;
+        width: 280px;
+    }
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .sidebar {
@@ -312,7 +332,7 @@ h4 {
 /* Submenu styles */
 .submenus {
     display: none;
-    background: #5a6268; 
+    background: #5a6268;
     border-radius: 6px;
     margin: 5px 5px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -331,9 +351,9 @@ h4 {
 
 /* Đặc biệt cho submenu Cá nhân: mở lên trên */
 #submenuCaNhan {
-    bottom: 100%; 
-    top: auto; 
-    border-radius: 6px 6px 0 0; 
+    bottom: 100%;
+    top: auto;
+    border-radius: 6px 6px 0 0;
     transform-origin: bottom;
 }
 
@@ -391,7 +411,7 @@ h4 {
 }
 
 .dropdown-toggle::after {
-    content: '\f078'; 
+    content: '\f078';
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     float: right;
