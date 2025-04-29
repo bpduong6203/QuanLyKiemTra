@@ -4,9 +4,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="container">
         <!-- Bước 1: Chọn kế hoạch -->
+        <asp:Label ID="lblKeHoach" runat="server" Text="Chọn kế hoạch" CssClass="form-label" />
         <div class="form-group">
-            <asp:Label ID="lblKeHoach" runat="server" Text="Chọn kế hoạch" CssClass="form-label" />
-            <asp:DropDownList ID="ddlKeHoach" runat="server" CssClass="dropdown-custom" AutoPostBack="true" OnSelectedIndexChanged="ddlKeHoach_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlKeHoach" runat="server" CssClass="dropdown-custom btn-large" AutoPostBack="true" OnSelectedIndexChanged="ddlKeHoach_SelectedIndexChanged">
                 <asp:ListItem Value="" Text="-- Chọn kế hoạch --" />
             </asp:DropDownList>
         </div>

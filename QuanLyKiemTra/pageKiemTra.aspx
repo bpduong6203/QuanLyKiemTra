@@ -21,7 +21,7 @@
         <h4>Nội Dung Yêu Cầu Giải Trình</h4>
 
         <!-- Danh sách nội dung yêu cầu giải trình -->
-        <asp:GridView ID="gvExplanationContent" runat="server" CssClass="grid-view" AutoGenerateColumns="False">
+        <asp:GridView ID="gvExplanationContent" runat="server" CssClass="grid-view btn-large" AutoGenerateColumns="False">
             <Columns>
                 <asp:BoundField DataField="RequestID" HeaderText="Mã Yêu Cầu" />
                 <asp:BoundField DataField="Content" HeaderText="Nội Dung" />
@@ -37,7 +37,7 @@
         <!-- Chọn kế hoạch kiểm tra -->
         <div class="form-group">
             <asp:Label ID="lblSelectPlan" runat="server" Text="Chọn kế hoạch kiểm tra:" CssClass="form-label" AssociatedControlID="ddlInspectionPlans" />
-            <asp:DropDownList ID="ddlInspectionPlans" runat="server" CssClass="dropdown-custom">
+            <asp:DropDownList ID="ddlInspectionPlans" runat="server" CssClass="dropdown-custom btn-large">
                 <asp:ListItem Text="Kế hoạch kiểm tra 1" Value="1" />
                 <asp:ListItem Text="Kế hoạch kiểm tra 2" Value="2" />
                 <asp:ListItem Text="Kế hoạch kiểm tra 3" Value="3" />
@@ -46,13 +46,13 @@
 
         <!-- Xem trước nội dung kiểm tra -->
         <div class="form-group">
-            <asp:Button ID="btnPreviewInspection" runat="server" Text="Nội Dung Kiểm Tra" CssClass="btn-primary btn-small"/>
+            <asp:Button ID="btnPreviewInspection" runat="server" Text="Nội Dung Kiểm Tra" CssClass="btn-primary btn-medium"/>
         </div>
 
 
         <!-- Yêu cầu gửi giải trình -->
         <div class="form-group">
-            <asp:Button ID="btnRequestExplanation" runat="server" Text="Yêu Cầu Giải Trình" CssClass="btn-secondary btn-small" />
+            <asp:Button ID="btnRequestExplanation" runat="server" Text="Yêu Cầu Giải Trình" CssClass="btn-secondary btn-medium" />
         </div>
     </div>
 </asp:Content>
