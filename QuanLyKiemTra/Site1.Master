@@ -18,15 +18,6 @@
 
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
-                <!--
-                <div class="sidebar-header">
-                    <p class="navbar-brand">Quản Lý Kiểm Tra</p>
-                    <button class="close-sidebar d-md-none" type="button" onclick="toggleSidebar()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <hr class="text-white" />
-                -->
                 <!-- Phần trên -->
                 <div class="sidebar-top">
                     <div class="dropdown">
@@ -123,7 +114,7 @@
             </div>
         </div>
     </form>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/style/js/bootstrap.bundle.min.js"></script>
 
     <script>
@@ -137,14 +128,14 @@
             menuToggle.classList.toggle('hidden');
         }
 
-        // Toggle submenu
+        // Toggle submenu for sidebar-top and sidebar-bottom
         document.querySelectorAll('.dropdown-toggle').forEach(button => {
             button.addEventListener('click', function (e) {
                 e.preventDefault();
                 const submenu = this.nextElementSibling;
                 const isActive = submenu.classList.contains('active');
 
-                // Đóng tất cả submenu
+                // Close all submenus
                 document.querySelectorAll('.submenus').forEach(sub => {
                     sub.classList.remove('active');
                 });
@@ -152,7 +143,7 @@
                     toggle.classList.remove('active');
                 });
 
-                // Mở submenu hiện tại nếu chưa mở
+                // Open current submenu if not already open
                 if (!isActive) {
                     submenu.classList.add('active');
                     this.classList.add('active');
@@ -167,22 +158,20 @@
             dropdown.classList.toggle('active');
         });
 
-        // Đóng submenu khi nhấp ra ngoài
+        // Close submenus and notification dropdown when clicking outside
         document.addEventListener('click', function (e) {
             const notificationDropdown = document.getElementById('notificationDropdown');
             const notificationBtn = document.getElementById('notificationBtn');
             const sidebar = document.getElementById('sidebar');
             const menuToggle = document.querySelector('.menu-toggle');
-            const closeSidebar = document.querySelector('.close-sidebar');
-            const content = document.querySelector('.content');
 
-
-            // Đóng notification dropdown nếu nhấp ra ngoài
+            // Close notification dropdown if clicking outside
             if (!notificationDropdown.contains(e.target) && e.target !== notificationBtn && !notificationBtn.contains(e.target)) {
                 notificationDropdown.classList.remove('active');
             }
 
-            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && !closeSidebar.contains(e.target)) {
+            // Close submenus and sidebar if clicking outside
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
                 document.querySelectorAll('.submenus').forEach(sub => {
                     sub.classList.remove('active');
                 });
@@ -195,7 +184,7 @@
             }
         });
 
-        // Đóng submenu khi nhấp vào liên kết trong submenu
+        // Close submenu when clicking a link in submenu
         document.querySelectorAll('.submenus a').forEach(link => {
             link.addEventListener('click', () => {
                 document.querySelectorAll('.submenus').forEach(sub => {
@@ -210,14 +199,14 @@
             });
         });
 
-        // Đánh dấu liên kết active trong sidebar
+        // Mark active sidebar link
         const sidebarLinks = document.querySelectorAll('.sidebar a');
         const currentPath = window.location.pathname.split('/').pop();
         sidebarLinks.forEach(link => {
             const linkPath = link.getAttribute('href');
             if (linkPath && linkPath === currentPath) {
                 link.classList.add('active');
-                // Nếu liên kết nằm trong submenu, mở submenu đó
+                // If link is in submenu, open that submenu
                 const parentSubmenu = link.closest('.submenus');
                 if (parentSubmenu) {
                     parentSubmenu.classList.add('active');
@@ -226,6 +215,5 @@
             }
         });
     </script>
-
 </body>
 </html>
