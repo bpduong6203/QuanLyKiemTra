@@ -333,17 +333,23 @@ h4 {
     position: static;
 }
 
+/* Ghi đè biểu tượng mặc định của Bootstrap và sử dụng Font Awesome */
 .dropdown-toggle::after {
-    content: '\f078';
-    font-family: 'Font Awesome 6 Free';
+    content: '\f054'; 
+    font-family: 'Font Awesome 6 Free' !important;
     font-weight: 900;
+    font-size: 0.9rem;
     float: right;
     margin-top: 5px;
     transition: transform 0.3s ease;
+    display: inline-block;
+    line-height: 1;
+    border: none !important;
+    margin-left: 0.255em !important;
 }
 
 .dropdown-toggle.active::after {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
 }
 
 /* Sidebar link active state */
