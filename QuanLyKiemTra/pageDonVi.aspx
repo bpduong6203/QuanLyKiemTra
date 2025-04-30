@@ -52,26 +52,26 @@
                     <asp:HiddenField ID="hfDonViId" runat="server" />
                     <div class="mb-3">
                         <label for="txtTenDonVi" class="form-label">Tên đơn vị</label>
-                        <asp:TextBox ID="txtTenDonVi" runat="server" CssClass="form-control" Placeholder="Nhập tên đơn vị" />
+                        <asp:TextBox ID="txtTenDonVi" runat="server" CssClass="form-input" Placeholder="Nhập tên đơn vị" />
                         <div class="mb-3">
                             <label for="txtDiaChi" class="form-label">Địa chỉ</label>
-                            <asp:TextBox ID="txtDiaChi" runat="server" CssClass="form-control" Placeholder="Nhập địa chỉ" />
+                            <asp:TextBox ID="txtDiaChi" runat="server" CssClass="form-input" Placeholder="Nhập địa chỉ" />
                         </div>
                         <div class="mb-3">
                             <label for="txtSoDienThoai" class="form-label">Số điện thoại</label>
-                            <asp:TextBox ID="txtSoDienThoai" runat="server" CssClass="form-control" Placeholder="Nhập số điện thoại" />
+                            <asp:TextBox ID="txtSoDienThoai" runat="server" CssClass="form-input" Placeholder="Nhập số điện thoại" />
                         </div>
                         <div class="mb-3">
                             <label for="txtEmail" class="form-label">Email</label>
-                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Placeholder="Nhập email" TextMode="Email" />
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input" Placeholder="Nhập email" TextMode="Email" />
                         </div>
                         <div class="mb-3">
                             <label for="txtNguoiDaiDien" class="form-label">Người đại diện</label>
-                            <asp:TextBox ID="txtNguoiDaiDien" runat="server" CssClass="form-control" Placeholder="Nhập tên người đại diện" />
+                            <asp:TextBox ID="txtNguoiDaiDien" runat="server" CssClass="form-input" Placeholder="Nhập tên người đại diện" />
                         </div>
                         <div class="mb-3">
                             <label for="txtChucVuNguoiDaiDien" class="form-label">Chức vụ</label>
-                            <asp:TextBox ID="txtChucVuNguoiDaiDien" runat="server" CssClass="form-control" Placeholder="Nhập chức vụ" />
+                            <asp:TextBox ID="txtChucVuNguoiDaiDien" runat="server" CssClass="form-input" Placeholder="Nhập chức vụ" />
                         </div>
                     </div>
                 </div>

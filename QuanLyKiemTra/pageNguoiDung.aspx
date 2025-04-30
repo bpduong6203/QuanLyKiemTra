@@ -62,34 +62,34 @@
                     <asp:HiddenField ID="hfNguoiDungId" runat="server" />
                     <div class="mb-3">
                         <label for="txtUsername" class="form-label">Tên đăng nhập</label>
-                        <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" Placeholder="Nhập tên đăng nhập" />
+                        <asp:TextBox ID="txtUsername" runat="server" CssClass="form-input" Placeholder="Nhập tên đăng nhập" />
                         <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername"
                             ErrorMessage="Tên đăng nhập là bắt buộc" CssClass="error-message" Display="Dynamic" />
                     </div>
                     <div class="mb-3">
                         <label for="txtPassword" class="form-label">Mật khẩu</label>
-                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Nhập mật khẩu" />
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-input" TextMode="Password" Placeholder="Nhập mật khẩu" />
                         <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
                             ErrorMessage="Mật khẩu là bắt buộc" CssClass="error-message" Display="Dynamic" Enabled="false" />
                     </div>
                     <div class="mb-3">
                         <label for="txtHoTen" class="form-label">Họ tên</label>
-                        <asp:TextBox ID="txtHoTen" runat="server" CssClass="form-control" Placeholder="Nhập họ tên" />
+                        <asp:TextBox ID="txtHoTen" runat="server" CssClass="form-input" Placeholder="Nhập họ tên" />
                     </div>
                     <div class="mb-3">
                         <label for="txtEmail" class="form-label">Email</label>
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Placeholder="Nhập email" TextMode="Email" />
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-input" Placeholder="Nhập email" TextMode="Email" />
                         <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail"
                             ErrorMessage="Email không hợp lệ" CssClass="error-message" Display="Dynamic"
                             ValidationExpression="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" />
                     </div>
                     <div class="mb-3">
                         <label for="txtSoDienThoai" class="form-label">Số điện thoại</label>
-                        <asp:TextBox ID="txtSoDienThoai" runat="server" CssClass="form-control" Placeholder="Nhập số điện thoại" />
+                        <asp:TextBox ID="txtSoDienThoai" runat="server" CssClass="form-input" Placeholder="Nhập số điện thoại" />
                     </div>
                     <div class="mb-3">
                         <label for="txtDiaChi" class="form-label">Địa chỉ</label>
-                        <asp:TextBox ID="txtDiaChi" runat="server" CssClass="form-control" Placeholder="Nhập địa chỉ" />
+                        <asp:TextBox ID="txtDiaChi" runat="server" CssClass="form-input" Placeholder="Nhập địa chỉ" />
                     </div>
                     <div class="mb-3">
                         <label for="ddlRole" class="form-label">Vai trò</label>

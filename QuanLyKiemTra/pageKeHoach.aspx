@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pageKeHoach.aspx.cs" Inherits="QuanLyKiemTra.pageKeHoach" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
@@ -16,9 +16,9 @@
         <asp:Label ID="lblMessage" runat="server" CssClass="message-label" Visible="False" />
 
         <!-- Tên kế hoạch -->
+        <asp:Label ID="lblTenKeHoach" runat="server" Text="Tên kế hoạch" CssClass="form-label" AssociatedControlID="txtTenKeHoach" />
         <div class="form-group">
-            <asp:Label ID="lblTenKeHoach" runat="server" Text="Tên kế hoạch" CssClass="form-label" AssociatedControlID="txtTenKeHoach" />
-            <asp:TextBox ID="txtTenKeHoach" runat="server" CssClass="form-control btn-large" Placeholder="Nhập tên kế hoạch" />
+            <asp:TextBox ID="txtTenKeHoach" runat="server" CssClass="form-input btn-large" Placeholder="Nhập tên kế hoạch" />
             <asp:RequiredFieldValidator ID="rfvTenKeHoach" runat="server" ControlToValidate="txtTenKeHoach"
                 ErrorMessage="Tên kế hoạch là bắt buộc" CssClass="error-message" Display="Dynamic" />
         </div>
@@ -40,15 +40,15 @@
         </div>
 
         <!-- Ghi chú -->
+        <asp:Label ID="lblGhiChu" runat="server" Text="Ghi chú" CssClass="form-label" AssociatedControlID="txtGhiChu" />
         <div class="form-group">
-            <asp:Label ID="lblGhiChu" runat="server" Text="Ghi chú" CssClass="form-label" AssociatedControlID="txtGhiChu" />
-            <asp:TextBox ID="txtGhiChu" runat="server" CssClass="form-control btn-large" TextMode="MultiLine" Rows="4" Placeholder="Nhập ghi chú" />
+            <asp:TextBox ID="txtGhiChu" runat="server" CssClass="form-input btn-large" TextMode="MultiLine" Rows="4" Placeholder="Nhập ghi chú" />
         </div>
 
         <!-- Chọn đơn vị kiểm tra -->
+        <asp:Label ID="lblDonVi" runat="server" Text="Chọn đơn vị kiểm tra" CssClass="form-label" AssociatedControlID="ddlDonVi" />
         <div class="form-group">
-            <asp:Label ID="lblDonVi" runat="server" Text="Chọn đơn vị kiểm tra" CssClass="form-label" AssociatedControlID="ddlDonVi" />
-            <asp:DropDownList ID="ddlDonVi" runat="server" CssClass="form-select btn-large" AutoPostBack="true" OnSelectedIndexChanged="ddlDonVi_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlDonVi" runat="server" CssClass="form-select btn-large form-input" AutoPostBack="true" OnSelectedIndexChanged="ddlDonVi_SelectedIndexChanged">
                 <asp:ListItem Text="-- Chọn đơn vị --" Value="" />
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvDonVi" runat="server" ControlToValidate="ddlDonVi"
@@ -56,12 +56,13 @@
         </div>
 
         <!-- Quyết định kiểm tra -->
+
         <div class="form-group">
             <asp:Label ID="lblQuyetDinh" runat="server" Text="Quyết định kiểm tra" CssClass="form-label" />
             <div class="file-upload-group">
-                <asp:FileUpload ID="fuQuyetDinh" runat="server" CssClass="form-control btn-large" Accept=".doc,.docx,.pdf" />
-                <asp:Button ID="btnExportQuyetDinh" runat="server" Text="Xuất quyết định" CssClass="btn btn-primary btn-medium" OnClick="btnExportQuyetDinh_Click" OnClientClick="return confirm('Bạn có chắc muốn lưu kế hoạch này?');" />
+                <asp:FileUpload ID="fuQuyetDinh" runat="server" CssClass="form-input btn-large" Accept=".doc,.docx,.pdf" />
             </div>
+            <asp:Button ID="btnExportQuyetDinh" runat="server" Text="Xuất quyết định" CssClass="btn btn-primary btn-medium" OnClick="btnExportQuyetDinh_Click" OnClientClick="return confirm('Bạn có chắc muốn lưu kế hoạch này?');" />
         </div>
         <div class="divider"></div>
     </div>

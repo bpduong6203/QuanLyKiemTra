@@ -12,13 +12,14 @@
         </div>
 
         <!-- Bước 2: Nhập đề cương và tài liệu liên quan -->
+        <asp:Label ID="lblDeCuong" runat="server" Text="Đề cương kiểm tra" CssClass="form-label" />
         <div class="form-group">
-            <asp:Label ID="lblDeCuong" runat="server" Text="Đề cương kiểm tra" CssClass="form-label" />
-            <asp:FileUpload ID="fuDeCuong" runat="server" CssClass="form-control btn-large" Accept=".doc,.docx,.pdf" />
+
+            <asp:FileUpload ID="fuDeCuong" runat="server" CssClass="form-input btn-large" Accept=".doc,.docx,.pdf" />
         </div>
+        <asp:Label ID="lblTaiLieu" runat="server" Text="Tài liệu liên quan" CssClass="form-label" />
         <div class="form-group">
-            <asp:Label ID="lblTaiLieu" runat="server" Text="Tài liệu liên quan" CssClass="form-label" />
-            <asp:FileUpload ID="fuTaiLieu" runat="server" CssClass="form-control btn-large" AllowMultiple="true" Accept=".doc,.docx,.pdf" />
+            <asp:FileUpload ID="fuTaiLieu" runat="server" CssClass="form-input btn-large" AllowMultiple="true" Accept=".doc,.docx,.pdf" />
         </div>
 
         <!-- Bước 3: Phân công thành viên (vai trò ThanhVien) -->
@@ -31,7 +32,7 @@
                     <asp:BoundField DataField="ChucVu" HeaderText="Chức Vụ" />
                     <asp:TemplateField HeaderText="Nhiệm Vụ">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtNhiemVu" runat="server" CssClass="form-control" Placeholder="Nhập nhiệm vụ" />
+                            <asp:TextBox ID="txtNhiemVu" runat="server" CssClass="form-input" Placeholder="Nhập nhiệm vụ" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Chọn">

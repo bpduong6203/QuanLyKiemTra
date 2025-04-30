@@ -55,7 +55,7 @@
                         <asp:HiddenField ID="hfCauHoiId" runat="server" />
                         <div class="mb-3">
                             <label for="txtNoiDung" class="form-label">Nội dung câu hỏi</label>
-                            <asp:TextBox ID="txtNoiDung" runat="server" CssClass="form-control" Placeholder="Nhập nội dung câu hỏi" TextMode="MultiLine" />
+                            <asp:TextBox ID="txtNoiDung" runat="server" CssClass="form-input" Placeholder="Nhập nội dung câu hỏi" TextMode="MultiLine" />
                             <asp:RequiredFieldValidator ID="rfvNoiDung" runat="server" ControlToValidate="txtNoiDung"
                                 ErrorMessage="Nội dung câu hỏi là bắt buộc" CssClass="error-message" Display="Dynamic" />
                         </div>
@@ -68,11 +68,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="txtLinkTaiLieu" class="form-label">Link tài liệu</label>
-                            <asp:TextBox ID="txtLinkTaiLieu" runat="server" CssClass="form-control" Placeholder="Nhập link tài liệu" />
+                            <asp:TextBox ID="txtLinkTaiLieu" runat="server" CssClass="form-input" Placeholder="Nhập link tài liệu" />
                         </div>
                         <div class="mb-3">
                             <label for="txtNdGiaiTrinh" class="form-label">Giải trình</label>
-                            <asp:TextBox ID="txtNdGiaiTrinh" runat="server" CssClass="form-control" Placeholder="Nhập giải trình" TextMode="MultiLine" />
+                            <asp:TextBox ID="txtNdGiaiTrinh" runat="server" CssClass="form-input" Placeholder="Nhập giải trình" TextMode="MultiLine" />
                         </div>
                     </div>
                     <div class="modal-footer">

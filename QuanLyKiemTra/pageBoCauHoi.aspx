@@ -48,7 +48,7 @@
                         <asp:HiddenField ID="hfBoCauHoiId" runat="server" />
                         <div class="mb-3">
                             <label for="txtTenBoCauHoi" class="form-label">Tên bộ câu hỏi</label>
-                            <asp:TextBox ID="txtTenBoCauHoi" runat="server" CssClass="form-control" Placeholder="Nhập tên bộ câu hỏi" />
+                            <asp:TextBox ID="txtTenBoCauHoi" runat="server" CssClass="form-input" Placeholder="Nhập tên bộ câu hỏi" />
                             <asp:RequiredFieldValidator ID="rfvTenBoCauHoi" runat="server" ControlToValidate="txtTenBoCauHoi"
                                 ErrorMessage="Tên bộ câu hỏi là bắt buộc" CssClass="error-message" Display="Dynamic" />
                         </div>
@@ -56,12 +56,12 @@
                             <label class="form-label">Danh sách câu hỏi</label>
                             <!-- Tìm kiếm -->
                             <div class="search-box">
-                                <asp:TextBox ID="txtSearchCauHoi" runat="server" CssClass="form-control" Placeholder="Tìm kiếm câu hỏi..." AutoPostBack="true" OnTextChanged="txtSearchCauHoi_TextChanged" />
+                                <asp:TextBox ID="txtSearchCauHoi" runat="server" CssClass="form-input" Placeholder="Tìm kiếm câu hỏi..." AutoPostBack="true" OnTextChanged="txtSearchCauHoi_TextChanged" />
                             </div>
                             <!-- Lọc theo ngày tạo -->
                             <div class="filter-box date-filter">
-                                <asp:TextBox ID="txtNgayTaoFrom" runat="server" CssClass="form-control" Placeholder="Từ ngày (dd/MM/yyyy)" AutoPostBack="true" OnTextChanged="txtNgayTaoFilter_TextChanged" />
-                                <asp:TextBox ID="txtNgayTaoTo" runat="server" CssClass="form-control" Placeholder="Đến ngày (dd/MM/yyyy)" AutoPostBack="true" OnTextChanged="txtNgayTaoFilter_TextChanged" />
+                                <asp:TextBox ID="txtNgayTaoFrom" runat="server" CssClass="form-input btn-medium" Placeholder="Từ ngày (dd/MM/yyyy)" AutoPostBack="true" OnTextChanged="txtNgayTaoFilter_TextChanged" />
+                                <asp:TextBox ID="txtNgayTaoTo" runat="server" CssClass="form-input btn-medium" Placeholder="Đến ngày (dd/MM/yyyy)" AutoPostBack="true" OnTextChanged="txtNgayTaoFilter_TextChanged" />
                             </div>
                             <!-- Bảng chọn câu hỏi -->
                             <asp:GridView ID="gvSelectCauHoi" runat="server" AutoGenerateColumns="false" CssClass="grid-view"
