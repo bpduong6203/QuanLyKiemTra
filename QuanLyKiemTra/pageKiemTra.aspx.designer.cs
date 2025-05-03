@@ -15,57 +15,12 @@ namespace QuanLyKiemTra
     {
 
         /// <summary>
-        /// gvExplanationSources control.
+        /// gvKeHoach control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvExplanationSources;
-
-        /// <summary>
-        /// gvExplanationContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvExplanationContent;
-
-        /// <summary>
-        /// lblSelectPlan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSelectPlan;
-
-        /// <summary>
-        /// ddlInspectionPlans control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlInspectionPlans;
-
-        /// <summary>
-        /// btnPreviewInspection control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPreviewInspection;
-
-        /// <summary>
-        /// btnRequestExplanation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRequestExplanation;
+        protected global::System.Web.UI.WebControls.GridView gvKeHoach;
     }
 }

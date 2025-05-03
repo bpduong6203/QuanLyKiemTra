@@ -23,11 +23,11 @@
                     <asp:TemplateField HeaderText="Hành động">
                         <ItemTemplate>
                             <asp:LinkButton ID="btnEditBoCauHoi" runat="server" CommandName="EditBoCauHoi" CommandArgument='<%# Eval("Id") %>'
-                                CssClass="btn btn-extra-small btn-warning" ToolTip="Sửa">
+                                CssClass="custom-btn btn-warning" ToolTip="Sửa">
                             <i class="fas fa-edit"></i>
                         </asp:LinkButton>
                             <asp:LinkButton ID="btnDeleteBoCauHoi" runat="server" CommandName="DeleteBoCauHoi" CommandArgument='<%# Eval("Id") %>'
-                                CssClass="btn btn-extra-small btn-danger" ToolTip="Xóa" OnClientClick="return confirm('Bạn có chắc muốn xóa bộ câu hỏi này?');">
+                                CssClass="custom-btn btn-danger" ToolTip="Xóa" OnClientClick="return confirm('Bạn có chắc muốn xóa bộ câu hỏi này?');">
                             <i class="fas fa-trash"></i>
                         </asp:LinkButton>
                         </ItemTemplate>

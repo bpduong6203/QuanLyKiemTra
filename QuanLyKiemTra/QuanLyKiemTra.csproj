@@ -118,6 +118,7 @@
     <Content Include="pageCaNhan.aspx" />
     <Content Include="pageCapNhatCaNhan.aspx" />
     <Content Include="pageCauHoi.aspx" />
+    <Content Include="pageCTKeHoach.aspx" />
     <Content Include="pageDanhSach.aspx" />
     <Content Include="pageDonVi.aspx" />
     <Content Include="pageGiaiTrinh.aspx" />
@@ -125,6 +126,7 @@
     <Content Include="pageKetLuan.aspx" />
     <Content Include="pageKiemTra.aspx" />
     <Content Include="pageLogin.aspx" />
+    <Content Include="pageLogout.aspx" />
     <Content Include="pageNguoiDung.aspx" />
     <Content Include="pagePhanCong.aspx" />
     <Content Include="pageRegister.aspx" />
@@ -174,6 +176,10 @@
     <Compile Include="Migrations\202504281436118_InitialCreate.cs" />
     <Compile Include="Migrations\202504281436118_InitialCreate.Designer.cs">
       <DependentUpon>202504281436118_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505011334017_updateTableGiaiTrinh.cs" />
+    <Compile Include="Migrations\202505011334017_updateTableGiaiTrinh.Designer.cs">
+      <DependentUpon>202505011334017_updateTableGiaiTrinh.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BienBanHopDoan.cs" />
@@ -226,6 +232,13 @@
     <Compile Include="pageCauHoi.aspx.designer.cs">
       <DependentUpon>pageCauHoi.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pageCTKeHoach.aspx.cs">
+      <DependentUpon>pageCTKeHoach.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pageCTKeHoach.aspx.designer.cs">
+      <DependentUpon>pageCTKeHoach.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pageDanhSach.aspx.cs">
       <DependentUpon>pageDanhSach.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -274,6 +287,13 @@
     </Compile>
     <Compile Include="pageLogin.aspx.designer.cs">
       <DependentUpon>pageLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pageLogout.aspx.cs">
+      <DependentUpon>pageLogout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pageLogout.aspx.designer.cs">
+      <DependentUpon>pageLogout.aspx</DependentUpon>
     </Compile>
     <Compile Include="pageNguoiDung.aspx.cs">
       <DependentUpon>pageNguoiDung.aspx</DependentUpon>
@@ -370,6 +390,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202504281436118_InitialCreate.resx">
       <DependentUpon>202504281436118_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505011334017_updateTableGiaiTrinh.resx">
+      <DependentUpon>202505011334017_updateTableGiaiTrinh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

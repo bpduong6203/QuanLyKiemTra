@@ -36,11 +36,11 @@
                     <asp:TemplateField HeaderText="Hành động">
                         <ItemTemplate>
                             <asp:LinkButton ID="btnEdit" runat="server" CommandName="EditNguoiDung" CommandArgument='<%# Eval("Id") %>'
-                                CssClass="btn btn-extra-small btn-warning" ToolTip="Sửa">
+                                CssClass="custom-btn btn-warning" ToolTip="Sửa">
                             <i class="fas fa-edit"></i>
                             </asp:LinkButton>
                             <asp:LinkButton ID="btnDelete" runat="server" CommandName="DeleteNguoiDung" CommandArgument='<%# Eval("Id") %>'
-                                CssClass="btn btn-extra-small btn-danger" ToolTip="Xóa" OnClientClick="return confirm('Bạn có chắc muốn xóa người dùng này?');">
+                                CssClass="custom-btn btn-danger" ToolTip="Xóa" OnClientClick="return confirm('Bạn có chắc muốn xóa người dùng này?');">
                             <i class="fas fa-trash"></i>
                             </asp:LinkButton>
                         </ItemTemplate>

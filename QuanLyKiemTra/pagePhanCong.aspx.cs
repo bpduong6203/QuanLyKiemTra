@@ -87,8 +87,6 @@ namespace QuanLyKiemTra
                                 .OrderBy(u => u.HoTen)
                                 .ToList();
 
-                            // Debug
-                            Response.Write($"Số thành viên ThanhVien: {thanhVienList.Count}<br/>");
 
                             gvThanhVien.DataSource = thanhVienList;
                             gvThanhVien.DataBind();
@@ -178,6 +176,7 @@ namespace QuanLyKiemTra
                         var thongBao = new ThongBao_User
                         {
                             Id = Guid.NewGuid().ToString(),
+                            KeHoachID = ddlKeHoach.SelectedValue,
                             UserID = userId,
                             NoiDung = $"Bạn được phân công nhiệm vụ '{noiDungCV}' trong kế hoạch '{keHoach.TenKeHoach}'.",
                             NgayTao = DateTime.Now,

@@ -17,6 +17,7 @@ namespace QuanLyKiemTra.Models
         [ForeignKey("NguoiGiaiTrinh")]
         public string NguoiGiaiTrinhID { get; set; }
         public DateTime NgayTao { get; set; } = DateTime.Now;
+        public string linkFile { get; set; }
 
         public virtual NguoiDung NguoiYeuCau { get; set; }
         public virtual NguoiDung NguoiGiaiTrinh { get; set; }

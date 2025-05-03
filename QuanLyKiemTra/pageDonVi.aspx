@@ -14,7 +14,7 @@
         </div>
 
         <!-- Bảng danh sách đơn vị -->
-        <div class="form-group">
+        <div class="form-groups">
             <asp:GridView ID="gvDonVi" runat="server" AutoGenerateColumns="false" CssClass="grid-view"
                 DataKeyNames="Id" OnRowCommand="gvDonVi_RowCommand">
                 <Columns>
@@ -26,11 +26,11 @@
                     <asp:TemplateField HeaderText="Hành động">
                         <ItemTemplate>
                             <asp:LinkButton ID="btnEdit" runat="server" CommandName="EditDonVi" CommandArgument='<%# Eval("Id") %>'
-                                CssClass="btn btn-extra-small btn-warning" ToolTip="Sửa">
+                                CssClass="custom-btn btn-warning" ToolTip="Sửa">
                             <i class="fas fa-edit"></i>
                             </asp:LinkButton>
                             <asp:LinkButton ID="btnDelete" runat="server" CommandName="DeleteDonVi" CommandArgument='<%# Eval("Id") %>'
-                                CssClass="btn btn-extra-small btn-danger" ToolTip="Xóa" OnClientClick="return confirm('Bạn có chắc muốn xóa đơn vị này?');">
+                                CssClass="custom-btn btn-danger" ToolTip="Xóa" OnClientClick="return confirm('Bạn có chắc muốn xóa đơn vị này?');">
                             <i class="fas fa-trash"></i>
                             </asp:LinkButton>
                         </ItemTemplate>

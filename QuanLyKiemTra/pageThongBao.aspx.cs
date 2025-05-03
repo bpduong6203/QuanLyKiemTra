@@ -1,7 +1,6 @@
 ﻿
 using QuanLyKiemTra.Models;
 using System;
-using System.IO;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -20,7 +19,6 @@ namespace QuanLyKiemTra
                 }
 
                 LoadThongBaoList();
-                LoadInspectionPlans();
             }
         }
 
@@ -56,30 +54,6 @@ namespace QuanLyKiemTra
             }
         }
 
-        private void LoadInspectionPlans()
-        {
-            try
-            {
-                using (var context = new MyDbContext())
-                {
-                    var plans = context.KeHoachs
-                        .OrderBy(k => k.TenKeHoach)
-                        .Select(k => new { k.Id, k.TenKeHoach })
-                        .ToList();
-
-                    ddlInspectionPlans.DataSource = plans;
-                    ddlInspectionPlans.DataTextField = "TenKeHoach";
-                    ddlInspectionPlans.DataValueField = "Id";
-                    ddlInspectionPlans.DataBind();
-                    ddlInspectionPlans.Items.Insert(0, new ListItem("-- Chọn kế hoạch --", ""));
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowError($"Lỗi khi tải danh sách kế hoạch: {ex.Message}");
-            }
-        }
-
         protected void gvThongBao_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "ConfirmView")
@@ -109,114 +83,6 @@ namespace QuanLyKiemTra
                 {
                     ShowError($"Lỗi khi xác nhận đã xem: {ex.Message}");
                 }
-            }
-        }
-
-        protected void ddlInspectionPlans_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(ddlInspectionPlans.SelectedValue))
-            {
-                ShowError("Vui lòng chọn kế hoạch kiểm tra.");
-            }
-        }
-
-        protected void btnSendNotification_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string keHoachId = ddlInspectionPlans.SelectedValue;
-                if (string.IsNullOrEmpty(keHoachId))
-                {
-                    ShowError("Vui lòng chọn kế hoạch kiểm tra.");
-                    return;
-                }
-
-                using (var context = new MyDbContext())
-                {
-                    var keHoach = context.KeHoachs.FirstOrDefault(k => k.Id == keHoachId);
-                    if (keHoach == null)
-                    {
-                        ShowError("Kế hoạch không tồn tại.");
-                        return;
-                    }
-
-                    // Gửi thông báo đến người dùng của đơn vị
-                    var users = context.NguoiDungs
-                        .Where(u => u.DonViID == keHoach.DonViID)
-                        .ToList();
-
-                    foreach (var user in users)
-                    {
-                        var thongBao = new ThongBao_User
-                        {
-                            Id = Guid.NewGuid().ToString(),
-                            UserID = user.Id,
-                            KeHoachID = keHoachId,
-                            NoiDung = $"Thông báo kiểm tra cho kế hoạch: {keHoach.TenKeHoach}",
-                            NgayTao = DateTime.Now,
-                            DaXem = false
-                        };
-                        context.ThongBao_Users.Add(thongBao);
-                    }
-
-                    context.SaveChanges();
-                    ShowSuccess("Gửi thông báo thành công!");
-                    LoadThongBaoList();
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowError($"Lỗi khi gửi thông báo: {ex.Message}");
-            }
-        }
-
-        protected void btnExportBienBan_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string keHoachId = ddlInspectionPlans.SelectedValue;
-                if (string.IsNullOrEmpty(keHoachId))
-                {
-                    ShowError("Vui lòng chọn kế hoạch kiểm tra.");
-                    return;
-                }
-
-                using (var context = new MyDbContext())
-                {
-                    var keHoach = context.KeHoachs
-                        .FirstOrDefault(k => k.Id == keHoachId);
-                    if (keHoach == null || string.IsNullOrEmpty(keHoach.BienBanID))
-                    {
-                        ShowError("Kế hoạch không có biên bản liên kết.");
-                        return;
-                    }
-
-                    var bienBan = context.BienBanKiemTras
-                        .FirstOrDefault(b => b.Id == keHoach.BienBanID);
-                    if (bienBan == null || string.IsNullOrEmpty(bienBan.linkfile))
-                    {
-                        ShowError("Không tìm thấy file biên bản.");
-                        return;
-                    }
-
-                    string filePath = Server.MapPath(bienBan.linkfile);
-                    if (!File.Exists(filePath))
-                    {
-                        ShowError("File biên bản không tồn tại trên server.");
-                        return;
-                    }
-
-                    string fileName = Path.GetFileName(bienBan.linkfile);
-                    Response.Clear();
-                    Response.ContentType = "application/octet-stream";
-                    Response.AppendHeader("Content-Disposition", $"attachment; filename={fileName}");
-                    Response.TransmitFile(filePath);
-                    Response.End();
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowError($"Lỗi khi xuất biên bản: {ex.Message}");
             }
         }
 
