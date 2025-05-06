@@ -5,7 +5,7 @@ using System.Web.UI.WebControls;
 
 namespace QuanLyKiemTra
 {
-    public partial class pageKiemTraTrucTuyen : System.Web.UI.Page
+    public partial class pageKiemTra : System.Web.UI.Page
     {
         private MyDbContext db = new MyDbContext();
 
@@ -16,7 +16,7 @@ namespace QuanLyKiemTra
                 // Kiểm tra đăng nhập
                 if (Session["Username"] == null)
                 {
-                    Response.Redirect("pageLogin.aspx");
+                    Response.Redirect("~/dang-nhap");
                 }
 
                 LoadKeHoach();
@@ -97,8 +97,7 @@ namespace QuanLyKiemTra
             if (e.CommandName == "XemChiTiet")
             {
                 string keHoachId = e.CommandArgument.ToString();
-                // Sửa tên trang chuyển hướng thành pageCTKeHoach.aspx
-                Response.Redirect($"pageCTKeHoach.aspx?Id={keHoachId}");
+                Response.Redirect($"~/chi-tiet-ke-hoach/{keHoachId}");
             }
         }
     }

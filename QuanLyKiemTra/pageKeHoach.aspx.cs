@@ -10,12 +10,14 @@ namespace QuanLyKiemTra
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Tạo Kế Hoạch";
+
             if (!IsPostBack)
             {
                 // Kiểm tra đăng nhập
                 if (Session["Username"] == null)
                 {
-                    Response.Redirect("pageLogin.aspx");
+                    Response.Redirect("dang-nhap");
                 }
 
                 LoadDonViList();

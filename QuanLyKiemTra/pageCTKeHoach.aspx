@@ -126,7 +126,7 @@
             <h5>Chọn Bộ Câu Hỏi</h5>
             <div>
                 <asp:Label ID="lblBoCauHoi" runat="server" Text="Bộ Câu Hỏi" CssClass="form-labels" />
-                <asp:DropDownList ID="ddlBoCauHoi" runat="server" CssClass="dropdown-custom xl">
+                <asp:DropDownList ID="ddlBoCauHoi" runat="server" CssClass="dropdown-custom lg">
                     <asp:ListItem Value="" Text="-- Chọn bộ câu hỏi --" />
                 </asp:DropDownList><br />
                 <asp:Label ID="lblThoiGianLam" runat="server" Text="Thời Gian Làm (phút)" CssClass="form-labels" />

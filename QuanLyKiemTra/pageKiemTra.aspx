@@ -1,7 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pageKiemTra.aspx.cs" Inherits="QuanLyKiemTra.pageKiemTraTrucTuyen" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pageKiemTra.aspx.cs" Inherits="QuanLyKiemTra.pageKiemTra" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="container">
         <h4>Danh sách kế hoạch kiểm tra</h4>

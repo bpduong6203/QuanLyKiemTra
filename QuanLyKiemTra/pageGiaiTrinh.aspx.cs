@@ -17,7 +17,7 @@ namespace QuanLyKiemTra
                 // Kiểm tra đăng nhập
                 if (Session["Username"] == null)
                 {
-                    Response.Redirect("pageLogin.aspx");
+                    Response.Redirect("~/dang-nhap");
                 }
 
                 // Lấy username từ session
@@ -49,7 +49,7 @@ namespace QuanLyKiemTra
                 var giaiTrinhList = db.GiaiTrinhs
                     .Include("NguoiYeuCau")
                     .Include("KeHoach")
-                    .Include("GiaiTrinhFiles") // Đảm bảo tải GiaiTrinhFiles
+                    .Include("GiaiTrinhFiles")
                     .AsQueryable();
 
                 // Nếu không phải TruongDoan hoặc ThanhVien (tức là DonVi), lọc theo NguoiGiaiTrinhID
@@ -91,7 +91,9 @@ namespace QuanLyKiemTra
             if (e.CommandName == "XemChiTiet")
             {
                 string giaiTrinhId = e.CommandArgument.ToString();
-                Response.Redirect($"pageCTYeuCauGiaiTrinh.aspx?Id={giaiTrinhId}");
+                // Thêm log để kiểm tra
+                System.Diagnostics.Debug.WriteLine($"Chuyển hướng tới: ~/chi-tiet-giai-trinh/{giaiTrinhId}");
+                Response.Redirect($"~/chi-tiet-giai-trinh/{giaiTrinhId}");
             }
         }
     }

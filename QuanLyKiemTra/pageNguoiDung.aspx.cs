@@ -15,7 +15,7 @@ namespace QuanLyKiemTra
                 // Kiểm tra đăng nhập
                 if (Session["Username"] == null)
                 {
-                    Response.Redirect("pageLogin.aspx");
+                    Response.Redirect("dang-nhap");
                 }
 
                 LoadNguoiDungList();

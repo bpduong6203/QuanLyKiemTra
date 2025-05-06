@@ -18,11 +18,11 @@ namespace QuanLyKiemTra
                 // Kiểm tra đăng nhập
                 if (Session["Username"] == null)
                 {
-                    Response.Redirect("pageLogin.aspx");
+                    Response.Redirect("dang-nhap");
                 }
 
                 // Lấy ID giải trình từ query string
-                string giaiTrinhId = Request.QueryString["Id"];
+                string giaiTrinhId = RouteData.Values["Id"]?.ToString();
                 if (string.IsNullOrEmpty(giaiTrinhId))
                 {
                     Response.Redirect("pageGiaiTrinh.aspx");
@@ -134,6 +134,8 @@ namespace QuanLyKiemTra
                 string giaiTrinhId = Request.QueryString["Id"];
                 var giaiTrinh = db.GiaiTrinhs
                     .Include("GiaiTrinhFiles")
+                    .Include("NguoiGiaiTrinh")
+                    .Include("KeHoach")
                     .FirstOrDefault(g => g.Id == giaiTrinhId);
                 if (giaiTrinh == null)
                 {
@@ -142,11 +144,11 @@ namespace QuanLyKiemTra
                 }
 
                 // Kiểm tra quyền
-                string username = Session["Username"].ToString();
+                string username = Session["Username"]?.ToString();
                 var nguoiDung = db.NguoiDungs
                     .Include("Roles")
                     .FirstOrDefault(u => u.username == username);
-                bool hasEvaluationRights = nguoiDung.Roles != null &&
+                bool hasEvaluationRights = nguoiDung != null && nguoiDung.Roles != null &&
                     (nguoiDung.Roles.Ten == "TruongDoan" || nguoiDung.Roles.Ten == "ThanhVien");
 
                 if (!hasEvaluationRights)
@@ -178,6 +180,21 @@ namespace QuanLyKiemTra
                         NgayTao = DateTime.Now
                     };
                     db.GiaiTrinhFiles.Add(giaiTrinhFile);
+                }
+
+                // Tạo thông báo cho người giải trình
+                if (giaiTrinh.NguoiGiaiTrinhID != null)
+                {
+                    var thongBao = new ThongBao_User
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        UserID = giaiTrinh.NguoiGiaiTrinhID,
+                        KeHoachID = giaiTrinh.KeHoachID,
+                        NoiDung = $"File mẫu mới đã được cập nhật {nguoiDung.HoTen} cho kế hoạch {giaiTrinh.KeHoach.TenKeHoach}",
+                        NgayTao = DateTime.Now,
+                        DaXem = false
+                    };
+                    db.ThongBao_Users.Add(thongBao);
                 }
 
                 db.SaveChanges();
@@ -501,22 +518,6 @@ namespace QuanLyKiemTra
                     Response.Write($"<script>alert('Lỗi khi xóa file mẫu: {ex.Message}');</script>");
                 }
             }
-        }
-
-        private string FormatFileName(string originalFileName, int maxLength = 50)
-        {
-            if (string.IsNullOrEmpty(originalFileName)) return "Không có tên file";
-
-            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(originalFileName);
-
-            if (fileNameWithoutExtension.Length > maxLength)
-            {
-                fileNameWithoutExtension = fileNameWithoutExtension.Substring(0, maxLength - 3) + "...";
-            }
-
-            fileNameWithoutExtension = System.Text.RegularExpressions.Regex.Replace(fileNameWithoutExtension, @"[^a-zA-Z0-9\s]", "");
-
-            return fileNameWithoutExtension.Trim();
         }
     }
 }

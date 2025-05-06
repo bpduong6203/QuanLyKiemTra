@@ -19,11 +19,11 @@ namespace QuanLyKiemTra
                 // Kiểm tra đăng nhập
                 if (Session["Username"] == null)
                 {
-                    Response.Redirect("pageLogin.aspx");
+                    Response.Redirect("dang-nhap");
                 }
 
                 // Lấy Id kế hoạch từ query string
-                string keHoachId = Request.QueryString["Id"];
+                string keHoachId = RouteData.Values["Id"]?.ToString();
                 if (string.IsNullOrEmpty(keHoachId))
                 {
                     Response.Write("<script>alert('Không tìm thấy kế hoạch!');</script>");
@@ -260,20 +260,29 @@ namespace QuanLyKiemTra
 
         protected void btnXemChiTiet_Click(object sender, EventArgs e)
         {
-            string keHoachId = Request.QueryString["Id"];
+            string keHoachId = RouteData.Values["Id"]?.ToString();
+            System.Diagnostics.Debug.WriteLine($"btnXemChiTiet_Click - keHoachId: {keHoachId}");
+
             if (!string.IsNullOrEmpty(keHoachId))
             {
-                // Tìm giải trình đầu tiên liên quan đến kế hoạch
                 var giaiTrinh = db.GiaiTrinhs
                     .FirstOrDefault(g => g.KeHoachID == keHoachId);
                 if (giaiTrinh != null)
                 {
-                    Response.Redirect($"pageCTYeuCauGiaiTrinh.aspx?Id={giaiTrinh.Id}");
+                    string redirectUrl = $"~/chi-tiet-giai-trinh/{giaiTrinh.Id}";
+                    System.Diagnostics.Debug.WriteLine($"Chuyển hướng tới: {redirectUrl}");
+                    Response.Redirect(redirectUrl);
                 }
                 else
                 {
+                    System.Diagnostics.Debug.WriteLine("Không tìm thấy giải trình");
                     Response.Write("<script>alert('Không tìm thấy giải trình để xem chi tiết!');</script>");
                 }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("keHoachId rỗng hoặc null");
+                Response.Write("<script>alert('Không tìm thấy ID kế hoạch!');</script>");
             }
         }
 

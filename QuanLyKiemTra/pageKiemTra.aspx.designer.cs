@@ -11,7 +11,7 @@ namespace QuanLyKiemTra
 {
 
 
-    public partial class pageKiemTraTrucTuyen
+    public partial class pageKiemTra
     {
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace QuanLyKiemTra
             {
                 if (Session["Username"] == null)
                 {
-                    Response.Redirect("pageLogin.aspx");
+                    Response.Redirect("dang-nhap");
                 }
                 LoadKeHoach();
                 LoadThanhVien();

@@ -41,7 +41,7 @@
 
             <div class="form-footer">
                 <a>Bạn chưa có tài khoản?</a>
-                <a href="pageRegister.aspx">Đăng ký</a>
+                <a href="dang-ky">Đăng ký</a>
             </div>
         </div>
     </div>

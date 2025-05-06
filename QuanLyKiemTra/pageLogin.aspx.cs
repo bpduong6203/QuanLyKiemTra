@@ -68,16 +68,16 @@ namespace QuanLyKiemTra
                     switch (role?.Ten)
                     {
                         case "TruongDoan":
-                            Response.Redirect("pageCaNhan.aspx");
+                            Response.Redirect("tao-ke-hoach");
                             break;
                         case "ThanhVien":
-                            Response.Redirect("pageCaNhan.aspx");
+                            Response.Redirect("tao-ke-hoach");
                             break;
                         case "DonVi":
-                            Response.Redirect("pageCaNhan.aspx");
+                            Response.Redirect("danh-sach-ke-hoach");
                             break;
                         default:
-                            Response.Redirect("Default.aspx");
+                            Response.Redirect("dang-nhap");
                             break;
                     }
                 }

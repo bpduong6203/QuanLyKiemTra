@@ -15,7 +15,6 @@
 <body>
     <form id="form1" runat="server">
         <div class="d-flex">
-
             <!-- Sidebar -->
             <div class="sidebar" id="sidebar">
                 <!-- Phần trên -->
@@ -23,41 +22,41 @@
                     <div class="dropdown">
                         <a href="#" id="btnDanhSachKeHoach" class="dropdown-toggle"><i class="fas fa-calendar-check me-2"></i>Kế hoạch kiểm tra</a>
                         <div class="submenus" id="submenuDanhSachKeHoach">
-                            <a href="pageKeHoach.aspx"><i class="fas fa-file-circle-plus me-2"></i>Tạo kế hoạch</a>
-                            <a href="pagePhanCong.aspx"><i class="fas fa-user-check me-2"></i>Phân công</a>
+                            <asp:HyperLink runat="server" NavigateUrl="~/tao-ke-hoach"><i class="fas fa-file-circle-plus me-2"></i>Tạo kế hoạch</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/phan-cong"><i class="fas fa-user-check me-2"></i>Phân công</asp:HyperLink>
                         </div>
                     </div>
 
                     <div class="dropdown">
                         <a href="#" id="btnKiemTra" class="dropdown-toggle"><i class="fas fa-laptop-code me-2"></i>Kiểm tra trực tuyến</a>
                         <div class="submenus" id="submenuKiemTra">
-                            <a href="pageKiemTra.aspx"><i class="fas fa-clipboard-list me-2"></i>Kiểm tra</a>
-                            <a href="pageGiaiTrinh.aspx"><i class="fas fa-file-signature me-2"></i>Giải trình</a>
-                            <a href="pageCongViec.aspx"><i class="fas fa-briefcase me-2"></i>Công việc</a>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-ke-hoach"><i class="fas fa-clipboard-list me-2"></i>Kiểm tra</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-giai-trinh"><i class="fas fa-file-signature me-2"></i>Giải trình</asp:HyperLink>
+                            <a href="#"><i class="fas fa-briefcase me-2"></i>Công việc</a>
                         </div>
                     </div>
 
-                    <a href="pageThongBao.aspx"><i class="fas fa-bell me-2"></i>Thông báo kiểm tra</a>
-                    <a href="pageKetLuan.aspx"><i class="fas fa-file-circle-check me-2"></i>Kết luận kiểm tra</a>
-                    <a href="pageNguoiDung.aspx"><i class="fas fa-users me-2"></i>Danh sách người dùng</a>
+                    <asp:HyperLink runat="server" NavigateUrl="~/thong-bao"><i class="fas fa-bell me-2"></i>Thông báo kiểm tra</asp:HyperLink>
+                    <asp:HyperLink runat="server" NavigateUrl="~/ket-luan-kiem-tra"><i class="fas fa-file-circle-check me-2"></i>Kết luận kiểm tra</asp:HyperLink>
+                    <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-nguoi-dung"><i class="fas fa-users me-2"></i>Danh sách người dùng</asp:HyperLink>
 
                     <div class="dropdown">
                         <a href="#" id="btnBoCauHoi" class="dropdown-toggle"><i class="fas fa-circle-question me-2"></i>Danh sách câu hỏi</a>
                         <div class="submenus" id="submenuBoCauHoi">
-                            <a href="pageBoCauHoi.aspx"><i class="fas fa-book me-2"></i>Bộ câu hỏi</a>
-                            <a href="pageCauHoi.aspx"><i class="fas fa-question me-2"></i>Câu hỏi</a>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-bo-cau-hoi"><i class="fas fa-book me-2"></i>Bộ câu hỏi</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-cau-hoi"><i class="fas fa-question me-2"></i>Câu hỏi</asp:HyperLink>
                         </div>
                     </div>
-                    <a href="pageDonVi.aspx"><i class="fas fa-building me-2"></i>Đơn vị</a>
+                    <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-don-vi"><i class="fas fa-building me-2"></i>Đơn vị</asp:HyperLink>
                 </div>
                 <!-- Phần dưới -->
                 <div class="sidebar-bottom">
                     <div class="dropdown">
                         <a href="#" id="btnCaNhan" class="dropdown-toggle"><i class="fas fa-user-gear me-2"></i>Cá nhân</a>
                         <div class="submenus" id="submenuCaNhan">
-                            <a href="pageCaNhan.aspx"><i class="fas fa-address-card me-2"></i>Thông tin cá nhân</a>
-                            <a href="pageCapNhatCaNhan.aspx"><i class="fas fa-gears me-2"></i>Cài đặt tài khoản</a>
-                            <a href="pageLogout.aspx"><i class="fas fa-right-from-bracket me-2"></i>Đăng xuất</a>
+                            <asp:HyperLink runat="server" NavigateUrl="~/ca-nhan"><i class="fas fa-address-card me-2"></i>Thông tin cá nhân</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/cai-dat-tai-khoan"><i class="fas fa-gears me-2"></i>Cài đặt tài khoản</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/dang-xuat"><i class="fas fa-right-from-bracket me-2"></i>Đăng xuất</asp:HyperLink>
                         </div>
                     </div>
                 </div>
@@ -69,7 +68,6 @@
                 <nav style="background: #6c757d; border-radius: 5px;" class="navbar navbar-expand-lg navbar-light">
                     <div class="container-fluid">
                         <span class="navbar-brand">Hệ thống Quản Lý</span>
-                        <!-- Nút Menu cho tất cả màn hình -->
                         <button class="menu-toggle btn btn-dark" type="button" onclick="toggleSidebar()">
                             <i class="fas fa-bars"></i>
                         </button>
@@ -80,7 +78,6 @@
                                         <i style="color: #fafafa;" class="fas fa-bell"></i>
                                         <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle" runat="server" visible="<%# NotificationCount > 0 %>"><%# NotificationCount %></span>
                                     </a>
-                                    <!-- Notification Dropdown -->
                                     <div class="notification-dropdown" id="notificationDropdown" runat="server" visible="<%# NotificationCount > 0 %>">
                                         <div class="notification-header">
                                             <h6 class="m-0">Thông báo</h6>
@@ -99,7 +96,7 @@
                                             </asp:Repeater>
                                         </div>
                                         <div class="notification-footer">
-                                            <a href="pageThongBao.aspx" class="text-center d-block py-2">Xem tất cả thông báo</a>
+                                            <asp:HyperLink runat="server" NavigateUrl="~/thong-bao" CssClass="text-center d-block py-2">Xem tất cả thông báo</asp:HyperLink>
                                         </div>
                                     </div>
                                 </li>
@@ -118,7 +115,6 @@
     <script src="~/style/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Toggle sidebar
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const content = document.querySelector('.content');
@@ -128,22 +124,13 @@
             menuToggle.classList.toggle('hidden');
         }
 
-        // Toggle submenu for sidebar-top and sidebar-bottom
         document.querySelectorAll('.dropdown-toggle').forEach(button => {
             button.addEventListener('click', function (e) {
                 e.preventDefault();
                 const submenu = this.nextElementSibling;
                 const isActive = submenu.classList.contains('active');
-
-                // Close all submenus
-                document.querySelectorAll('.submenus').forEach(sub => {
-                    sub.classList.remove('active');
-                });
-                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-                    toggle.classList.remove('active');
-                });
-
-                // Open current submenu if not already open
+                document.querySelectorAll('.submenus').forEach(sub => sub.classList.remove('active'));
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => toggle.classList.remove('active'));
                 if (!isActive) {
                     submenu.classList.add('active');
                     this.classList.add('active');
@@ -151,62 +138,45 @@
             });
         });
 
-        // Toggle notification dropdown
         document.getElementById('notificationBtn').addEventListener('click', function (e) {
             e.preventDefault();
             const dropdown = document.getElementById('notificationDropdown');
             dropdown.classList.toggle('active');
         });
 
-        // Close submenus and notification dropdown when clicking outside
         document.addEventListener('click', function (e) {
             const notificationDropdown = document.getElementById('notificationDropdown');
             const notificationBtn = document.getElementById('notificationBtn');
             const sidebar = document.getElementById('sidebar');
             const menuToggle = document.querySelector('.menu-toggle');
-
-            // Close notification dropdown if clicking outside
             if (!notificationDropdown.contains(e.target) && e.target !== notificationBtn && !notificationBtn.contains(e.target)) {
                 notificationDropdown.classList.remove('active');
             }
-
-            // Close submenus and sidebar if clicking outside
             if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                document.querySelectorAll('.submenus').forEach(sub => {
-                    sub.classList.remove('active');
-                });
-                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-                    toggle.classList.remove('active');
-                });
+                document.querySelectorAll('.submenus').forEach(sub => sub.classList.remove('active'));
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => toggle.classList.remove('active'));
                 sidebar.classList.remove('active');
-                content.classList.remove('sidebar-active');
+                document.querySelector('.content').classList.remove('sidebar-active');
                 menuToggle.classList.remove('hidden');
             }
         });
 
-        // Close submenu when clicking a link in submenu
         document.querySelectorAll('.submenus a').forEach(link => {
             link.addEventListener('click', () => {
-                document.querySelectorAll('.submenus').forEach(sub => {
-                    sub.classList.remove('active');
-                });
-                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-                    toggle.classList.remove('active');
-                });
+                document.querySelectorAll('.submenus').forEach(sub => sub.classList.remove('active'));
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => toggle.classList.remove('active'));
                 document.getElementById('sidebar').classList.remove('active');
                 document.querySelector('.content').classList.remove('sidebar-active');
                 document.querySelector('.menu-toggle').classList.remove('hidden');
             });
         });
 
-        // Mark active sidebar link
         const sidebarLinks = document.querySelectorAll('.sidebar a');
         const currentPath = window.location.pathname.split('/').pop();
         sidebarLinks.forEach(link => {
-            const linkPath = link.getAttribute('href');
-            if (linkPath && linkPath === currentPath) {
+            const linkPath = link.getAttribute('href') || link.getAttribute('NavigateUrl');
+            if (linkPath && linkPath.replace(/^~?\//, '') === currentPath) {
                 link.classList.add('active');
-                // If link is in submenu, open that submenu
                 const parentSubmenu = link.closest('.submenus');
                 if (parentSubmenu) {
                     parentSubmenu.classList.add('active');

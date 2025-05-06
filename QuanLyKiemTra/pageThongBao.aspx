@@ -16,17 +16,7 @@
             DataKeyNames="Id" OnRowCommand="gvThongBao_RowCommand">
             <Columns>
                 <asp:BoundField DataField="TenKeHoach" HeaderText="Tên Kế Hoạch" />
-                <asp:BoundField DataField="TenDonVi" HeaderText="Đơn Vị" />
                 <asp:BoundField DataField="NoiDung" HeaderText="Nội Dung" />
-                <asp:TemplateField HeaderText="Biên Bản">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="lnkBienBan" runat="server" NavigateUrl='<%# Eval("LinkFile") %>'
-                            Text="Xem Biên Bản" CssClass="bien-ban-link"
-                            Visible='<%# !string.IsNullOrEmpty(Eval("LinkFile")?.ToString()) %>' />
-                        <asp:Label ID="lblNoBienBan" runat="server" Text="Không có biên bản"
-                            Visible='<%# string.IsNullOrEmpty(Eval("LinkFile")?.ToString()) %>' />
-                    </ItemTemplate>
-                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Trạng Thái">
                     <ItemTemplate>
                         <asp:Label ID="lblConfirmed" runat="server" Text="Chưa xem" CssClass="confirmed-text"

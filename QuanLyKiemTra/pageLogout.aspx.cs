@@ -11,7 +11,7 @@ namespace QuanLyKiemTra
             Session.Abandon(); // Kết thúc session hiện tại
 
             // Chuyển hướng đến trang đăng nhập
-            Response.Redirect("pageLogin.aspx");
+            Response.Redirect("dang-nhap");
         }
     }
 }
