@@ -17,12 +17,28 @@ namespace QuanLyKiemTra.Models
         [ForeignKey("NguoiGiaiTrinh")]
         public string NguoiGiaiTrinhID { get; set; }
         public DateTime NgayTao { get; set; } = DateTime.Now;
-        public string linkFile { get; set; }
+        public string TrangThaiTongThe { get; set; } = "Chờ Giải Trình";
 
         public virtual NguoiDung NguoiYeuCau { get; set; }
         public virtual NguoiDung NguoiGiaiTrinh { get; set; }
         public virtual KeHoach KeHoach { get; set; }
-
         public virtual ICollection<CTNoiDung_GiaiTrinh> CTNoiDung_GiaiTrinhs { get; set; }
+        public virtual ICollection<GiaiTrinhFile> GiaiTrinhFiles { get; set; }
     }
+
+    public class GiaiTrinhFile
+    {
+        [Key]
+        [Required]
+        public string Id { get; set; }
+        [ForeignKey("GiaiTrinh")]
+        public string GiaiTrinhID { get; set; }
+        [Required]
+        public string LinkFile { get; set; }
+        public string FileName { get; set; }
+        public DateTime NgayTao { get; set; } = DateTime.Now;
+
+        public virtual GiaiTrinh GiaiTrinh { get; set; }
+    }
+
 }

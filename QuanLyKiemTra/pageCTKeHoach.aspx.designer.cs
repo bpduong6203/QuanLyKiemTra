@@ -87,6 +87,24 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Label lblGhiChuValue;
 
         /// <summary>
+        /// lblNguoiTao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNguoiTao;
+
+        /// <summary>
+        /// lblNguoiTaoValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNguoiTaoValue;
+
+        /// <summary>
         /// lblTenDonVi control.
         /// </summary>
         /// <remarks>
@@ -195,24 +213,6 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Label lblChucVuNguoiDaiDienValue;
 
         /// <summary>
-        /// lblNguoiTao control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNguoiTao;
-
-        /// <summary>
-        /// lblNguoiTaoValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNguoiTaoValue;
-
-        /// <summary>
         /// pnlBienBan control.
         /// </summary>
         /// <remarks>
@@ -276,6 +276,15 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.GridView gvThanhVienDonVi;
 
         /// <summary>
+        /// btnXemChiTiet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnXemChiTiet;
+
+        /// <summary>
         /// pnlGiaiTrinh control.
         /// </summary>
         /// <remarks>
@@ -294,13 +303,13 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Label lblGiaiTrinhMessage;
 
         /// <summary>
-        /// lblFileMau control.
+        /// lblFileMauUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFileMau;
+        protected global::System.Web.UI.WebControls.Label lblFileMauUpload;
 
         /// <summary>
         /// fuFileMau control.
@@ -321,13 +330,22 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Button btnYeuCauGiaiTrinh;
 
         /// <summary>
-        /// gvGiaiTrinh control.
+        /// lblFileMau control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvGiaiTrinh;
+        protected global::System.Web.UI.WebControls.Label lblFileMau;
+
+        /// <summary>
+        /// rptFiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptFiles;
 
         /// <summary>
         /// lblBoCauHoi control.

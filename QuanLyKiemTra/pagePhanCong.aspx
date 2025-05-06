@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pagePhanCong.aspx.cs" Inherits="QuanLyKiemTra.pagePhanCong" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
@@ -6,7 +7,7 @@
         <!-- Bước 1: Chọn kế hoạch -->
         <asp:Label ID="lblKeHoach" runat="server" Text="Chọn kế hoạch" CssClass="form-label" />
         <div class="form-group">
-            <asp:DropDownList ID="ddlKeHoach" runat="server" CssClass="dropdown-custom btn-large" AutoPostBack="true" OnSelectedIndexChanged="ddlKeHoach_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlKeHoach" runat="server" CssClass="dropdown-custom xxl" AutoPostBack="true" OnSelectedIndexChanged="ddlKeHoach_SelectedIndexChanged">
                 <asp:ListItem Value="" Text="-- Chọn kế hoạch --" />
             </asp:DropDownList>
         </div>
@@ -14,12 +15,11 @@
         <!-- Bước 2: Nhập đề cương và tài liệu liên quan -->
         <asp:Label ID="lblDeCuong" runat="server" Text="Đề cương kiểm tra" CssClass="form-label" />
         <div class="form-group">
-
-            <asp:FileUpload ID="fuDeCuong" runat="server" CssClass="form-input btn-large" Accept=".doc,.docx,.pdf" />
+            <asp:FileUpload ID="fuDeCuong" runat="server" CssClass="form-input xxl" Accept=".doc,.docx,.pdf" />
         </div>
         <asp:Label ID="lblTaiLieu" runat="server" Text="Tài liệu liên quan" CssClass="form-label" />
         <div class="form-group">
-            <asp:FileUpload ID="fuTaiLieu" runat="server" CssClass="form-input btn-large" AllowMultiple="true" Accept=".doc,.docx,.pdf" />
+            <asp:FileUpload ID="fuTaiLieu" runat="server" CssClass="form-input xxl" AllowMultiple="true" Accept=".doc,.docx,.pdf" />
         </div>
 
         <!-- Bước 3: Phân công thành viên (vai trò ThanhVien) -->
@@ -55,12 +55,12 @@
         </div>
         <!-- Bước 4: Xuất văn bản phân công -->
         <div class="form-group">
-            <asp:Button ID="btnExportPhanCong" runat="server" Text="Xuất Văn Bản Phân Công" CssClass="btn btn-primary btn-large" OnClick="btnExportPhanCong_Click" />
+            <asp:Button ID="btnExportPhanCong" runat="server" Text="Xuất Văn Bản Phân Công" CssClass="btn-primary lg" OnClick="btnExportPhanCong_Click" />
         </div>
 
         <!-- Bước 5: Lưu kế hoạch -->
         <div class="form-group">
-            <asp:Button ID="btnSavePlan" runat="server" Text="Lưu Phân Công" CssClass="btn btn-primary btn-large" OnClick="btnSavePlan_Click" />
+            <asp:Button ID="btnSavePlan" runat="server" Text="Lưu Phân Công" CssClass="btn-primary lg" OnClick="btnSavePlan_Click" />
         </div>
     </div>
 </asp:Content>

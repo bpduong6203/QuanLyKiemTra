@@ -10,7 +10,7 @@
 
         <!-- Nút Thêm câu hỏi -->
         <div class="mb-3">
-            <asp:Button ID="btnAddCauHoi" runat="server" Text="Thêm câu hỏi" CssClass="btn btn-primary btn-large" OnClientClick="openCauHoiModal(); return false;" />
+            <asp:Button ID="btnAddCauHoi" runat="server" Text="Thêm câu hỏi" CssClass="btn btn-primary lg" OnClientClick="openCauHoiModal(); return false;" />
         </div>
 
         <!-- Bảng danh sách câu hỏi -->
@@ -76,8 +76,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-small" data-bs-dismiss="modal">Đóng</button>
-                        <asp:Button ID="btnSaveCauHoi" runat="server" Text="Lưu" CssClass="btn btn-primary btn-small" OnClick="btnSaveCauHoi_Click" />
+                        <button type="button" class="btn-secondary sm" data-bs-dismiss="modal">Đóng</button>
+                        <asp:Button ID="btnSaveCauHoi" runat="server" Text="Lưu" CssClass="btn-primary sm" OnClick="btnSaveCauHoi_Click" />
                     </div>
                 </div>
             </div>

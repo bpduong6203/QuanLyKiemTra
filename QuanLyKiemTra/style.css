@@ -1,7 +1,7 @@
 ﻿/* Container chính */
 .container {
-    margin: 0 auto;
-    padding: 20px;
+    margin: 10px auto;
+    padding: 10px 30px 10px 30px;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -172,6 +172,7 @@ h4 {
     .form-input:focus {
         border-color: #475569;
     }
+
 
 .dropdown-custom {
     padding: 12px;
@@ -413,7 +414,6 @@ h4 {
 
 .btn-danger {
     margin: 10px 0 10px 0;
-    width: 100%;
     padding: 10px;
     font-size: 16px;
     font-weight: 600;
@@ -431,7 +431,6 @@ h4 {
 
 .btn-success {
     margin: 10px 0 10px 0;
-    width: 100%;
     padding: 10px;
     font-size: 16px;
     font-weight: 600;
@@ -448,8 +447,7 @@ h4 {
     }
 
 .btn-warning {
-    margin: 10px 0 10px 0;
-    width: 100%;
+    margin: 10px 0px 10px 0px;
     padding: 10px;
     font-size: 16px;
     font-weight: 600;
@@ -500,26 +498,36 @@ h4 {
         color: #ffffff;
     }
 
-.btn-extra-small {
+
+/* Kích thước */
+
+.xs {
     max-width: 50px;
 }
 
-.btn-small {
+.sm {
     margin: 10px;
     max-width: 100px;
 }
 
-.btn-medium {
-    max-width: 250px;
+.md {
+    max-width: 300px;
 }
 
-.btn-large {
+.lg {
     max-width: 400px;
 }
 
-.btn-extra-large {
+.xl {
     max-width: 600px;
 }
+
+.xxl {
+    max-width: 800px;
+}
+
+
+
 
 .error-message {
     color: #d32f2f;
@@ -595,11 +603,6 @@ h4 {
         transition: all 0.3s ease;
     }
 
-        .grid-view .custom-btn:hover {
-            background: #5a6268;
-        }
-
-
 
 
 
@@ -609,6 +612,12 @@ h4 {
     display: flex;
     gap: 20px;
     margin-bottom: 30px;
+}
+
+.form-row {
+    display: flex; 
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .form-groups {
@@ -642,11 +651,21 @@ h4 {
     flex: 1;
 }
 
+.file-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px;
+    padding: 5px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
 .form-link {
     color: #007bff;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    flex-grow: 1;
 }
 
     .form-link:hover {
@@ -654,5 +673,22 @@ h4 {
         text-decoration: underline;
     }
 
+.delete-btn {
+    color: #dc3545;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 10px;
+    padding: 2px 8px;
+    border: 1px solid #dc3545;
+    border-radius: 3px;
+}
+
+    .delete-btn:hover {
+        background: #dc3545;
+        color: #fff;
+    }
 
 
+.r {
+    float: right;
+}

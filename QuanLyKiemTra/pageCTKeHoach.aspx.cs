@@ -1,7 +1,9 @@
 ﻿using QuanLyKiemTra.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace QuanLyKiemTra
@@ -120,23 +122,29 @@ namespace QuanLyKiemTra
             try
             {
                 var giaiTrinhList = db.GiaiTrinhs
-                    .Include("NguoiYeuCau")
-                    .Include("NguoiGiaiTrinh")
+                    .Include("GiaiTrinhFiles")
                     .Where(g => g.KeHoachID == keHoachId)
                     .ToList();
 
+                // Lấy danh sách file mẫu từ tất cả giải trình
+                var fileMauList = giaiTrinhList
+                    .SelectMany(g => g.GiaiTrinhFiles ?? new List<GiaiTrinhFile>())
+                    .Distinct()
+                    .ToList();
+
+                rptFiles.DataSource = fileMauList;
+                rptFiles.DataBind();
+
                 if (giaiTrinhList.Any())
                 {
-                    // Nếu đã có giải trình, hiển thị GridView
-                    gvGiaiTrinh.DataSource = giaiTrinhList;
-                    gvGiaiTrinh.DataBind();
-                    gvGiaiTrinh.Visible = true;
+                    // Nếu đã có giải trình, hiển thị nút Xem Chi Tiết
+                    btnXemChiTiet.Visible = true;
                     pnlGiaiTrinh.Visible = false;
                 }
                 else
                 {
                     // Nếu chưa có giải trình, hiển thị panel để yêu cầu
-                    gvGiaiTrinh.Visible = false;
+                    btnXemChiTiet.Visible = false;
                     pnlGiaiTrinh.Visible = true;
                 }
             }
@@ -155,6 +163,13 @@ namespace QuanLyKiemTra
                 if (keHoach == null)
                 {
                     Response.Write("<script>alert('Kế hoạch không tồn tại!');</script>");
+                    return;
+                }
+
+                // Kiểm tra quyền
+                if (!HasEvaluationRights())
+                {
+                    Response.Write("<script>alert('Bạn không có quyền yêu cầu giải trình!');</script>");
                     return;
                 }
 
@@ -178,22 +193,6 @@ namespace QuanLyKiemTra
                     return;
                 }
 
-                // Xử lý file mẫu nếu có
-                string linkFile = null;
-                if (fuFileMau.HasFile)
-                {
-                    string fileName = Path.GetFileName(fuFileMau.FileName);
-                    string uploadPath = Server.MapPath("~/Uploads/");
-                    if (!Directory.Exists(uploadPath))
-                    {
-                        Directory.CreateDirectory(uploadPath);
-                    }
-
-                    string filePath = Path.Combine(uploadPath, fileName);
-                    fuFileMau.SaveAs(filePath);
-                    linkFile = $"~/Uploads/{fileName}";
-                }
-
                 // Tạo bản ghi giải trình cho từng thành viên
                 foreach (var thanhVien in thanhVienDonVi)
                 {
@@ -204,9 +203,36 @@ namespace QuanLyKiemTra
                         NguoiYeuCauID = nguoiYeuCau.Id,
                         NguoiGiaiTrinhID = thanhVien.Id,
                         NgayTao = DateTime.Now,
-                        linkFile = linkFile // Lưu đường dẫn file mẫu
+                        TrangThaiTongThe = "Chờ Giải Trình"
                     };
                     db.GiaiTrinhs.Add(giaiTrinh);
+
+                    // Xử lý các file mẫu nếu có
+                    if (fuFileMau.HasFiles)
+                    {
+                        string uploadPath = Server.MapPath("~/Uploads/");
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath);
+                        }
+
+                        foreach (HttpPostedFile file in fuFileMau.PostedFiles)
+                        {
+                            string fileName = Path.GetFileName(file.FileName);
+                            string filePath = Path.Combine(uploadPath, fileName);
+                            file.SaveAs(filePath);
+
+                            var giaiTrinhFile = new GiaiTrinhFile
+                            {
+                                Id = Guid.NewGuid().ToString(),
+                                GiaiTrinhID = giaiTrinh.Id,
+                                FileName = fileName,
+                                LinkFile = $"~/Uploads/{fileName}",
+                                NgayTao = DateTime.Now
+                            };
+                            db.GiaiTrinhFiles.Add(giaiTrinhFile);
+                        }
+                    }
 
                     var thongBao = new ThongBao_User
                     {
@@ -222,14 +248,92 @@ namespace QuanLyKiemTra
 
                 db.SaveChanges();
 
-                // Ẩn panel sau khi yêu cầu giải trình
-                pnlGiaiTrinh.Visible = false;
+                // Làm mới danh sách giải trình
+                CheckGiaiTrinh(keHoachId);
                 Response.Write("<script>alert('Yêu cầu giải trình đã được gửi đến các thành viên của đơn vị!');</script>");
             }
             catch (Exception ex)
             {
                 Response.Write($"<script>alert('Lỗi khi yêu cầu giải trình: {ex.Message}');</script>");
             }
+        }
+
+        protected void btnXemChiTiet_Click(object sender, EventArgs e)
+        {
+            string keHoachId = Request.QueryString["Id"];
+            if (!string.IsNullOrEmpty(keHoachId))
+            {
+                // Tìm giải trình đầu tiên liên quan đến kế hoạch
+                var giaiTrinh = db.GiaiTrinhs
+                    .FirstOrDefault(g => g.KeHoachID == keHoachId);
+                if (giaiTrinh != null)
+                {
+                    Response.Redirect($"pageCTYeuCauGiaiTrinh.aspx?Id={giaiTrinh.Id}");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Không tìm thấy giải trình để xem chi tiết!');</script>");
+                }
+            }
+        }
+
+        protected void rptFiles_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "XoaFile")
+            {
+                string fileId = e.CommandArgument.ToString();
+                string keHoachId = Request.QueryString["Id"];
+
+                // Kiểm tra quyền
+                if (!HasEvaluationRights())
+                {
+                    Response.Write("<script>alert('Bạn không có quyền xóa file mẫu!');</script>");
+                    return;
+                }
+
+                try
+                {
+                    var file = db.GiaiTrinhFiles.FirstOrDefault(f => f.Id == fileId);
+                    if (file != null)
+                    {
+                        // Xóa file vật lý nếu tồn tại
+                        string filePath = Server.MapPath(file.LinkFile);
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                        }
+
+                        // Xóa bản ghi trong cơ sở dữ liệu
+                        db.GiaiTrinhFiles.Remove(file);
+                        db.SaveChanges();
+
+                        // Làm mới danh sách file mẫu
+                        CheckGiaiTrinh(keHoachId);
+                        Response.Write("<script>alert('Xóa file mẫu thành công!');</script>");
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Không tìm thấy file mẫu!');</script>");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write($"<script>alert('Lỗi khi xóa file mẫu: {ex.Message}');</script>");
+                }
+            }
+        }
+
+        protected bool HasEvaluationRights()
+        {
+            string username = Session["Username"]?.ToString();
+            if (string.IsNullOrEmpty(username)) return false;
+
+            var nguoiDung = db.NguoiDungs
+                .Include("Roles")
+                .FirstOrDefault(u => u.username == username);
+
+            return nguoiDung?.Roles != null &&
+                   (nguoiDung.Roles.Ten == "TruongDoan" || nguoiDung.Roles.Ten == "ThanhVien");
         }
 
         private void LoadBoCauHoi()

@@ -113,6 +113,7 @@
     <Content Include="css\admin.css" />
     <Content Include="css\auth.css" />
     <Content Include="css\profile.css" />
+    <Content Include="pageCTYeuCauGiaiTrinh.aspx" />
     <Content Include="Global.asax" />
     <Content Include="pageBoCauHoi.aspx" />
     <Content Include="pageCaNhan.aspx" />
@@ -169,6 +170,25 @@
     </Compile>
     <Compile Include="CaNhan.Master.designer.cs">
       <DependentUpon>CaNhan.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505050244215_NDGiaiTrinh_GiaiTrinh.cs" />
+    <Compile Include="Migrations\202505050244215_NDGiaiTrinh_GiaiTrinh.Designer.cs">
+      <DependentUpon>202505050244215_NDGiaiTrinh_GiaiTrinh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505060202327_AddGiaiTrinhFiles.cs" />
+    <Compile Include="Migrations\202505060202327_AddGiaiTrinhFiles.Designer.cs">
+      <DependentUpon>202505060202327_AddGiaiTrinhFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505060304345_AddNDgiaiTrinhFiles.cs" />
+    <Compile Include="Migrations\202505060304345_AddNDgiaiTrinhFiles.Designer.cs">
+      <DependentUpon>202505060304345_AddNDgiaiTrinhFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pageCTYeuCauGiaiTrinh.aspx.cs">
+      <DependentUpon>pageCTYeuCauGiaiTrinh.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pageCTYeuCauGiaiTrinh.aspx.designer.cs">
+      <DependentUpon>pageCTYeuCauGiaiTrinh.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -393,6 +413,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505011334017_updateTableGiaiTrinh.resx">
       <DependentUpon>202505011334017_updateTableGiaiTrinh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505050244215_NDGiaiTrinh_GiaiTrinh.resx">
+      <DependentUpon>202505050244215_NDGiaiTrinh_GiaiTrinh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505060202327_AddGiaiTrinhFiles.resx">
+      <DependentUpon>202505060202327_AddGiaiTrinhFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505060304345_AddNDgiaiTrinhFiles.resx">
+      <DependentUpon>202505060304345_AddNDgiaiTrinhFiles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

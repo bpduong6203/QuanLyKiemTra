@@ -10,7 +10,7 @@
 
         <!-- Nút Thêm mới bộ câu hỏi -->
         <div class="mb-3">
-            <asp:Button ID="btnAddBoCauHoi" runat="server" Text="Thêm bộ câu hỏi" CssClass="btn btn-primary btn-large" OnClientClick="openBoCauHoiModal(); return false;" />
+            <asp:Button ID="btnAddBoCauHoi" runat="server" Text="Thêm bộ câu hỏi" CssClass="btn-primary lg" OnClientClick="openBoCauHoiModal(); return false;" />
         </div>
 
         <!-- Bảng danh sách bộ câu hỏi -->
@@ -60,8 +60,8 @@
                             </div>
                             <!-- Lọc theo ngày tạo -->
                             <div class="filter-box date-filter">
-                                <asp:TextBox ID="txtNgayTaoFrom" runat="server" CssClass="form-input btn-medium" Placeholder="Từ ngày (dd/MM/yyyy)" AutoPostBack="true" OnTextChanged="txtNgayTaoFilter_TextChanged" />
-                                <asp:TextBox ID="txtNgayTaoTo" runat="server" CssClass="form-input btn-medium" Placeholder="Đến ngày (dd/MM/yyyy)" AutoPostBack="true" OnTextChanged="txtNgayTaoFilter_TextChanged" />
+                                <asp:TextBox ID="txtNgayTaoFrom" runat="server" CssClass="form-input lg" Placeholder="Từ ngày (dd/MM/yyyy)" AutoPostBack="true" OnTextChanged="txtNgayTaoFilter_TextChanged" />
+                                <asp:TextBox ID="txtNgayTaoTo" runat="server" CssClass="form-input lg" Placeholder="Đến ngày (dd/MM/yyyy)" AutoPostBack="true" OnTextChanged="txtNgayTaoFilter_TextChanged" />
                             </div>
                             <!-- Bảng chọn câu hỏi -->
                             <asp:GridView ID="gvSelectCauHoi" runat="server" AutoGenerateColumns="false" CssClass="grid-view"
@@ -84,8 +84,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-small" data-bs-dismiss="modal">Đóng</button>
-                        <asp:Button ID="btnSaveBoCauHoi" runat="server" Text="Lưu" CssClass="btn btn-primary btn-small" OnClick="btnSaveBoCauHoi_Click" />
+                        <button type="button" class="btn btn-secondary sm" data-bs-dismiss="modal">Đóng</button>
+                        <asp:Button ID="btnSaveBoCauHoi" runat="server" Text="Lưu" CssClass="btn btn-primary sm" OnClick="btnSaveBoCauHoi_Click" />
                     </div>
                 </div>
             </div>

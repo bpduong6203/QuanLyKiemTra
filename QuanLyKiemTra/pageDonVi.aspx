@@ -10,7 +10,7 @@
 
         <!-- Nút Thêm mới -->
         <div class="mb-3">
-            <asp:Button ID="btnAddNew" runat="server" Text="Thêm mới" CssClass="btn btn-primary btn-large" OnClientClick="openAddModal(); return false;" />
+            <asp:Button ID="btnAddNew" runat="server" Text="Thêm mới" CssClass="btn-primary lg" OnClientClick="openAddModal(); return false;" />
         </div>
 
         <!-- Bảng danh sách đơn vị -->
@@ -76,8 +76,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-small" data-bs-dismiss="modal">Đóng</button>
-                    <asp:Button ID="btnSaveDonVi" runat="server" Text="Lưu" CssClass="btn btn-primary btn-small" OnClick="btnSaveDonVi_Click" />
+                    <button type="button" class="btn-secondary sm" data-bs-dismiss="modal">Đóng</button>
+                    <asp:Button ID="btnSaveDonVi" runat="server" Text="Lưu" CssClass="btn-primary sm" OnClick="btnSaveDonVi_Click" />
                 </div>
             </div>
         </div>

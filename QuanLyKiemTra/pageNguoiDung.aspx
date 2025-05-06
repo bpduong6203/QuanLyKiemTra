@@ -11,7 +11,7 @@
 
         <!-- Nút Đăng ký tài khoản -->
         <div class="mb-3">
-            <asp:Button ID="btnAddNew" runat="server" Text="Đăng ký tài khoản" CssClass="btn btn-primary btn-large" OnClientClick="openAddModal(); return false;" />
+            <asp:Button ID="btnAddNew" runat="server" Text="Đăng ký tài khoản" CssClass="btn-primary lg" OnClientClick="openAddModal(); return false;" />
         </div>
 
         <!-- Bảng danh sách người dùng -->
@@ -107,8 +107,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-small" data-bs-dismiss="modal">Đóng</button>
-                    <asp:Button ID="btnSaveNguoiDung" runat="server" Text="Lưu" CssClass="btn btn-primary btn-small" OnClick="btnSaveNguoiDung_Click" />
+                    <button type="button" class="btn-secondary sm" data-bs-dismiss="modal">Đóng</button>
+                    <asp:Button ID="btnSaveNguoiDung" runat="server" Text="Lưu" CssClass="btn-primary sm" OnClick="btnSaveNguoiDung_Click" />
                 </div>
             </div>
         </div>
