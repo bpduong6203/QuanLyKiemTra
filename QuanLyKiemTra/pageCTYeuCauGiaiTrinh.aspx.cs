@@ -13,6 +13,7 @@ namespace QuanLyKiemTra
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Chi tiết giải trình";
             if (!IsPostBack)
             {
                 // Kiểm tra đăng nhập
@@ -131,7 +132,7 @@ namespace QuanLyKiemTra
         {
             try
             {
-                string giaiTrinhId = Request.QueryString["Id"];
+                string giaiTrinhId = RouteData.Values["Id"]?.ToString();
                 var giaiTrinh = db.GiaiTrinhs
                     .Include("GiaiTrinhFiles")
                     .Include("NguoiGiaiTrinh")
@@ -192,6 +193,7 @@ namespace QuanLyKiemTra
                         KeHoachID = giaiTrinh.KeHoachID,
                         NoiDung = $"File mẫu mới đã được cập nhật {nguoiDung.HoTen} cho kế hoạch {giaiTrinh.KeHoach.TenKeHoach}",
                         NgayTao = DateTime.Now,
+                        redirectUrl = $"/chi-tiet-giai-trinh/{giaiTrinhId}",
                         DaXem = false
                     };
                     db.ThongBao_Users.Add(thongBao);
@@ -213,7 +215,7 @@ namespace QuanLyKiemTra
         {
             try
             {
-                string giaiTrinhId = Request.QueryString["Id"];
+                string giaiTrinhId = RouteData.Values["Id"]?.ToString();
                 var giaiTrinh = db.GiaiTrinhs
                     .Include("NguoiGiaiTrinh")
                     .Include("KeHoach")
@@ -284,6 +286,7 @@ namespace QuanLyKiemTra
                         KeHoachID = giaiTrinh.KeHoachID,
                         NoiDung = $"Bạn có giải trình mới từ {giaiTrinh.NguoiGiaiTrinh.HoTen} cho kế hoạch {giaiTrinh.KeHoach.TenKeHoach}",
                         NgayTao = DateTime.Now,
+                        redirectUrl = $"/chi-tiet-giai-trinh/{giaiTrinhId}",
                         DaXem = false
                     };
                     db.ThongBao_Users.Add(thongBao);
@@ -316,7 +319,7 @@ namespace QuanLyKiemTra
             var nguoiDung = db.NguoiDungs
                 .Include("Roles")
                 .FirstOrDefault(u => u.username == username);
-            string giaiTrinhId = Request.QueryString["Id"];
+            string giaiTrinhId = RouteData.Values["Id"]?.ToString();
             var giaiTrinh = db.GiaiTrinhs
                 .Include("NguoiYeuCau")
                 .FirstOrDefault(g => g.Id == giaiTrinhId);
@@ -403,7 +406,7 @@ namespace QuanLyKiemTra
                     ndGiaiTrinh.DaXem = false;
 
                     // Cập nhật trạng thái tổng thể của GiaiTrinh
-                    string giaiTrinhId = Request.QueryString["Id"];
+                    string giaiTrinhId = RouteData.Values["Id"]?.ToString();
                     var giaiTrinh = db.GiaiTrinhs
                         .Include("NguoiGiaiTrinh")
                         .Include("KeHoach")
@@ -423,6 +426,7 @@ namespace QuanLyKiemTra
                             KeHoachID = giaiTrinh.KeHoachID,
                             NoiDung = $"Bạn có yêu cầu chỉnh sửa từ {nguoiDung.HoTen} cho kế hoạch {giaiTrinh.KeHoach.TenKeHoach}",
                             NgayTao = DateTime.Now,
+                            redirectUrl = $"/chi-tiet-giai-trinh/{giaiTrinhId}",
                             DaXem = false
                         };
                         db.ThongBao_Users.Add(thongBao);
@@ -468,7 +472,7 @@ namespace QuanLyKiemTra
             if (e.CommandName == "XoaFile")
             {
                 string fileId = e.CommandArgument.ToString();
-                string giaiTrinhId = Request.QueryString["Id"];
+                string giaiTrinhId = RouteData.Values["Id"]?.ToString();
 
                 // Tách giá trị Session["Username"] để tránh ?. trong lambda
                 string username = Session["Username"]?.ToString();
@@ -517,6 +521,21 @@ namespace QuanLyKiemTra
                 {
                     Response.Write($"<script>alert('Lỗi khi xóa file mẫu: {ex.Message}');</script>");
                 }
+            }
+        }
+
+        protected string GetStatusCssClass(string status)
+        {
+            switch (status)
+            {
+                case "Chưa Đạt":
+                    return "status-danger";
+                case "Chờ Đánh Giá":
+                    return "status-warning";
+                case "Đã Đạt":
+                    return "status-success";
+                default:
+                    return "";
             }
         }
     }

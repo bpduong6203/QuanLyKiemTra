@@ -14,6 +14,7 @@ namespace QuanLyKiemTra
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Chi tiết kế hoạch";
             if (!IsPostBack)
             {
                 // Kiểm tra đăng nhập
@@ -158,7 +159,7 @@ namespace QuanLyKiemTra
         {
             try
             {
-                string keHoachId = Request.QueryString["Id"];
+                string keHoachId = RouteData.Values["Id"]?.ToString();
                 var keHoach = db.KeHoachs.Include("DonVi").FirstOrDefault(k => k.Id == keHoachId);
                 if (keHoach == null)
                 {
@@ -241,6 +242,7 @@ namespace QuanLyKiemTra
                         KeHoachID = keHoachId,
                         NoiDung = $"Yêu cầu giải trình từ {nguoiYeuCau.HoTen} cho kế hoạch '{keHoach.TenKeHoach}'.",
                         NgayTao = DateTime.Now,
+                        redirectUrl = $"/chi-tiet-giai-trinh/{giaiTrinh.Id}",
                         DaXem = false
                     };
                     db.ThongBao_Users.Add(thongBao);
@@ -291,7 +293,7 @@ namespace QuanLyKiemTra
             if (e.CommandName == "XoaFile")
             {
                 string fileId = e.CommandArgument.ToString();
-                string keHoachId = Request.QueryString["Id"];
+                string keHoachId = RouteData.Values["Id"]?.ToString();
 
                 // Kiểm tra quyền
                 if (!HasEvaluationRights())
@@ -366,7 +368,7 @@ namespace QuanLyKiemTra
         {
             try
             {
-                string keHoachId = Request.QueryString["Id"];
+                string keHoachId = RouteData.Values["Id"]?.ToString();
                 var keHoach = db.KeHoachs.FirstOrDefault(k => k.Id == keHoachId);
                 if (keHoach == null)
                 {
@@ -411,6 +413,7 @@ namespace QuanLyKiemTra
                         KeHoachID = keHoachId,
                         NoiDung = $"Bộ câu hỏi '{ddlBoCauHoi.SelectedItem.Text}' đã được thêm vào kế hoạch '{keHoach.TenKeHoach}'.",
                         NgayTao = DateTime.Now,
+                        redirectUrl = $"/chi-tiet-ke-hoach/{keHoachId}",
                         DaXem = false
                     };
                     db.ThongBao_Users.Add(thongBao);

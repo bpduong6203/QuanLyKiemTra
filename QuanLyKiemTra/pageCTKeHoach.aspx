@@ -91,48 +91,49 @@
                 </Columns>
             </asp:GridView>
         </div>
-
-        <!-- Yêu cầu giải trình -->
-        <div class="form-groups">
-            <h5>Bảng Giải Trình</h5> 
-            <asp:Button ID="btnXemChiTiet" runat="server" Text="Xem Chi Tiết" CssClass="btn-info lg r" OnClick="btnXemChiTiet_Click" Visible="false" />
-            <asp:Panel ID="pnlGiaiTrinh" runat="server" Visible="false">
-                <asp:Label ID="lblGiaiTrinhMessage" runat="server" Text="Kế hoạch chưa có giải trình." CssClass="message-label warning-message" /><br />
-                <asp:Label ID="lblFileMauUpload" runat="server" CssClass="form-labels" Text="Chọn File Mẫu: " />
+        <div class="form-group-row">
+            <!-- Yêu cầu giải trình -->
+            <div class="form-groups">
+                <h5>Bảng Giải Trình</h5> 
+                <asp:Button ID="btnXemChiTiet" runat="server" Text="Xem Chi Tiết" CssClass="btn-info lg r" OnClick="btnXemChiTiet_Click" Visible="false" />
+                <asp:Panel ID="pnlGiaiTrinh" runat="server" Visible="false">
+                    <asp:Label ID="lblGiaiTrinhMessage" runat="server" Text="Kế hoạch chưa có giải trình." CssClass="message-label warning-message" /><br />
+                    <asp:Label ID="lblFileMauUpload" runat="server" CssClass="form-labels" Text="Chọn File Mẫu: " />
+                    <div class="form-row">
+                        <asp:FileUpload ID="fuFileMau" runat="server" CssClass="form-input lg" Accept=".doc,.docx,.pdf" AllowMultiple="true" Visible='<%# HasEvaluationRights() %>' />
+                    </div>
+                    <asp:Button ID="btnYeuCauGiaiTrinh" runat="server" Text="Yêu Cầu Giải Trình" CssClass="btn btn-primary lg" OnClick="btnYeuCauGiaiTrinh_Click" Visible='<%# HasEvaluationRights() %>' />
+                </asp:Panel>
                 <div class="form-row">
-                    <asp:FileUpload ID="fuFileMau" runat="server" CssClass="form-input lg" Accept=".doc,.docx,.pdf" AllowMultiple="true" Visible='<%# HasEvaluationRights() %>' />
+                    <asp:Label ID="lblFileMau" runat="server" CssClass="form-labels" Text="File Mẫu: " />
+                    <asp:Repeater ID="rptFiles" runat="server" OnItemCommand="rptFiles_ItemCommand">
+                        <ItemTemplate>
+                            <div class="file-block">
+                                <asp:HyperLink ID="hlFileMau" runat="server" Text='<%# HttpUtility.HtmlEncode(Eval("FileName").ToString()) %>' NavigateUrl='<%# Eval("LinkFile") %>' Target="_blank" CssClass="form-link" />
+                                <asp:LinkButton ID="btnXoaFile" runat="server" Text="X" CssClass="delete-btn" CommandName="XoaFile" CommandArgument='<%# Eval("Id") %>' Visible='<%# HasEvaluationRights() %>' OnClientClick="return confirm('Bạn có chắc muốn xóa file này?');" />
+                            </div>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:Label ID="lblNoFiles" runat="server" Text="Không có file mẫu" Visible='<%# ((Repeater)Container.NamingContainer).Items.Count == 0 %>' CssClass="message-label" />
+                        </FooterTemplate>
+                    </asp:Repeater>
                 </div>
-                <asp:Button ID="btnYeuCauGiaiTrinh" runat="server" Text="Yêu Cầu Giải Trình" CssClass="btn btn-primary lg" OnClick="btnYeuCauGiaiTrinh_Click" Visible='<%# HasEvaluationRights() %>' />
-            </asp:Panel>
-            <div class="form-row">
-                <asp:Label ID="lblFileMau" runat="server" CssClass="form-labels" Text="File Mẫu: " />
-                <asp:Repeater ID="rptFiles" runat="server" OnItemCommand="rptFiles_ItemCommand">
-                    <ItemTemplate>
-                        <div class="file-block">
-                            <asp:HyperLink ID="hlFileMau" runat="server" Text='<%# Eval("FileName") %>' NavigateUrl='<%# Eval("LinkFile") %>' Target="_blank" CssClass="form-link" />
-                            <asp:LinkButton ID="btnXoaFile" runat="server" Text="X" CssClass="delete-btn" CommandName="XoaFile" CommandArgument='<%# Eval("Id") %>' Visible='<%# HasEvaluationRights() %>' OnClientClick="return confirm('Bạn có chắc muốn xóa file này?');" />
-                        </div>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:Label ID="lblNoFiles" runat="server" Text="Không có file mẫu" Visible='<%# rptFiles.Items.Count == 0 %>' />
-                    </FooterTemplate>
-                </asp:Repeater>
             </div>
-            
+
+            <!-- Chọn bộ câu hỏi -->
+            <div class="form-groups lg">
+                <h5>Chọn Bộ Câu Hỏi</h5>
+                <div>
+                    <asp:Label ID="lblBoCauHoi" runat="server" Text="Bộ Câu Hỏi" CssClass="form-labels" />
+                    <asp:DropDownList ID="ddlBoCauHoi" runat="server" CssClass="dropdown-custom lg">
+                        <asp:ListItem Value="" Text="-- Chọn bộ câu hỏi --" />
+                    </asp:DropDownList><br />
+                    <asp:Label ID="lblThoiGianLam" runat="server" Text="Thời Gian Làm (phút)" CssClass="form-labels" />
+                    <asp:TextBox ID="txtThoiGianLam" runat="server" CssClass="form-input sm" TextMode="Number" /><br />
+                    <asp:Button ID="btnThemBoCauHoi" runat="server" Text="Thêm Bộ Câu Hỏi" CssClass="btn btn-primary lg" OnClick="btnThemBoCauHoi_Click" />
+                </div>
+            </div>
         </div>
 
-        <!-- Chọn bộ câu hỏi -->
-        <div class="form-groups">
-            <h5>Chọn Bộ Câu Hỏi</h5>
-            <div>
-                <asp:Label ID="lblBoCauHoi" runat="server" Text="Bộ Câu Hỏi" CssClass="form-labels" />
-                <asp:DropDownList ID="ddlBoCauHoi" runat="server" CssClass="dropdown-custom lg">
-                    <asp:ListItem Value="" Text="-- Chọn bộ câu hỏi --" />
-                </asp:DropDownList><br />
-                <asp:Label ID="lblThoiGianLam" runat="server" Text="Thời Gian Làm (phút)" CssClass="form-labels" />
-                <asp:TextBox ID="txtThoiGianLam" runat="server" CssClass="form-input sm" TextMode="Number" /><br />
-                <asp:Button ID="btnThemBoCauHoi" runat="server" Text="Thêm Bộ Câu Hỏi" CssClass="btn btn-primary lg" OnClick="btnThemBoCauHoi_Click" />
-            </div>
-        </div>
     </div>
 </asp:Content>

@@ -132,33 +132,6 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.TextBox txtGhiChu;
 
         /// <summary>
-        /// lblDonVi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDonVi;
-
-        /// <summary>
-        /// ddlDonVi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDonVi;
-
-        /// <summary>
-        /// rfvDonVi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDonVi;
-
-        /// <summary>
         /// lblQuyetDinh control.
         /// </summary>
         /// <remarks>
@@ -184,5 +157,23 @@ namespace QuanLyKiemTra
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnExportQuyetDinh;
+
+        /// <summary>
+        /// hfSelectedDonVi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSelectedDonVi;
+
+        /// <summary>
+        /// rptDonVi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptDonVi;
     }
 }

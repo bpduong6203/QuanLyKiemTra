@@ -85,15 +85,25 @@
         <!-- Bootstrap JS và Popper.js -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            function openAddModal() {
+            function openAddModal(isEdit) {
                 // Reset form
-                document.getElementById('<%= txtTenDonVi.ClientID %>').value = '';
-            document.getElementById('<%= txtDiaChi.ClientID %>').value = '';
-            document.getElementById('<%= txtSoDienThoai.ClientID %>').value = '';
-            document.getElementById('<%= txtEmail.ClientID %>').value = '';
-            document.getElementById('<%= txtNguoiDaiDien.ClientID %>').value = '';
-            document.getElementById('<%= txtChucVuNguoiDaiDien.ClientID %>').value = '';
-            document.getElementById('<%= hfDonViId.ClientID %>').value = '';
+                if (!isEdit) {
+                    document.getElementById('<%= txtTenDonVi.ClientID %>').value = '';
+                    document.getElementById('<%= txtDiaChi.ClientID %>').value = '';
+                    document.getElementById('<%= txtSoDienThoai.ClientID %>').value = '';
+                    document.getElementById('<%= txtEmail.ClientID %>').value = '';
+                    document.getElementById('<%= txtNguoiDaiDien.ClientID %>').value = '';
+                    document.getElementById('<%= txtChucVuNguoiDaiDien.ClientID %>').value = '';
+                    document.getElementById('<%= hfDonViId.ClientID %>').value = '';
+                }
+
+                // Cập nhật tiêu đề modal
+                var modalTitle = document.getElementById('addDonViModalLabel');
+                modalTitle.innerText = isEdit ? 'Chỉnh sửa đơn vị' : 'Thêm đơn vị mới';
+
+                // Cập nhật văn bản nút Lưu
+                var btnSave = document.getElementById('<%= btnSaveDonVi.ClientID %>');
+                btnSave.innerText = isEdit ? 'Cập nhật' : 'Lưu';
 
                 // Mở modal
                 var modal = new bootstrap.Modal(document.getElementById('addDonViModal'));

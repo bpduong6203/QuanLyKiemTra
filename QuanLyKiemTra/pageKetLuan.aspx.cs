@@ -11,6 +11,7 @@ namespace QuanLyKiemTra
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Trang quản lý Kết Luận Kiểm Tra";
             if (!IsPostBack)
             {
                 // Kiểm tra đăng nhập
@@ -108,6 +109,21 @@ namespace QuanLyKiemTra
                 return "Hoàn Thành";
             }
             return "Chưa Hoàn Thành";
+        }
+
+        protected string GetStatusCssClass(string status)
+        {
+            switch (status)
+            {
+                case "Chưa có giải trình":
+                    return "status-danger";
+                case "Chưa Hoàn Thành":
+                    return "status-warning";
+                case "Hoàn Thành":
+                    return "status-success";
+                default:
+                    return "";
+            }
         }
 
         protected bool CanConfirmCompletion(string keHoachId)

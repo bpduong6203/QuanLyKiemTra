@@ -77,7 +77,12 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="NgayTao" HeaderText="Ngày Gửi" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-                    <asp:BoundField DataField="TrangThai" HeaderText="Trạng Thái" />
+                    <asp:TemplateField HeaderText="Trạng Thái">
+                        <ItemTemplate>
+                            <asp:Label ID="lblTrangThai" runat="server" Text='<%# Eval("TrangThai") %>'
+                                CssClass='<%# GetStatusCssClass(Eval("TrangThai").ToString()) %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Hành Động" Visible="false">
                         <ItemTemplate>
                             <asp:Button ID="btnXacNhanDat" runat="server" Text="Xác Nhận Đạt" CssClass="custom-btn btn-info" 

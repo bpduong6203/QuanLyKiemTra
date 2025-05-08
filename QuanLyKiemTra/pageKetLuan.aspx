@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pageKetLuan.aspx.cs" Inherits="QuanLyKiemTra.pageKetLuanKiemTra" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-</asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="container">
         <h4>Danh Sách Kế Hoạch</h4>
@@ -21,7 +19,8 @@
                     <asp:BoundField DataField="NgayKetThuc" HeaderText="Ngày Kết Thúc" DataFormatString="{0:dd/MM/yyyy}" />
                     <asp:TemplateField HeaderText="Trạng Thái">
                         <ItemTemplate>
-                            <asp:Label ID="lblTrangThai" runat="server" Text='<%# GetKeHoachStatus(Eval("Id").ToString()) %>' />
+                            <asp:Label ID="lblTrangThai" runat="server" Text='<%# GetKeHoachStatus(Eval("Id").ToString()) %>'
+                                CssClass='<%# GetStatusCssClass(GetKeHoachStatus(Eval("Id").ToString())) %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Hành Động">

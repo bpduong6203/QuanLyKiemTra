@@ -1,5 +1,6 @@
 ﻿using QuanLyKiemTra.Models;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -8,8 +9,10 @@ namespace QuanLyKiemTra
     public partial class pagePhanCong : System.Web.UI.Page
     {
         private MyDbContext db = new MyDbContext();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Trang phân công";
             if (!IsPostBack)
             {
                 if (Session["Username"] == null)
@@ -22,14 +25,56 @@ namespace QuanLyKiemTra
             }
         }
 
+        private void LoadKeHoach()
+        {
+            try
+            {
+                var keHoachList = db.KeHoachs.OrderBy(k => k.TenKeHoach).ToList();
+                rptKeHoach.DataSource = keHoachList;
+                rptKeHoach.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ShowError($"Lỗi khi tải danh sách kế hoạch: {ex.Message}");
+            }
+        }
+
+        protected void rptKeHoach_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                KeHoach keHoach = (KeHoach)e.Item.DataItem;
+                CheckBox chkKeHoach = (CheckBox)e.Item.FindControl("chkKeHoach");
+                chkKeHoach.Checked = hfSelectedKeHoach.Value == keHoach.Id;
+            }
+        }
+
+        protected void chkKeHoach_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            if (chk.Checked)
+            {
+                hfSelectedKeHoach.Value = chk.Attributes["data-id"];
+            }
+            else if (hfSelectedKeHoach.Value == chk.Attributes["data-id"])
+            {
+                hfSelectedKeHoach.Value = "";
+            }
+
+            LoadKeHoach();
+            LoadThanhVien();
+            LoadDaPhanCong();
+        }
+
         private void LoadDaPhanCong()
         {
             try
             {
-                if (!string.IsNullOrEmpty(ddlKeHoach.SelectedValue))
+                if (!string.IsNullOrEmpty(hfSelectedKeHoach.Value))
                 {
                     var daPhanCong = db.PhanCong_Users
-                        .Where(p => p.KeHoachID == ddlKeHoach.SelectedValue)
+                        .Include(p => p.NguoiDung)
+                        .Where(p => p.KeHoachID == hfSelectedKeHoach.Value)
                         .ToList();
                     gvDaPhanCong.DataSource = daPhanCong;
                     gvDaPhanCong.DataBind();
@@ -42,24 +87,7 @@ namespace QuanLyKiemTra
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('Lỗi khi tải danh sách đã phân công: {ex.Message}');</script>");
-            }
-        }
-
-        private void LoadKeHoach()
-        {
-            try
-            {
-                var keHoachList = db.KeHoachs.ToList();
-                ddlKeHoach.DataSource = keHoachList;
-                ddlKeHoach.DataTextField = "TenKeHoach";
-                ddlKeHoach.DataValueField = "Id";
-                ddlKeHoach.DataBind();
-                ddlKeHoach.Items.Insert(0, new ListItem("-- Chọn kế hoạch --", ""));
-            }
-            catch (Exception ex)
-            {
-                Response.Write($"<script>alert('Lỗi khi tải danh sách kế hoạch: {ex.Message}');</script>");
+                ShowError($"Lỗi khi tải danh sách đã phân công: {ex.Message}");
             }
         }
 
@@ -67,66 +95,51 @@ namespace QuanLyKiemTra
         {
             try
             {
-                using (var context = new MyDbContext())
+                if (!string.IsNullOrEmpty(hfSelectedKeHoach.Value))
                 {
-                    if (!string.IsNullOrEmpty(ddlKeHoach.SelectedValue))
+                    var thanhVienRole = db.Roles.FirstOrDefault(r => r.Ten == "ThanhVien");
+                    if (thanhVienRole != null)
                     {
-                        // Lấy RoleID của vai trò ThanhVien
-                        var thanhVienRole = context.Roles.FirstOrDefault(r => r.Ten == "ThanhVien");
-                        if (thanhVienRole != null)
-                        {
-                            var thanhVienList = context.NguoiDungs
-                                .Include("Roles")
-                                .Where(u => u.RoleID == thanhVienRole.Id)
-                                .Select(u => new
-                                {
-                                    u.Id,
-                                    u.HoTen,
-                                    ChucVu = u.Roles != null ? u.Roles.Ten : "Không có vai trò"
-                                })
-                                .OrderBy(u => u.HoTen)
-                                .ToList();
+                        var thanhVienList = db.NguoiDungs
+                            .Where(u => u.RoleID == thanhVienRole.Id)
+                            .Select(u => new
+                            {
+                                u.Id,
+                                u.HoTen,
+                                ChucVu = u.RoleID != null ? db.Roles.FirstOrDefault(r => r.Id == u.RoleID).Ten : "Không có vai trò"
+                            })
+                            .OrderBy(u => u.HoTen)
+                            .ToList();
 
-
-                            gvThanhVien.DataSource = thanhVienList;
-                            gvThanhVien.DataBind();
-                        }
-                        else
-                        {
-                            Response.Write("<script>alert('Không tìm thấy vai trò ThanhVien!');</script>");
-                            gvThanhVien.DataSource = null;
-                            gvThanhVien.DataBind();
-                        }
+                        gvThanhVien.DataSource = thanhVienList;
+                        gvThanhVien.DataBind();
                     }
                     else
                     {
+                        ShowError("Không tìm thấy vai trò ThanhVien!");
                         gvThanhVien.DataSource = null;
                         gvThanhVien.DataBind();
                     }
                 }
+                else
+                {
+                    gvThanhVien.DataSource = null;
+                    gvThanhVien.DataBind();
+                }
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('Lỗi khi tải danh sách người dùng: {ex.Message}');</script>");
-                System.Diagnostics.Debug.WriteLine($"Lỗi: {ex.Message}\n{ex.StackTrace}");
-                gvThanhVien.DataSource = null;
-                gvThanhVien.DataBind();
+                ShowError($"Lỗi khi tải danh sách người dùng: {ex.Message}");
             }
-        }
-
-        protected void ddlKeHoach_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadThanhVien();
-            LoadDaPhanCong();
         }
 
         protected void btnSavePlan_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrEmpty(ddlKeHoach.SelectedValue))
+                if (string.IsNullOrEmpty(hfSelectedKeHoach.Value))
                 {
-                    Response.Write("<script>alert('Vui lòng chọn kế hoạch!');</script>");
+                    ShowError("Vui lòng chọn kế hoạch!");
                     return;
                 }
 
@@ -143,14 +156,14 @@ namespace QuanLyKiemTra
 
                 if (!hasSelected)
                 {
-                    Response.Write("<script>alert('Vui lòng chọn ít nhất một thành viên!');</script>");
+                    ShowError("Vui lòng chọn ít nhất một thành viên!");
                     return;
                 }
 
-                var keHoach = db.KeHoachs.FirstOrDefault(k => k.Id == ddlKeHoach.SelectedValue);
+                var keHoach = db.KeHoachs.FirstOrDefault(k => k.Id == hfSelectedKeHoach.Value);
                 if (keHoach == null)
                 {
-                    Response.Write("<script>alert('Kế hoạch không tồn tại!');</script>");
+                    ShowError("Kế hoạch không tồn tại!");
                     return;
                 }
 
@@ -161,12 +174,12 @@ namespace QuanLyKiemTra
                     {
                         string userId = gvThanhVien.DataKeys[row.RowIndex].Value.ToString();
                         TextBox txtNhiemVu = (TextBox)row.FindControl("txtNhiemVu");
-                        string noiDungCV = txtNhiemVu.Text;
+                        string noiDungCV = txtNhiemVu.Text.Trim();
 
                         var phanCong = new PhanCong_User
                         {
                             Id = Guid.NewGuid().ToString(),
-                            KeHoachID = ddlKeHoach.SelectedValue,
+                            KeHoachID = hfSelectedKeHoach.Value,
                             UserID = userId,
                             NoiDungCV = noiDungCV,
                             ngayTao = DateTime.Now
@@ -176,10 +189,11 @@ namespace QuanLyKiemTra
                         var thongBao = new ThongBao_User
                         {
                             Id = Guid.NewGuid().ToString(),
-                            KeHoachID = ddlKeHoach.SelectedValue,
+                            KeHoachID = hfSelectedKeHoach.Value,
                             UserID = userId,
                             NoiDung = $"Bạn được phân công nhiệm vụ '{noiDungCV}' trong kế hoạch '{keHoach.TenKeHoach}'.",
                             NgayTao = DateTime.Now,
+                            redirectUrl = $"/chi-tiet-ke-hoach/{hfSelectedKeHoach.Value}",
                             DaXem = false
                         };
                         db.ThongBao_Users.Add(thongBao);
@@ -187,25 +201,40 @@ namespace QuanLyKiemTra
                 }
 
                 db.SaveChanges();
-                Response.Write("<script>alert('Lưu phân công và gửi thông báo thành công!');</script>");
+                ShowSuccess("Lưu phân công và gửi thông báo thành công!");
+                LoadKeHoach();
                 LoadThanhVien();
                 LoadDaPhanCong();
+                Response.Redirect("phan-cong");
             }
             catch (Exception ex)
             {
-                Response.Write($"<script>alert('Lỗi khi lưu phân công: {ex.Message}');</script>");
+                ShowError($"Lỗi khi lưu phân công: {ex.Message}");
             }
         }
 
         protected void btnExportPhanCong_Click(object sender, EventArgs e)
         {
-            // Thêm logic xuất văn bản phân công
+            // Thêm logic xuất văn bản phân công (giữ nguyên)
         }
 
         protected void gvThanhVien_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            // Thêm logic nếu cần
+            // Thêm logic nếu cần (giữ nguyên)
+        }
+
+        private void ShowError(string message)
+        {
+            lblMessage.Text = message;
+            lblMessage.CssClass = "error-message";
+            lblMessage.Visible = true;
+        }
+
+        private void ShowSuccess(string message)
+        {
+            lblMessage.Text = message;
+            lblMessage.CssClass = "success-message";
+            lblMessage.Visible = true;
         }
     }
-
 }

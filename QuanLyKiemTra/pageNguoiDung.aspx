@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pageNguoiDung.aspx.cs" Inherits="QuanLyKiemTra.pageNguoiDung" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
@@ -11,13 +10,13 @@
 
         <!-- Nút Đăng ký tài khoản -->
         <div class="mb-3">
-            <asp:Button ID="btnAddNew" runat="server" Text="Đăng ký tài khoản" CssClass="btn-primary lg" OnClientClick="openAddModal(); return false;" />
+            <asp:Button ID="btnAddNew" runat="server" Text="Đăng ký tài khoản" CssClass="btn-primary lg" OnClientClick="openAddModal(false); return false;" />
         </div>
 
         <!-- Bảng danh sách người dùng -->
         <div class="form-group">
             <asp:GridView ID="gvNguoiDung" runat="server" AutoGenerateColumns="false" CssClass="grid-view"
-                DataKeyNames="Id" OnRowCommand="gvNguoiDung_RowCommand">
+                DataKeyNames="Id" OnRowCommand="gvNguoiDung_RowCommand" EnableViewState="true">
                 <Columns>
                     <asp:BoundField DataField="username" HeaderText="Tên đăng nhập" />
                     <asp:BoundField DataField="HoTen" HeaderText="Họ tên" />
@@ -36,12 +35,12 @@
                     <asp:TemplateField HeaderText="Hành động">
                         <ItemTemplate>
                             <asp:LinkButton ID="btnEdit" runat="server" CommandName="EditNguoiDung" CommandArgument='<%# Eval("Id") %>'
-                                CssClass="custom-btn btn-warning" ToolTip="Sửa">
-                            <i class="fas fa-edit"></i>
+                                CssClass="custom-btn btn-warning" ToolTip="Sửa" CausesValidation="false">
+                                <i class="fas fa-edit"></i>
                             </asp:LinkButton>
                             <asp:LinkButton ID="btnDelete" runat="server" CommandName="DeleteNguoiDung" CommandArgument='<%# Eval("Id") %>'
-                                CssClass="custom-btn btn-danger" ToolTip="Xóa" OnClientClick="return confirm('Bạn có chắc muốn xóa người dùng này?');">
-                            <i class="fas fa-trash"></i>
+                                CssClass="custom-btn btn-danger" ToolTip="Xóa" OnClientClick="return confirm('Bạn có chắc muốn xóa người dùng này?');" CausesValidation="false">
+                                <i class="fas fa-trash"></i>
                             </asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -117,29 +116,71 @@
     <!-- Bootstrap JS và Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function openAddModal() {
-            var nguoiDungId = document.getElementById('<%= hfNguoiDungId.ClientID %>').value;
-            var modalTitle = nguoiDungId ? 'Cập nhật người dùng' : 'Đăng ký tài khoản';
-            document.getElementById('addNguoiDungModalLabel').innerText = modalTitle;
+        function openAddModal(isEdit) {
+            try {
+                // Đóng modal nếu đang mở
+                var modalElement = document.getElementById('addNguoiDungModal');
+                if (modalElement && bootstrap.Modal.getInstance(modalElement)) {
+                    bootstrap.Modal.getInstance(modalElement).hide();
+                }
 
-            if (!nguoiDungId) {
-                document.getElementById('<%= txtUsername.ClientID %>').value = '';
-                document.getElementById('<%= txtPassword.ClientID %>').value = '';
-                document.getElementById('<%= txtHoTen.ClientID %>').value = '';
-                document.getElementById('<%= txtEmail.ClientID %>').value = '';
-                document.getElementById('<%= txtSoDienThoai.ClientID %>').value = '';
-                document.getElementById('<%= txtDiaChi.ClientID %>').value = '';
-                document.getElementById('<%= ddlRole.ClientID %>').value = '';
-                document.getElementById('<%= ddlDonVi.ClientID %>').value = '';
-                document.getElementById('<%= hfNguoiDungId.ClientID %>').value = '';
+                // Reset form nếu không phải chế độ chỉnh sửa
+                if (!isEdit) {
+                    document.getElementById('<%= txtUsername.ClientID %>').value = '';
+                    document.getElementById('<%= txtPassword.ClientID %>').value = '';
+                    document.getElementById('<%= txtHoTen.ClientID %>').value = '';
+                    document.getElementById('<%= txtEmail.ClientID %>').value = '';
+                    document.getElementById('<%= txtSoDienThoai.ClientID %>').value = '';
+                    document.getElementById('<%= txtDiaChi.ClientID %>').value = '';
+                    document.getElementById('<%= ddlRole.ClientID %>').value = '';
+                    document.getElementById('<%= ddlDonVi.ClientID %>').value = '';
+                    document.getElementById('<%= hfNguoiDungId.ClientID %>').value = '';
 
-                document.getElementById('<%= rfvPassword.ClientID %>').enabled = true;
-            } else {
-                document.getElementById('<%= rfvPassword.ClientID %>').enabled = false;
+                    // Kích hoạt validator cho mật khẩu khi thêm mới
+                    document.getElementById('<%= rfvPassword.ClientID %>').enabled = true;
+                } else {
+                    // Vô hiệu hóa validator cho mật khẩu khi chỉnh sửa
+                    document.getElementById('<%= rfvPassword.ClientID %>').enabled = false;
+                }
+
+                // Cập nhật tiêu đề modal
+                var modalTitle = document.getElementById('addNguoiDungModalLabel');
+                modalTitle.innerText = isEdit ? 'Cập nhật người dùng' : 'Đăng ký tài khoản';
+
+                // Cập nhật văn bản nút Lưu
+                var btnSave = document.getElementById('<%= btnSaveNguoiDung.ClientID %>');
+                btnSave.innerText = isEdit ? 'Cập nhật' : 'Lưu';
+
+                // Mở modal
+                if (!modalElement) {
+                    console.error('Modal element not found');
+                    return;
+                }
+                var modal = new bootstrap.Modal(modalElement);
+                modal.show();
+
+                // Debug
+                console.log('Modal opened, isEdit:', isEdit);
+            } catch (error) {
+                console.error('Lỗi khi mở modal:', error);
+                alert('Đã xảy ra lỗi khi mở form. Vui lòng thử lại.');
             }
-
-            var modal = new bootstrap.Modal(document.getElementById('addNguoiDungModal'));
-            modal.show();
         }
+
+        // Debug sự kiện click của nút Sửa và Xóa
+        document.addEventListener('DOMContentLoaded', function () {
+            var editButtons = document.querySelectorAll('.btn-warning');
+            var deleteButtons = document.querySelectorAll('.btn-danger');
+            editButtons.forEach(function (button) {
+                button.addEventListener('click', function (e) {
+                    console.log('Nút Sửa được nhấn, ID:', button.getAttribute('data-arg') || button.getAttribute('data-__EVENTARGUMENT'));
+                });
+            });
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function (e) {
+                    console.log('Nút Xóa được nhấn, ID:', button.getAttribute('data-arg') || button.getAttribute('data-__EVENTARGUMENT'));
+                });
+            });
+        });
     </script>
 </asp:Content>

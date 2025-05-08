@@ -8,21 +8,17 @@ namespace QuanLyKiemTra
 {
     public partial class pageCauHoi : System.Web.UI.Page
     {
-        private MyDbContext db = new MyDbContext();
-
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Trang quản lý Câu Hỏi";
             if (!IsPostBack)
             {
-                // Kiểm tra đăng nhập
                 if (Session["Username"] == null)
                 {
                     Response.Redirect("dang-nhap");
                 }
 
-                System.Diagnostics.Debug.WriteLine("Page_Load: Bắt đầu tải dữ liệu...");
                 LoadCauHoiList();
-                System.Diagnostics.Debug.WriteLine("Page_Load: Hoàn tất tải dữ liệu.");
             }
         }
 
@@ -30,87 +26,72 @@ namespace QuanLyKiemTra
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("LoadCauHoiList: Bắt đầu tải danh sách câu hỏi...");
-                var cauHoiList = db.CauHois
-                    .OrderBy(c => c.NoiDung)
-                    .ToList();
-                System.Diagnostics.Debug.WriteLine($"LoadCauHoiList: Số câu hỏi: {cauHoiList.Count}");
-                foreach (var cauHoi in cauHoiList)
+                using (var context = new MyDbContext())
                 {
-                    System.Diagnostics.Debug.WriteLine($"ID: {cauHoi.Id}, Nội dung: {cauHoi.NoiDung}, Đáp án: {cauHoi.DapAn}, Ngày tạo: {cauHoi.NgayTao}");
+                    var cauHois = context.CauHois.OrderBy(c => c.NgayTao).ToList();
+                    gvCauHoi.DataSource = cauHois;
+                    gvCauHoi.DataBind();
                 }
-                gvCauHoi.DataSource = cauHoiList;
-                gvCauHoi.DataBind();
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"LoadCauHoiList Lỗi: {ex.Message}\n{ex.StackTrace}");
                 ShowError($"Lỗi khi tải danh sách câu hỏi: {ex.Message}");
             }
         }
 
         protected void btnSaveCauHoi_Click(object sender, EventArgs e)
         {
+            lblMessage.Visible = false;
+
+            if (string.IsNullOrWhiteSpace(txtNoiDung.Text))
+            {
+                ShowError("Nội dung câu hỏi là bắt buộc.");
+                return;
+            }
+
             try
             {
-                if (!Page.IsValid)
-                {
-                    System.Diagnostics.Debug.WriteLine("btnSaveCauHoi_Click: Page không hợp lệ.");
-                    ShowError("Vui lòng kiểm tra lại dữ liệu nhập.");
-                    return;
-                }
-
-                System.Diagnostics.Debug.WriteLine("btnSaveCauHoi_Click: Bắt đầu lưu câu hỏi...");
-                System.Diagnostics.Debug.WriteLine($"Nội dung: {txtNoiDung.Text}, Đáp án: {ddlDapAn.SelectedValue}, Link tài liệu: {txtLinkTaiLieu.Text}, Giải trình: {txtNdGiaiTrinh.Text}");
-
                 using (var context = new MyDbContext())
                 {
                     CauHoi cauHoi;
-                    string cauHoiId = hfCauHoiId.Value;
-                    System.Diagnostics.Debug.WriteLine($"Câu hỏi ID: {cauHoiId}");
+                    bool isEdit = !string.IsNullOrWhiteSpace(hfCauHoiId.Value);
 
-                    if (string.IsNullOrEmpty(cauHoiId))
+                    if (isEdit)
                     {
-                        // Thêm mới
-                        System.Diagnostics.Debug.WriteLine("Thêm câu hỏi mới...");
+                        // Chế độ chỉnh sửa
+                        cauHoi = context.CauHois.Find(hfCauHoiId.Value);
+                        if (cauHoi == null)
+                        {
+                            ShowError("Câu hỏi không tồn tại.");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        // Chế độ thêm mới
                         cauHoi = new CauHoi
                         {
                             Id = Guid.NewGuid().ToString(),
-                            NoiDung = txtNoiDung.Text,
-                            DapAn = bool.Parse(ddlDapAn.SelectedValue),
-                            linkTaiLieu = txtLinkTaiLieu.Text,
-                            ndGiaiTrinh = txtNdGiaiTrinh.Text,
                             NgayTao = DateTime.Now
                         };
                         context.CauHois.Add(cauHoi);
                     }
-                    else
-                    {
-                        // Cập nhật
-                        System.Diagnostics.Debug.WriteLine("Cập nhật câu hỏi...");
-                        cauHoi = context.CauHois.Find(cauHoiId);
-                        if (cauHoi == null)
-                        {
-                            System.Diagnostics.Debug.WriteLine("Câu hỏi không tồn tại.");
-                            ShowError("Câu hỏi không tồn tại.");
-                            return;
-                        }
-                        cauHoi.NoiDung = txtNoiDung.Text;
-                        cauHoi.DapAn = bool.Parse(ddlDapAn.SelectedValue);
-                        cauHoi.linkTaiLieu = txtLinkTaiLieu.Text;
-                        cauHoi.ndGiaiTrinh = txtNdGiaiTrinh.Text;
-                    }
 
-                    System.Diagnostics.Debug.WriteLine("Lưu thay đổi vào cơ sở dữ liệu...");
+                    // Cập nhật thông tin câu hỏi
+                    cauHoi.NoiDung = txtNoiDung.Text;
+                    cauHoi.DapAn = chkDapAn.Checked;
+                    cauHoi.linkTaiLieu = txtLinkTaiLieu.Text;
+                    cauHoi.ndGiaiTrinh = txtNdGiaiTrinh.Text;
+
                     context.SaveChanges();
-                    System.Diagnostics.Debug.WriteLine("Lưu thành công.");
-                    ShowSuccess(string.IsNullOrEmpty(cauHoiId) ? "Thêm câu hỏi thành công!" : "Cập nhật câu hỏi thành công!");
+
+                    ShowSuccess(isEdit ? "Cập nhật câu hỏi thành công!" : "Thêm câu hỏi thành công!");
                     LoadCauHoiList();
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"btnSaveCauHoi_Click Lỗi: {ex.Message}\n{ex.StackTrace}");
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi lưu câu hỏi: {ex.Message}\n{ex.StackTrace}");
                 ShowError($"Lỗi khi lưu câu hỏi: {ex.Message}");
             }
         }
@@ -119,24 +100,10 @@ namespace QuanLyKiemTra
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine($"gvCauHoi_RowCommand: CommandName={e.CommandName}, CommandArgument={e.CommandArgument}");
                 string cauHoiId = e.CommandArgument.ToString();
                 using (var context = new MyDbContext())
                 {
-                    if (e.CommandName == "EditCauHoi")
-                    {
-                        var cauHoi = context.CauHois.Find(cauHoiId);
-                        if (cauHoi != null)
-                        {
-                            txtNoiDung.Text = cauHoi.NoiDung;
-                            ddlDapAn.SelectedValue = cauHoi.DapAn.ToString().ToLower();
-                            txtLinkTaiLieu.Text = cauHoi.linkTaiLieu;
-                            txtNdGiaiTrinh.Text = cauHoi.ndGiaiTrinh;
-                            hfCauHoiId.Value = cauHoi.Id;
-                            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openCauHoiModal();", true);
-                        }
-                    }
-                    else if (e.CommandName == "DeleteCauHoi")
+                    if (e.CommandName == "DeleteCauHoi")
                     {
                         var cauHoi = context.CauHois.Find(cauHoiId);
                         if (cauHoi == null)
@@ -145,26 +112,47 @@ namespace QuanLyKiemTra
                             return;
                         }
 
-                        // Kiểm tra ràng buộc khóa ngoại
-                        if (context.CTBoCauHois.Any(ct => ct.CauHoiId == cauHoiId) ||
-                            context.DapAns.Any(d => d.CauHoiId == cauHoiId))
+                        // Kiểm tra xem câu hỏi có được sử dụng trong CTBoCauHoi không
+                        if (context.CTBoCauHois.Any(ct => ct.CauHoiId == cauHoiId))
                         {
-                            ShowError("Không thể xóa câu hỏi vì có dữ liệu liên quan.");
+                            ShowError("Không thể xóa câu hỏi vì đã được sử dụng trong bộ câu hỏi.");
                             return;
                         }
 
                         context.CauHois.Remove(cauHoi);
                         context.SaveChanges();
+
                         ShowSuccess("Xóa câu hỏi thành công!");
                         LoadCauHoiList();
+                    }
+                    else if (e.CommandName == "EditCauHoi")
+                    {
+                        var cauHoi = context.CauHois.Find(cauHoiId);
+                        if (cauHoi != null)
+                        {
+                            txtNoiDung.Text = cauHoi.NoiDung;
+                            chkDapAn.Checked = cauHoi.DapAn;
+                            txtLinkTaiLieu.Text = cauHoi.linkTaiLieu;
+                            txtNdGiaiTrinh.Text = cauHoi.ndGiaiTrinh;
+                            hfCauHoiId.Value = cauHoi.Id;
+
+                            // Mở modal với chế độ chỉnh sửa
+                            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openAddModal(true);", true);
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"gvCauHoi_RowCommand Lỗi: {ex.Message}\n{ex.StackTrace}");
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi xử lý hành động: {ex.Message}\n{ex.StackTrace}");
                 ShowError($"Lỗi: {ex.Message}");
             }
+        }
+
+        protected void gvCauHoi_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCauHoi.PageIndex = e.NewPageIndex;
+            LoadCauHoiList();
         }
 
         private void ShowError(string message)
@@ -181,5 +169,4 @@ namespace QuanLyKiemTra
             lblMessage.Visible = true;
         }
     }
-
 }

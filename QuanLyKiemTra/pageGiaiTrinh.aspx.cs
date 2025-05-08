@@ -12,6 +12,7 @@ namespace QuanLyKiemTra
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Trang quản lý Giải Trình";
             if (!IsPostBack)
             {
                 // Kiểm tra đăng nhập

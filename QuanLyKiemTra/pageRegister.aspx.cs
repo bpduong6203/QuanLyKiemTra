@@ -2,12 +2,14 @@
 using System;
 using System.Linq;
 using System.Web.UI.WebControls;
+
 namespace QuanLyKiemTra
 {
     public partial class pageRegister : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Đăng Ký Tài Khoản";
             if (!IsPostBack)
             {
                 LoadUnits();
@@ -20,7 +22,7 @@ namespace QuanLyKiemTra
             {
                 var units = context.DonVis.ToList();
                 ddlUnit.DataSource = units;
-                ddlUnit.DataTextField = "Ten";
+                ddlUnit.DataTextField = "TenDonVi"; // Changed from "Ten" to "TenDonVi"
                 ddlUnit.DataValueField = "Id";
                 ddlUnit.DataBind();
 
@@ -32,7 +34,7 @@ namespace QuanLyKiemTra
         {
             lblMessage.Visible = false;
 
-            // Kiểm tra dữ liệu đầu vào (bỏ ddlUnit.SelectedValue)
+            // Kiểm tra dữ liệu đầu vào
             if (string.IsNullOrWhiteSpace(txtUsername.Text) ||
                 string.IsNullOrWhiteSpace(txtPassword.Text) ||
                 string.IsNullOrWhiteSpace(txtConfirmPassword.Text) ||
@@ -86,7 +88,7 @@ namespace QuanLyKiemTra
                         SoDienThoai = txtPhone.Text,
                         DiaChi = txtAddress.Text,
                         RoleID = defaultRole.Id,
-                        DonViID = donVi?.Id, // Gán null nếu không chọn đơn vị
+                        DonViID = donVi?.Id,
                         NgayTao = DateTime.Now
                     };
 

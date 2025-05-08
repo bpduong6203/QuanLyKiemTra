@@ -78,40 +78,22 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTenBoCauHoi;
 
         /// <summary>
-        /// txtSearchCauHoi control.
+        /// hfSelectedQuestions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchCauHoi;
+        protected global::System.Web.UI.WebControls.HiddenField hfSelectedQuestions;
 
         /// <summary>
-        /// txtNgayTaoFrom control.
+        /// rptSelectCauHoi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNgayTaoFrom;
-
-        /// <summary>
-        /// txtNgayTaoTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNgayTaoTo;
-
-        /// <summary>
-        /// gvSelectCauHoi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSelectCauHoi;
+        protected global::System.Web.UI.WebControls.Repeater rptSelectCauHoi;
 
         /// <summary>
         /// btnSaveBoCauHoi control.

@@ -10,6 +10,7 @@ namespace QuanLyKiemTra
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Trang quản lý Đơn Vị";
             if (!IsPostBack)
             {
                 if (Session["Username"] == null)
@@ -52,23 +53,42 @@ namespace QuanLyKiemTra
             {
                 using (var context = new MyDbContext())
                 {
-                    var donVi = new DonVi
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        TenDonVi = txtTenDonVi.Text,
-                        DiaChi = txtDiaChi.Text,
-                        SoDienThoai = txtSoDienThoai.Text,
-                        Email = txtEmail.Text,
-                        NguoiDaiDien = txtNguoiDaiDien.Text,
-                        ChucVuNguoiDaiDien = txtChucVuNguoiDaiDien.Text,
-                        NguoiTao = Session["Username"]?.ToString() ?? "System",
-                        NgayTao = DateTime.Now
-                    };
+                    DonVi donVi;
+                    bool isEdit = !string.IsNullOrWhiteSpace(hfDonViId.Value);
 
-                    context.DonVis.Add(donVi);
+                    if (isEdit)
+                    {
+                        // Chế độ chỉnh sửa
+                        donVi = context.DonVis.Find(hfDonViId.Value);
+                        if (donVi == null)
+                        {
+                            ShowError("Đơn vị không tồn tại.");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        // Chế độ thêm mới
+                        donVi = new DonVi
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            NguoiTao = Session["Username"]?.ToString() ?? "System",
+                            NgayTao = DateTime.Now
+                        };
+                        context.DonVis.Add(donVi);
+                    }
+
+                    // Cập nhật thông tin đơn vị
+                    donVi.TenDonVi = txtTenDonVi.Text;
+                    donVi.DiaChi = txtDiaChi.Text;
+                    donVi.SoDienThoai = txtSoDienThoai.Text;
+                    donVi.Email = txtEmail.Text;
+                    donVi.NguoiDaiDien = txtNguoiDaiDien.Text;
+                    donVi.ChucVuNguoiDaiDien = txtChucVuNguoiDaiDien.Text;
+
                     context.SaveChanges();
 
-                    ShowSuccess("Thêm đơn vị thành công!");
+                    ShowSuccess(isEdit ? "Cập nhật đơn vị thành công!" : "Thêm đơn vị thành công!");
                     LoadDonViList();
                 }
             }
@@ -110,7 +130,6 @@ namespace QuanLyKiemTra
                     }
                     else if (e.CommandName == "EditDonVi")
                     {
-                        // (Tùy chọn) Chuẩn bị dữ liệu để sửa
                         var donVi = context.DonVis.Find(donViId);
                         if (donVi != null)
                         {
@@ -122,8 +141,8 @@ namespace QuanLyKiemTra
                             txtChucVuNguoiDaiDien.Text = donVi.ChucVuNguoiDaiDien;
                             hfDonViId.Value = donVi.Id;
 
-                            // Mở modal bằng JavaScript
-                            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openAddModal();", true);
+                            // Mở modal với chế độ chỉnh sửa
+                            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openAddModal(true);", true);
                         }
                     }
                 }

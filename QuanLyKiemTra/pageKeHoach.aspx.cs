@@ -10,7 +10,7 @@ namespace QuanLyKiemTra
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.Title = "Tạo Kế Hoạch";
+            Page.Title = "Trang tạo Kế Hoạch";
 
             if (!IsPostBack)
             {
@@ -31,11 +31,8 @@ namespace QuanLyKiemTra
                 using (var context = new MyDbContext())
                 {
                     var donVis = context.DonVis.OrderBy(d => d.TenDonVi).ToList();
-                    ddlDonVi.DataSource = donVis;
-                    ddlDonVi.DataTextField = "TenDonVi";
-                    ddlDonVi.DataValueField = "Id";
-                    ddlDonVi.DataBind();
-                    ddlDonVi.Items.Insert(0, new ListItem("-- Chọn đơn vị --", ""));
+                    rptDonVi.DataSource = donVis;
+                    rptDonVi.DataBind();
                 }
             }
             catch (Exception ex)
@@ -44,16 +41,30 @@ namespace QuanLyKiemTra
             }
         }
 
-        protected void ddlDonVi_SelectedIndexChanged(object sender, EventArgs e)
+        protected void rptDonVi_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (string.IsNullOrEmpty(ddlDonVi.SelectedValue))
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                ShowError("Vui lòng chọn đơn vị kiểm tra.");
+                DonVi donVi = (DonVi)e.Item.DataItem;
+                CheckBox chkDonVi = (CheckBox)e.Item.FindControl("chkDonVi");
+                chkDonVi.Checked = hfSelectedDonVi.Value == donVi.Id;
             }
-            else
+        }
+
+        protected void chkDonVi_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            if (chk.Checked)
             {
-                lblMessage.Visible = false; // Ẩn thông báo nếu đã chọn đơn vị
+                hfSelectedDonVi.Value = chk.Attributes["data-id"];
             }
+            else if (hfSelectedDonVi.Value == chk.Attributes["data-id"])
+            {
+                hfSelectedDonVi.Value = "";
+            }
+
+            // Làm mới danh sách để cập nhật trạng thái checkbox
+            LoadDonViList();
         }
 
         protected void btnExportQuyetDinh_Click(object sender, EventArgs e)
@@ -62,7 +73,7 @@ namespace QuanLyKiemTra
             {
                 // Kiểm tra thông tin bắt buộc
                 if (string.IsNullOrWhiteSpace(txtTenKeHoach.Text) || string.IsNullOrWhiteSpace(txtNgayBatDau.Text) ||
-                    string.IsNullOrWhiteSpace(txtNgayKetThuc.Text) || string.IsNullOrEmpty(ddlDonVi.SelectedValue))
+                    string.IsNullOrWhiteSpace(txtNgayKetThuc.Text) || string.IsNullOrEmpty(hfSelectedDonVi.Value))
                 {
                     ShowError("Vui lòng điền đầy đủ tên kế hoạch, ngày bắt đầu, ngày kết thúc và chọn đơn vị.");
                     return;
@@ -114,8 +125,9 @@ namespace QuanLyKiemTra
                     }
 
                     // Kiểm tra đơn vị
-                    string donViId = ddlDonVi.SelectedValue;
-                    if (!context.DonVis.Any(d => d.Id == donViId))
+                    string donViId = hfSelectedDonVi.Value;
+                    var donVi = context.DonVis.FirstOrDefault(d => d.Id == donViId);
+                    if (donVi == null)
                     {
                         ShowError("Đơn vị được chọn không hợp lệ.");
                         return;
@@ -142,7 +154,7 @@ namespace QuanLyKiemTra
                     var bienBan = new BienBanKiemTra
                     {
                         Id = Guid.NewGuid().ToString(),
-                        tenBBKT = $"Quyết định kiểm tra cho {ddlDonVi.SelectedItem.Text}",
+                        tenBBKT = $"Quyết định kiểm tra cho {donVi.TenDonVi}",
                         linkfile = "~/Uploads/" + fileName,
                         NgayTao = DateTime.Now
                     };
@@ -159,10 +171,11 @@ namespace QuanLyKiemTra
                         var thongBao = new ThongBao_User
                         {
                             Id = Guid.NewGuid().ToString(),
-                            UserID = nguoiDung.Id, // Sửa từ user.Id thành nguoiDung.Id để gửi đúng người nhận
+                            UserID = nguoiDung.Id,
                             KeHoachID = keHoach.Id,
                             NoiDung = $"Quyết định kiểm tra: {keHoach.TenKeHoach}.",
                             NgayTao = DateTime.Now,
+                            redirectUrl = $"/chi-tiet-ke-hoach/{keHoach.Id}",
                             DaXem = false
                         };
                         context.ThongBao_Users.Add(thongBao);
@@ -188,8 +201,9 @@ namespace QuanLyKiemTra
             txtNgayBatDau.Text = "";
             txtNgayKetThuc.Text = "";
             txtGhiChu.Text = "";
-            ddlDonVi.SelectedIndex = 0;
+            hfSelectedDonVi.Value = "";
             lblMessage.Visible = false;
+            LoadDonViList();
         }
 
         private void ShowError(string message)

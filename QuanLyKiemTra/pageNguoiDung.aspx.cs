@@ -10,6 +10,7 @@ namespace QuanLyKiemTra
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Trang quản lý Người Dùng";
             if (!IsPostBack)
             {
                 // Kiểm tra đăng nhập
@@ -103,11 +104,28 @@ namespace QuanLyKiemTra
                 using (var context = new MyDbContext())
                 {
                     NguoiDung nguoiDung;
-                    string nguoiDungId = hfNguoiDungId.Value;
+                    bool isEdit = !string.IsNullOrWhiteSpace(hfNguoiDungId.Value);
 
-                    if (string.IsNullOrEmpty(nguoiDungId))
+                    if (isEdit)
                     {
-                        // Đăng ký mới
+                        // Chế độ chỉnh sửa
+                        nguoiDung = context.NguoiDungs.Find(hfNguoiDungId.Value);
+                        if (nguoiDung == null)
+                        {
+                            ShowError("Người dùng không tồn tại.");
+                            return;
+                        }
+
+                        // Kiểm tra username trùng (trừ chính người dùng đang sửa)
+                        if (context.NguoiDungs.Any(u => u.username == txtUsername.Text && u.Id != hfNguoiDungId.Value))
+                        {
+                            ShowError("Tên đăng nhập đã tồn tại.");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        // Chế độ thêm mới
                         if (string.IsNullOrWhiteSpace(txtPassword.Text))
                         {
                             ShowError("Mật khẩu là bắt buộc khi đăng ký.");
@@ -129,31 +147,8 @@ namespace QuanLyKiemTra
                         };
                         context.NguoiDungs.Add(nguoiDung);
                     }
-                    else
-                    {
-                        // Cập nhật
-                        nguoiDung = context.NguoiDungs.Find(nguoiDungId);
-                        if (nguoiDung == null)
-                        {
-                            ShowError("Người dùng không tồn tại.");
-                            return;
-                        }
 
-                        // Kiểm tra username trùng (trừ chính người dùng đang sửa)
-                        if (context.NguoiDungs.Any(u => u.username == txtUsername.Text && u.Id != nguoiDungId))
-                        {
-                            ShowError("Tên đăng nhập đã tồn tại.");
-                            return;
-                        }
-
-                        // Cập nhật mật khẩu nếu có
-                        if (!string.IsNullOrWhiteSpace(txtPassword.Text))
-                        {
-                            nguoiDung.password = BCrypt.Net.BCrypt.HashPassword(txtPassword.Text);
-                        }
-                    }
-
-                    // Cập nhật thông tin
+                    // Cập nhật thông tin người dùng
                     nguoiDung.username = txtUsername.Text;
                     nguoiDung.HoTen = txtHoTen.Text;
                     nguoiDung.Email = txtEmail.Text;
@@ -162,9 +157,15 @@ namespace QuanLyKiemTra
                     nguoiDung.RoleID = ddlRole.SelectedValue;
                     nguoiDung.DonViID = string.IsNullOrEmpty(ddlDonVi.SelectedValue) ? null : ddlDonVi.SelectedValue;
 
+                    // Cập nhật mật khẩu nếu có (chỉ trong chế độ chỉnh sửa)
+                    if (isEdit && !string.IsNullOrWhiteSpace(txtPassword.Text))
+                    {
+                        nguoiDung.password = BCrypt.Net.BCrypt.HashPassword(txtPassword.Text);
+                    }
+
                     context.SaveChanges();
 
-                    ShowSuccess(string.IsNullOrEmpty(nguoiDungId) ? "Đăng ký tài khoản thành công!" : "Cập nhật người dùng thành công!");
+                    ShowSuccess(isEdit ? "Cập nhật người dùng thành công!" : "Đăng ký tài khoản thành công!");
                     LoadNguoiDungList();
                 }
             }
@@ -220,7 +221,7 @@ namespace QuanLyKiemTra
                         if (nguoiDung != null)
                         {
                             txtUsername.Text = nguoiDung.username;
-                            txtPassword.Text = string.Empty; // Không hiển thị mật khẩu
+                            txtPassword.Text = string.Empty;
                             txtHoTen.Text = nguoiDung.HoTen;
                             txtEmail.Text = nguoiDung.Email;
                             txtSoDienThoai.Text = nguoiDung.SoDienThoai;
@@ -229,7 +230,7 @@ namespace QuanLyKiemTra
                             ddlDonVi.SelectedValue = nguoiDung.DonViID ?? string.Empty;
                             hfNguoiDungId.Value = nguoiDung.Id;
 
-                            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openAddModal();", true);
+                            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openAddModal(true);", true);
                         }
                     }
                 }

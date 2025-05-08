@@ -48,7 +48,8 @@ namespace QuanLyKiemTra
                         {
                             t.Id,
                             t.NoiDung,
-                            t.NgayTao
+                            t.NgayTao,
+                            t.redirectUrl
                         })
                         .OrderByDescending(t => t.NgayTao)
                         .ToList();
@@ -60,7 +61,8 @@ namespace QuanLyKiemTra
             }
             catch (Exception ex)
             {
-                // Ghi log lỗi nếu cần
+                // Ghi log lỗi
+                System.Diagnostics.Debug.WriteLine($"Lỗi tải thông báo: {ex.Message}");
                 NotificationCount = 0;
                 rptNotifications.DataSource = null;
                 rptNotifications.DataBind();
@@ -81,26 +83,52 @@ namespace QuanLyKiemTra
 
         protected void rptNotifications_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "MarkAsRead")
+            try
             {
-                try
+                string thongBaoId = e.CommandArgument.ToString();
+                using (var context = new MyDbContext())
                 {
-                    string thongBaoId = e.CommandArgument.ToString();
-                    using (var context = new MyDbContext())
+                    var thongBao = context.ThongBao_Users.FirstOrDefault(t => t.Id == thongBaoId);
+                    if (thongBao == null)
                     {
-                        var thongBao = context.ThongBao_Users.FirstOrDefault(t => t.Id == thongBaoId);
-                        if (thongBao != null && !thongBao.DaXem)
+                        // Hiển thị thông báo lỗi bằng toastr
+                        hfMessageType.Value = "error";
+                        hfMessage.Value = "Thông báo không tồn tại.";
+                        return;
+                    }
+
+                    if (e.CommandName == "Redirect")
+                    {
+                        // Đánh dấu thông báo là đã xem
+                        if (!thongBao.DaXem)
                         {
                             thongBao.DaXem = true;
                             context.SaveChanges();
                         }
+
+                        // Chuyển hướng đến redirectUrl
+                        if (!string.IsNullOrEmpty(thongBao.redirectUrl))
+                        {
+                            Response.Redirect(thongBao.redirectUrl);
+                        }
+                        else
+                        {
+                            // Hiển thị thông báo lỗi nếu redirectUrl rỗng
+                            hfMessageType.Value = "error";
+                            hfMessage.Value = "Không tìm thấy liên kết để chuyển hướng.";
+                        }
                     }
-                    LoadNotifications(); // Làm mới danh sách thông báo
                 }
-                catch (Exception ex)
-                {
-                    // Ghi log lỗi nếu cần
-                }
+
+                // Làm mới danh sách thông báo
+                LoadNotifications();
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                System.Diagnostics.Debug.WriteLine($"Lỗi xử lý thông báo: {ex.Message}");
+                hfMessageType.Value = "error";
+                hfMessage.Value = "Đã xảy ra lỗi khi xử lý thông báo.";
             }
         }
     }

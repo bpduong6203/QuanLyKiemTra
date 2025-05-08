@@ -8,6 +8,7 @@ namespace QuanLyKiemTra
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Đăng Nhập Hệ Thống Quản Lý Kiểm Tra";
             if (!IsPostBack)
             {
                 // Xóa thông báo lỗi (nếu có)

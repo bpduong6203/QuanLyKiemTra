@@ -15,22 +15,22 @@ namespace QuanLyKiemTra
     {
 
         /// <summary>
-        /// lblKeHoach control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblKeHoach;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// ddlKeHoach control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlKeHoach;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// lblDeCuong control.
@@ -69,6 +69,42 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.FileUpload fuTaiLieu;
 
         /// <summary>
+        /// btnExportPhanCong control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportPhanCong;
+
+        /// <summary>
+        /// btnSavePlan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSavePlan;
+
+        /// <summary>
+        /// hfSelectedKeHoach control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSelectedKeHoach;
+
+        /// <summary>
+        /// rptKeHoach control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptKeHoach;
+
+        /// <summary>
         /// lblThanhVien control.
         /// </summary>
         /// <remarks>
@@ -103,23 +139,5 @@ namespace QuanLyKiemTra
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvDaPhanCong;
-
-        /// <summary>
-        /// btnExportPhanCong control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportPhanCong;
-
-        /// <summary>
-        /// btnSavePlan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSavePlan;
     }
 }

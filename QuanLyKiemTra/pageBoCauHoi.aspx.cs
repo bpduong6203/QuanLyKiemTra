@@ -12,14 +12,13 @@ namespace QuanLyKiemTra
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Trang tạo Bộ Câu Hỏi";
             if (!IsPostBack)
             {
-                // Kiểm tra đăng nhập
                 if (Session["Username"] == null)
                 {
                     Response.Redirect("dang-nhap");
                 }
-
                 System.Diagnostics.Debug.WriteLine("Page_Load: Bắt đầu tải dữ liệu...");
                 LoadBoCauHoiList();
                 LoadCauHoiForSelection();
@@ -36,10 +35,6 @@ namespace QuanLyKiemTra
                     .OrderBy(b => b.TenBoCauHoi)
                     .ToList();
                 System.Diagnostics.Debug.WriteLine($"LoadBoCauHoiList: Số bộ câu hỏi: {boCauHoiList.Count}");
-                foreach (var boCauHoi in boCauHoiList)
-                {
-                    System.Diagnostics.Debug.WriteLine($"ID: {boCauHoi.Id}, Tên: {boCauHoi.TenBoCauHoi}, Ngày tạo: {boCauHoi.NgayTao}");
-                }
                 gvBoCauHoi.DataSource = boCauHoiList;
                 gvBoCauHoi.DataBind();
             }
@@ -55,42 +50,13 @@ namespace QuanLyKiemTra
             try
             {
                 System.Diagnostics.Debug.WriteLine("LoadCauHoiForSelection: Bắt đầu tải danh sách câu hỏi để chọn...");
-                var query = db.CauHois.AsQueryable();
-
-                // Tìm kiếm
-                if (!string.IsNullOrEmpty(txtSearchCauHoi.Text))
-                {
-                    System.Diagnostics.Debug.WriteLine($"Tìm kiếm: {txtSearchCauHoi.Text}");
-                    query = query.Where(c => c.NoiDung.Contains(txtSearchCauHoi.Text));
-                }
-
-                // Lọc theo ngày tạo
-                if (!string.IsNullOrEmpty(txtNgayTaoFrom.Text))
-                {
-                    if (DateTime.TryParseExact(txtNgayTaoFrom.Text, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime fromDate))
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Lọc từ ngày: {fromDate}");
-                        query = query.Where(c => c.NgayTao >= fromDate);
-                    }
-                }
-                if (!string.IsNullOrEmpty(txtNgayTaoTo.Text))
-                {
-                    if (DateTime.TryParseExact(txtNgayTaoTo.Text, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime toDate))
-                    {
-                        toDate = toDate.AddDays(1).AddTicks(-1); // Bao gồm cả ngày kết thúc
-                        System.Diagnostics.Debug.WriteLine($"Lọc đến ngày: {toDate}");
-                        query = query.Where(c => c.NgayTao <= toDate);
-                    }
-                }
-
-                var cauHoiList = query
+                var cauHoiList = db.CauHois
                     .OrderBy(c => c.NoiDung)
                     .ToList();
                 System.Diagnostics.Debug.WriteLine($"LoadCauHoiForSelection: Số câu hỏi: {cauHoiList.Count}");
-                gvSelectCauHoi.DataSource = cauHoiList;
-                gvSelectCauHoi.DataBind();
+                rptSelectCauHoi.DataSource = cauHoiList;
+                rptSelectCauHoi.DataBind();
 
-                // Đánh dấu các câu hỏi đã được chọn trong bộ câu hỏi (nếu đang sửa)
                 if (!string.IsNullOrEmpty(hfBoCauHoiId.Value))
                 {
                     var selectedCauHoiIds = db.CTBoCauHois
@@ -98,13 +64,7 @@ namespace QuanLyKiemTra
                         .Select(ct => ct.CauHoiId)
                         .ToList();
                     System.Diagnostics.Debug.WriteLine($"LoadCauHoiForSelection: Số câu hỏi đã chọn: {selectedCauHoiIds.Count}");
-
-                    foreach (GridViewRow row in gvSelectCauHoi.Rows)
-                    {
-                        var chkSelect = (CheckBox)row.FindControl("chkSelectCauHoi");
-                        var cauHoiId = gvSelectCauHoi.DataKeys[row.RowIndex].Value.ToString();
-                        chkSelect.Checked = selectedCauHoiIds.Contains(cauHoiId);
-                    }
+                    hfSelectedQuestions.Value = string.Join(",", selectedCauHoiIds);
                 }
             }
             catch (Exception ex)
@@ -114,16 +74,15 @@ namespace QuanLyKiemTra
             }
         }
 
-        protected void txtSearchCauHoi_TextChanged(object sender, EventArgs e)
+        protected void rptSelectCauHoi_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("txtSearchCauHoi_TextChanged: Tìm kiếm câu hỏi...");
-            LoadCauHoiForSelection();
-        }
-
-        protected void txtNgayTaoFilter_TextChanged(object sender, EventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("txtNgayTaoFilter_TextChanged: Lọc câu hỏi theo ngày tạo...");
-            LoadCauHoiForSelection();
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var cauHoi = (CauHoi)e.Item.DataItem;
+                var chkSelect = (CheckBox)e.Item.FindControl("chkSelectCauHoi");
+                var selectedIds = hfSelectedQuestions.Value.Split(',').Where(id => !string.IsNullOrEmpty(id)).ToList();
+                chkSelect.Checked = selectedIds.Contains(cauHoi.Id);
+            }
         }
 
         protected void btnSaveBoCauHoi_Click(object sender, EventArgs e)
@@ -148,7 +107,6 @@ namespace QuanLyKiemTra
 
                     if (string.IsNullOrEmpty(boCauHoiId))
                     {
-                        // Thêm mới
                         System.Diagnostics.Debug.WriteLine("Thêm bộ câu hỏi mới...");
                         boCauHoi = new BoCauHoi
                         {
@@ -160,7 +118,6 @@ namespace QuanLyKiemTra
                     }
                     else
                     {
-                        // Cập nhật
                         System.Diagnostics.Debug.WriteLine("Cập nhật bộ câu hỏi...");
                         boCauHoi = context.BoCauHois.Find(boCauHoiId);
                         if (boCauHoi == null)
@@ -172,20 +129,9 @@ namespace QuanLyKiemTra
                         boCauHoi.TenBoCauHoi = txtTenBoCauHoi.Text;
                     }
 
-                    // Lưu danh sách câu hỏi được chọn
-                    var selectedCauHoiIds = new System.Collections.Generic.List<string>();
-                    foreach (GridViewRow row in gvSelectCauHoi.Rows)
-                    {
-                        var chkSelect = (CheckBox)row.FindControl("chkSelectCauHoi");
-                        if (chkSelect.Checked)
-                        {
-                            var cauHoiId = gvSelectCauHoi.DataKeys[row.RowIndex].Value.ToString();
-                            selectedCauHoiIds.Add(cauHoiId);
-                        }
-                    }
+                    var selectedCauHoiIds = hfSelectedQuestions.Value.Split(',').Where(id => !string.IsNullOrEmpty(id)).ToList();
                     System.Diagnostics.Debug.WriteLine($"btnSaveBoCauHoi_Click: Số câu hỏi được chọn: {selectedCauHoiIds.Count}");
 
-                    // Xóa các câu hỏi cũ trong CTBoCauHoi
                     if (!string.IsNullOrEmpty(boCauHoiId))
                     {
                         var oldCTBoCauHois = context.CTBoCauHois.Where(ct => ct.BoCauHoiId == boCauHoiId).ToList();
@@ -193,7 +139,6 @@ namespace QuanLyKiemTra
                         context.CTBoCauHois.RemoveRange(oldCTBoCauHois);
                     }
 
-                    // Thêm các câu hỏi mới vào CTBoCauHoi
                     foreach (var cauHoiId in selectedCauHoiIds)
                     {
                         context.CTBoCauHois.Add(new CTBoCauHoi
@@ -235,7 +180,7 @@ namespace QuanLyKiemTra
                             txtTenBoCauHoi.Text = boCauHoi.TenBoCauHoi;
                             hfBoCauHoiId.Value = boCauHoi.Id;
                             LoadCauHoiForSelection();
-                            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openBoCauHoiModal();", true);
+                            ScriptManager.RegisterStartupScript(this, GetType(), "openModal", "openBoCauHoiModal(true);", true);
                         }
                     }
                     else if (e.CommandName == "DeleteBoCauHoi")
@@ -247,14 +192,12 @@ namespace QuanLyKiemTra
                             return;
                         }
 
-                        // Kiểm tra ràng buộc khóa ngoại
                         if (context.BoCauHoi_KeHoachs.Any(bk => bk.BoCauHoiId == boCauHoiId))
                         {
                             ShowError("Không thể xóa bộ câu hỏi vì đã được sử dụng trong kế hoạch.");
                             return;
                         }
 
-                        // Xóa các bản ghi liên quan trong CTBoCauHoi
                         var ctBoCauHois = context.CTBoCauHois.Where(ct => ct.BoCauHoiId == boCauHoiId).ToList();
                         context.CTBoCauHois.RemoveRange(ctBoCauHois);
 
@@ -286,4 +229,5 @@ namespace QuanLyKiemTra
             lblMessage.Visible = true;
         }
     }
+
 }
