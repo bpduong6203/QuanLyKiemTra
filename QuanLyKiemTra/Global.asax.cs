@@ -78,6 +78,15 @@ namespace QuanLyKiemTra
                 new RouteValueDictionary(),
                 guidConstraint
             );
+
+            routes.MapPageRoute(
+                "ChinhSuaBoCauHoi",
+                "chinh-sua-bo-cau-hoi/{Id}",
+                "~/pageEditBoCauHoi.aspx",
+                true,
+                new RouteValueDictionary(),
+                guidConstraint
+            );
         }
     }
 }

@@ -53,7 +53,7 @@
                         <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-input" TextMode="Password" Placeholder="Nhập lại mật khẩu" />
                     </div>
                     <div class="form-group">
-                        <asp:Button ID="btnRegister" runat="server" Text="Đăng Ký" style="margin-top: 30px" CssClass="btn-primary" OnClick="btnRegister_Click" />
+                        <asp:Button ID="btnRegister" runat="server" Text="Đăng Ký" style="margin-top: 30px" CssClass="btn md btn-primary" OnClick="btnRegister_Click" />
                     </div>
                 </div>
             </div>

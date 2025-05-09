@@ -17,7 +17,7 @@
 
         <div class="form-group-row">
             <!-- Form bên trái -->
-            <div class="form-groups">
+            <div class="form-groups lg">
                 <!-- Bước 2: Nhập đề cương và tài liệu liên quan -->
                 <asp:Label ID="lblDeCuong" runat="server" Text="Đề cương kiểm tra" CssClass="form-label" />
                 <div class="form-group">
@@ -30,11 +30,11 @@
 
                 <!-- Bước 4: Xuất văn bản phân công -->
                 <div class="form-group">
-                    <asp:Button ID="btnExportPhanCong" runat="server" Text="Xuất Văn Bản Phân Công" CssClass="btn-primary lg" OnClick="btnExportPhanCong_Click" />
+                    <asp:Button ID="btnExportPhanCong" runat="server" Text="Xuất Văn Bản Phân Công" CssClass="btn btn-primary md m" OnClick="btnExportPhanCong_Click" />
                 </div>
                 <!-- Bước 5: Lưu kế hoạch -->
                 <div class="form-group">
-                    <asp:Button ID="btnSavePlan" runat="server" Text="Lưu Phân Công" CssClass="btn-primary lg" OnClick="btnSavePlan_Click" />
+                    <asp:Button ID="btnSavePlan" runat="server" Text="Lưu Phân Công" CssClass="btn btn-primary md m" OnClick="btnSavePlan_Click" />
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
             <div class="form-groups lg">
                 <h5>Danh sách kế hoạch</h5>
                 <input type="text" id="txtSearchPlan" class="search-bar" placeholder="Tìm kiếm kế hoạch..." />
-                <button type="button" id="btnSortPlan" class="sort-button">Sắp xếp A-Z</button>
+                <button type="button" id="btnSortPlan" class="sort-button btn">Sắp xếp A-Z</button>
                 <asp:HiddenField ID="hfSelectedKeHoach" runat="server" />
                 <asp:Repeater ID="rptKeHoach" runat="server" OnItemDataBound="rptKeHoach_ItemDataBound">
                     <ItemTemplate>

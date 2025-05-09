@@ -33,75 +33,48 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// btnAddNew control.
+        /// txtTenBoCauHoi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddNew;
+        protected global::System.Web.UI.WebControls.TextBox txtTenBoCauHoi;
 
         /// <summary>
-        /// gvCauHoi control.
+        /// rfvTenBoCauHoi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCauHoi;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTenBoCauHoi;
 
         /// <summary>
-        /// hfCauHoiId control.
+        /// txtNoiDung_0 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfCauHoiId;
+        protected global::System.Web.UI.WebControls.TextBox txtNoiDung_0;
 
         /// <summary>
-        /// txtNoiDung control.
+        /// txtNdGiaiTrinh_0 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNoiDung;
+        protected global::System.Web.UI.WebControls.TextBox txtNdGiaiTrinh_0;
 
         /// <summary>
-        /// chkDapAn control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkDapAn;
-
-        /// <summary>
-        /// txtLinkTaiLieu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLinkTaiLieu;
-
-        /// <summary>
-        /// txtNdGiaiTrinh control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNdGiaiTrinh;
-
-        /// <summary>
-        /// btnSaveCauHoi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveCauHoi;
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }

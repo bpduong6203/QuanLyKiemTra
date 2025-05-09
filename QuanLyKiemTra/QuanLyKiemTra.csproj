@@ -122,6 +122,7 @@
     <Content Include="pageCTKeHoach.aspx" />
     <Content Include="pageDanhSach.aspx" />
     <Content Include="pageDonVi.aspx" />
+    <Content Include="pageEditBoCauHoi.aspx" />
     <Content Include="pageGiaiTrinh.aspx" />
     <Content Include="pageKeHoach.aspx" />
     <Content Include="pageKetLuan.aspx" />
@@ -187,6 +188,10 @@
     <Compile Include="Migrations\202505060954494_updateThongBao.cs" />
     <Compile Include="Migrations\202505060954494_updateThongBao.Designer.cs">
       <DependentUpon>202505060954494_updateThongBao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505090118573_tableDapAn.cs" />
+    <Compile Include="Migrations\202505090118573_tableDapAn.Designer.cs">
+      <DependentUpon>202505090118573_tableDapAn.cs</DependentUpon>
     </Compile>
     <Compile Include="pageCTYeuCauGiaiTrinh.aspx.cs">
       <DependentUpon>pageCTYeuCauGiaiTrinh.aspx</DependentUpon>
@@ -277,6 +282,13 @@
     </Compile>
     <Compile Include="pageDonVi.aspx.designer.cs">
       <DependentUpon>pageDonVi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pageEditBoCauHoi.aspx.cs">
+      <DependentUpon>pageEditBoCauHoi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pageEditBoCauHoi.aspx.designer.cs">
+      <DependentUpon>pageEditBoCauHoi.aspx</DependentUpon>
     </Compile>
     <Compile Include="pageGiaiTrinh.aspx.cs">
       <DependentUpon>pageGiaiTrinh.aspx</DependentUpon>
@@ -423,6 +435,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505060954494_updateThongBao.resx">
       <DependentUpon>202505060954494_updateThongBao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505090118573_tableDapAn.resx">
+      <DependentUpon>202505090118573_tableDapAn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

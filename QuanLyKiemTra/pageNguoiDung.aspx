@@ -10,11 +10,11 @@
 
         <!-- Nút Đăng ký tài khoản -->
         <div class="mb-3">
-            <asp:Button ID="btnAddNew" runat="server" Text="Đăng ký tài khoản" CssClass="btn-primary lg" OnClientClick="openAddModal(false); return false;" />
+            <asp:Button ID="btnAddNew" runat="server" Text="Đăng ký tài khoản" CssClass="m btn btn-primary md" OnClientClick="openAddModal(false); return false;" />
         </div>
 
         <!-- Bảng danh sách người dùng -->
-        <div class="form-group">
+        <div class="form-groups">
             <asp:GridView ID="gvNguoiDung" runat="server" AutoGenerateColumns="false" CssClass="grid-view"
                 DataKeyNames="Id" OnRowCommand="gvNguoiDung_RowCommand" EnableViewState="true">
                 <Columns>
@@ -106,8 +106,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn-secondary sm" data-bs-dismiss="modal">Đóng</button>
-                    <asp:Button ID="btnSaveNguoiDung" runat="server" Text="Lưu" CssClass="btn-primary sm" OnClick="btnSaveNguoiDung_Click" />
+                    <button type="button" class="btn btn-secondary xs" data-bs-dismiss="modal">Đóng</button>
+                    <asp:Button ID="btnSaveNguoiDung" runat="server" Text="Lưu" CssClass="btn btn-primary xs" OnClick="btnSaveNguoiDung_Click" />
                 </div>
             </div>
         </div>

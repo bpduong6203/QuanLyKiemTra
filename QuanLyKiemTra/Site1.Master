@@ -42,7 +42,7 @@
                         <a href="#" id="btnBoCauHoi" class="dropdown-toggle"><i class="fas fa-circle-question me-2"></i>Danh sách câu hỏi</a>
                         <div class="submenus" id="submenuBoCauHoi">
                             <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-bo-cau-hoi"><i class="fas fa-book me-2"></i>Bộ câu hỏi</asp:HyperLink>
-                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-cau-hoi"><i class="fas fa-question me-2"></i>Câu hỏi</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-cau-hoi"><i class="fas fa-question me-2"></i>Thêm bộ câu hỏi</asp:HyperLink>
                         </div>
                     </div>
                     <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-don-vi"><i class="fas fa-building me-2"></i>Đơn vị</asp:HyperLink>

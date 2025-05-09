@@ -9,7 +9,7 @@
         <!-- Thông tin kế hoạch -->
         <div class="form-group-row">
             <!-- Thông tin kế hoạch -->
-            <div class="form-groups">
+            <div class="form-groups lg">
                 <h5>Thông Tin Kế Hoạch</h5>
                 <div class="form-row">
                     <asp:Label ID="lblTenKeHoach" runat="server" CssClass="form-labels" Text="Tên Kế Hoạch: " />
@@ -34,7 +34,7 @@
             </div>
 
             <!-- Thông tin đơn vị -->
-            <div class="form-groups">
+            <div class="form-groups lg">
                 <h5>Thông Tin Đơn Vị</h5>
                 <div class="form-row">
                     <asp:Label ID="lblTenDonVi" runat="server" CssClass="form-labels" Text="Tên Đơn Vị: " />
@@ -93,9 +93,8 @@
         </div>
         <div class="form-group-row">
             <!-- Yêu cầu giải trình -->
-            <div class="form-groups">
-                <h5>Bảng Giải Trình</h5> 
-                <asp:Button ID="btnXemChiTiet" runat="server" Text="Xem Chi Tiết" CssClass="btn-info lg r" OnClick="btnXemChiTiet_Click" Visible="false" />
+            <div class="form-groups xl">
+                <h5>Bảng Giải Trình</h5>
                 <asp:Panel ID="pnlGiaiTrinh" runat="server" Visible="false">
                     <asp:Label ID="lblGiaiTrinhMessage" runat="server" Text="Kế hoạch chưa có giải trình." CssClass="message-label warning-message" /><br />
                     <asp:Label ID="lblFileMauUpload" runat="server" CssClass="form-labels" Text="Chọn File Mẫu: " />
@@ -118,10 +117,11 @@
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
+                <asp:Button ID="btnXemChiTiet" runat="server" Text="Xem Chi Tiết" CssClass="btn btn-info" OnClick="btnXemChiTiet_Click" Visible="false" />
             </div>
 
             <!-- Chọn bộ câu hỏi -->
-            <div class="form-groups lg">
+            <div class="form-groups md">
                 <h5>Chọn Bộ Câu Hỏi</h5>
                 <div>
                     <asp:Label ID="lblBoCauHoi" runat="server" Text="Bộ Câu Hỏi" CssClass="form-labels" />

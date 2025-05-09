@@ -17,7 +17,7 @@
 
         <div class="form-group-row">
             <!-- Form bên trái -->
-            <div class="form-groups">
+            <div class="form-groups xl">
                 <!-- Tên kế hoạch -->
                 <asp:Label ID="lblTenKeHoach" runat="server" Text="Tên kế hoạch" CssClass="form-label" AssociatedControlID="txtTenKeHoach" />
                 <div class="form-group">
@@ -52,17 +52,17 @@
                 <div class="form-group">
                     <asp:Label ID="lblQuyetDinh" runat="server" Text="Quyết định kiểm tra" CssClass="form-label" />
                     <div class="file-upload-group">
-                        <asp:FileUpload ID="fuQuyetDinh" runat="server" CssClass="form-input xxl" Accept=".doc,.docx,.pdf" />
+                        <asp:FileUpload ID="fuQuyetDinh" runat="server" CssClass="form-input " Accept=".doc,.docx,.pdf" />
                     </div>
-                    <asp:Button ID="btnExportQuyetDinh" runat="server" Text="Xuất quyết định" CssClass="btn-primary lg" OnClick="btnExportQuyetDinh_Click" OnClientClick="return confirm('Bạn có chắc muốn lưu kế hoạch này?');" />
+                    <asp:Button ID="btnExportQuyetDinh" runat="server" Text="Xuất quyết định" CssClass="btn btn-primary m md" OnClick="btnExportQuyetDinh_Click" OnClientClick="return confirm('Bạn có chắc muốn lưu kế hoạch này?');" />
                 </div>
             </div>
 
             <!-- Danh sách đơn vị bên phải -->
-            <div class="form-groups lg">
+            <div class="form-groups md">
                 <h5>Danh sách đơn vị</h5>
                 <input type="text" id="txtSearchUnit" class="search-bar" placeholder="Tìm kiếm đơn vị..." />
-                <button type="button" id="btnSortUnit" class="sort-button">Sắp xếp A-Z</button>
+                <button type="button" id="btnSortUnit" class="btn sort-button">Sắp xếp A-Z</button>
                 <asp:HiddenField ID="hfSelectedDonVi" runat="server" />
                 <asp:Repeater ID="rptDonVi" runat="server" OnItemDataBound="rptDonVi_ItemDataBound">
                     <ItemTemplate>

@@ -31,7 +31,7 @@
 
             <!-- Nút đăng nhập và đăng ký -->
             <div class="form-group">
-                <asp:Button ID="btnLogin" runat="server" Text="Đăng Nhập" CssClass="btn-primary" OnClick="btnLogin_Click" />
+                <asp:Button ID="btnLogin" runat="server" Text="Đăng Nhập" CssClass="btn btn-primary md" OnClick="btnLogin_Click" />
             </div>
 
             <!-- Liên kết Quên mật khẩu -->

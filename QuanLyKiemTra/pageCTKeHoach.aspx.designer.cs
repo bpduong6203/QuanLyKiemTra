@@ -276,15 +276,6 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.GridView gvThanhVienDonVi;
 
         /// <summary>
-        /// btnXemChiTiet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnXemChiTiet;
-
-        /// <summary>
         /// pnlGiaiTrinh control.
         /// </summary>
         /// <remarks>
@@ -346,6 +337,15 @@ namespace QuanLyKiemTra
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptFiles;
+
+        /// <summary>
+        /// btnXemChiTiet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnXemChiTiet;
 
         /// <summary>
         /// lblBoCauHoi control.

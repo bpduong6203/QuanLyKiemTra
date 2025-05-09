@@ -11,7 +11,7 @@ namespace QuanLyKiemTra
 {
 
 
-    public partial class pageBoCauHoi
+    public partial class pageEditBoCauHoi
     {
 
         /// <summary>
@@ -33,39 +33,39 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// txtSearchQuestion control.
+        /// txtTenBoCauHoi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchQuestion;
+        protected global::System.Web.UI.WebControls.TextBox txtTenBoCauHoi;
 
         /// <summary>
-        /// btnAddNew control.
+        /// rfvTenBoCauHoi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddNew;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTenBoCauHoi;
 
         /// <summary>
-        /// hfSelectedQuestions control.
+        /// rptQuestions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfSelectedQuestions;
+        protected global::System.Web.UI.WebControls.Repeater rptQuestions;
 
         /// <summary>
-        /// gvBoCauHoi control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvBoCauHoi;
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }
