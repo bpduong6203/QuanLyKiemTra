@@ -7,8 +7,6 @@ namespace QuanLyKiemTra.Models
         public MyDbContext() : base("name=QLKeHoach")
         {
         }
-
-
         public DbSet<BienBanKiemTra> BienBanKiemTras { get; set; }
         public DbSet<BoCauHoi> BoCauHois { get; set; }
         public DbSet<BoCauHoi_KeHoach> BoCauHoi_KeHoachs { get; set; }
@@ -27,7 +25,7 @@ namespace QuanLyKiemTra.Models
         public DbSet<TaiLieu> TaiLieus { get; set; }
         public DbSet<ThongBao> ThongBaos { get; set; }
         public DbSet<ThongBao_User> ThongBao_Users { get; set; }
-
         public DbSet<GiaiTrinhFile> GiaiTrinhFiles { get; set; }
+        public DbSet<KetQuaKiemTra> KetQuaKiemTras { get; set; }
     }
 }

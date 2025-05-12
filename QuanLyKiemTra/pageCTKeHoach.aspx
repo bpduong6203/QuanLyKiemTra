@@ -63,6 +63,19 @@
             </div>
         </div>
 
+        <!-- Thành viên đơn vị -->
+        <div class="form-groups">
+            <h5>Thành Viên Đơn Vị</h5>
+            <asp:GridView ID="gvThanhVienDonVi" runat="server" AutoGenerateColumns="False" CssClass="grid-view">
+                <Columns>
+                    <asp:BoundField DataField="HoTen" HeaderText="Họ và Tên" />
+                    <asp:BoundField DataField="Email" HeaderText="Email" />
+                    <asp:BoundField DataField="SoDienThoai" HeaderText="Số Điện Thoại" />
+                    <asp:BoundField DataField="DiaChi" HeaderText="Địa Chỉ" />
+                </Columns>
+            </asp:GridView>
+        </div>
+
         <!-- Biên bản kiểm tra -->
         <div class="form-groups">
             <h5>Biên Bản Kiểm Tra</h5>
@@ -79,21 +92,9 @@
             <asp:Label ID="lblNoBienBan" runat="server" Text="Chưa có biên bản kiểm tra." CssClass="message-label warning-message" Visible="true" />
         </div>
 
-        <!-- Thành viên đơn vị -->
-        <div class="form-groups">
-            <h5>Thành Viên Đơn Vị</h5>
-            <asp:GridView ID="gvThanhVienDonVi" runat="server" AutoGenerateColumns="False" CssClass="grid-view">
-                <Columns>
-                    <asp:BoundField DataField="HoTen" HeaderText="Họ và Tên" />
-                    <asp:BoundField DataField="Email" HeaderText="Email" />
-                    <asp:BoundField DataField="SoDienThoai" HeaderText="Số Điện Thoại" />
-                    <asp:BoundField DataField="DiaChi" HeaderText="Địa Chỉ" />
-                </Columns>
-            </asp:GridView>
-        </div>
         <div class="form-group-row">
             <!-- Yêu cầu giải trình -->
-            <div class="form-groups xl">
+            <div class="form-groups lg">
                 <h5>Bảng Giải Trình</h5>
                 <asp:Panel ID="pnlGiaiTrinh" runat="server" Visible="false">
                     <asp:Label ID="lblGiaiTrinhMessage" runat="server" Text="Kế hoạch chưa có giải trình." CssClass="message-label warning-message" /><br />
@@ -109,7 +110,7 @@
                         <ItemTemplate>
                             <div class="file-block">
                                 <asp:HyperLink ID="hlFileMau" runat="server" Text='<%# HttpUtility.HtmlEncode(Eval("FileName").ToString()) %>' NavigateUrl='<%# Eval("LinkFile") %>' Target="_blank" CssClass="form-link" />
-                                <asp:LinkButton ID="btnXoaFile" runat="server" Text="X" CssClass="delete-btn" CommandName="XoaFile" CommandArgument='<%# Eval("Id") %>' Visible='<%# HasEvaluationRights() %>' OnClientClick="return confirm('Bạn có chắc muốn xóa file này?');" />
+                                <asp:LinkButton ID="btnXoaFile" runat="server" Text="X" CssClass="btn-detele btn-danger" CommandName="XoaFile" CommandArgument='<%# Eval("Id") %>' Visible='<%# HasEvaluationRights() %>' OnClientClick="return confirm('Bạn có chắc muốn xóa file này?');" />
                             </div>
                         </ItemTemplate>
                         <FooterTemplate>
@@ -121,17 +122,43 @@
             </div>
 
             <!-- Chọn bộ câu hỏi -->
-            <div class="form-groups md">
-                <h5>Chọn Bộ Câu Hỏi</h5>
-                <div>
-                    <asp:Label ID="lblBoCauHoi" runat="server" Text="Bộ Câu Hỏi" CssClass="form-labels" />
-                    <asp:DropDownList ID="ddlBoCauHoi" runat="server" CssClass="dropdown-custom lg">
-                        <asp:ListItem Value="" Text="-- Chọn bộ câu hỏi --" />
-                    </asp:DropDownList><br />
-                    <asp:Label ID="lblThoiGianLam" runat="server" Text="Thời Gian Làm (phút)" CssClass="form-labels" />
-                    <asp:TextBox ID="txtThoiGianLam" runat="server" CssClass="form-input sm" TextMode="Number" /><br />
-                    <asp:Button ID="btnThemBoCauHoi" runat="server" Text="Thêm Bộ Câu Hỏi" CssClass="btn btn-primary lg" OnClick="btnThemBoCauHoi_Click" />
-                </div>
+            <div class="form-groups lg">
+                <h5>Quản Lý Bộ Câu Hỏi</h5>
+                <asp:Panel ID="pnlThemBoCauHoi" runat="server" Visible='<%# GetRole() == "TruongDoan" %>'>
+                    <div>
+                        <asp:Label ID="lblBoCauHoi" runat="server" Text="Bộ Câu Hỏi" CssClass="form-labels" />
+                        <asp:DropDownList ID="ddlBoCauHoi" runat="server" CssClass="dropdown-custom lg">
+                            <asp:ListItem Value="" Text="-- Chọn bộ câu hỏi --" />
+                        </asp:DropDownList><br />
+                        <asp:Label ID="lblThoiGianLam" runat="server" Text="Thời Gian Làm (phút)" CssClass="form-labels" />
+                        <asp:TextBox ID="txtThoiGianLam" runat="server" CssClass="form-input xs m" TextMode="Number" /><br />
+                        <asp:Button ID="btnThemBoCauHoi" runat="server" Text="Thêm Bộ Câu Hỏi" CssClass="btn btn-primary lg" OnClick="btnThemBoCauHoi_Click" />
+                    </div>
+                </asp:Panel>
+                <h6 class="mt-3">Danh Sách Bộ Câu Hỏi Đã Thêm</h6>
+                <asp:GridView ID="gvBoCauHoi" runat="server" AutoGenerateColumns="False" CssClass="grid-view" OnRowCommand="gvBoCauHoi_RowCommand">
+                    <Columns>
+                        <asp:BoundField DataField="TenBoCauHoi" HeaderText="Tên Bộ Câu Hỏi" />
+                        <asp:BoundField DataField="ThoiGianLam" HeaderText="Thời Gian (phút)" />
+                        <asp:TemplateField HeaderText="Hành Động">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnXoa" runat="server" CssClass="btn btn-danger btn-sm" CommandName="Xoa" CommandArgument='<%# Eval("Id") %>' Visible='<%# GetRole() == "TruongDoan" %>' OnClientClick="return confirm('Bạn có chắc muốn xóa bộ câu hỏi này?');" title="Xóa">
+                                    <i class="fas fa-trash"></i>
+                                </asp:LinkButton>
+                                <asp:HyperLink ID="hlXemDanhSach" runat="server" CssClass="btn btn-info btn-sm" NavigateUrl='<%# "~/danh-sach-ket-qua/" + Eval("BoCauHoiId") %>' Visible='<%# GetRole() == "TruongDoan" || GetRole() == "ThanhVien" %>' title="Xem danh sách">
+                                    <i class="fas fa-list"></i>
+                                </asp:HyperLink>
+                                <asp:HyperLink ID="hlThucHienKiemTra" runat="server" Text="Làm kiểm tra" CssClass="btn btn-success btn-sm" NavigateUrl='<%# "~/kiem-tra-ke-hoach/" + Eval("BoCauHoiId") %>' Visible='<%# GetRole() == "ThanhVien" || GetRole() == "DonVi" %>' />
+                                <asp:HyperLink ID="hlXemKetQua" runat="server" CssClass="btn btn-primary btn-sm" NavigateUrl='<%# "~/ket-qua-kiem-tra/" + Eval("BoCauHoiId") %>' Visible='<%# (GetRole() == "ThanhVien" || GetRole() == "DonVi") && DaHoanThanh(Eval("BoCauHoiId").ToString()) %>' title="Xem kết quả">
+                                    <i class="fas fa-eye"></i>
+                                </asp:HyperLink>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <EmptyDataTemplate>
+                        <div class="text-center">Chưa có bộ câu hỏi nào được thêm.</div>
+                    </EmptyDataTemplate>
+                </asp:GridView>
             </div>
         </div>
 

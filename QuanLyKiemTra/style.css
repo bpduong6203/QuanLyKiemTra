@@ -711,3 +711,70 @@ input:checked + .slider {
     border: 1px solid #dee2e6;
     border-radius: 4px;
 }
+
+.btn-detele{
+    padding: 1px 8px;
+    margin-left: 3px;
+    border-radius: 8px;
+}
+
+
+.message-label {
+    display: block;
+    margin: 10px 0;
+}
+
+.question-content {
+    font-weight: bold;
+}
+
+.answer-option {
+    margin-left: 20px;
+}
+
+.timer {
+    padding: 2px 25px 2px 25px;
+    background: #f8f9fa;
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.result-block {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.answer-content {
+    margin-left: 20px;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+.summary {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.answer-status {
+    display: inline;
+    margin-right: 10px;
+}
+
+
+
+

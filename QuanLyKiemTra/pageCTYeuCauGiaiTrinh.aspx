@@ -26,7 +26,7 @@
                         <ItemTemplate>
                             <div class="file-block">
                                 <asp:HyperLink ID="hlFileMau" runat="server" Text='<%# Eval("FileName") %>' NavigateUrl='<%# Eval("LinkFile") %>' Target="_blank" CssClass="form-link" />
-                                <asp:LinkButton ID="btnXoaFile" runat="server" Text="X" CssClass="delete-btn" CommandName="XoaFile" CommandArgument='<%# Eval("Id") %>' Visible='<%# HasEvaluationRights() %>' OnClientClick="return confirm('Bạn có chắc muốn xóa file này?');" />
+                                <asp:LinkButton ID="btnXoaFile" runat="server" Text="X" CssClass="btn-detele btn-danger" CommandName="XoaFile" CommandArgument='<%# Eval("Id") %>' Visible='<%# HasEvaluationRights() %>' OnClientClick="return confirm('Bạn có chắc muốn xóa file này?');" />
                             </div>
                         </ItemTemplate>
                         <FooterTemplate>

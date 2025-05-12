@@ -163,6 +163,10 @@
     <Content Include="style\js\bootstrap.min.js" />
     <Content Include="style\master.js" />
     <Content Include="style\search.js" />
+    <Content Include="viewCauHoi\pageDanhGiaKiemTra.aspx" />
+    <Content Include="viewCauHoi\pageDanhSachKetQua.aspx" />
+    <Content Include="viewCauHoi\pageKetQuaKiemTra.aspx" />
+    <Content Include="viewCauHoi\pageKetQuaKiemTraChiTiet.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +197,11 @@
     <Compile Include="Migrations\202505090118573_tableDapAn.Designer.cs">
       <DependentUpon>202505090118573_tableDapAn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202505120047268_tableKetQuaKiemTra.cs" />
+    <Compile Include="Migrations\202505120047268_tableKetQuaKiemTra.Designer.cs">
+      <DependentUpon>202505120047268_tableKetQuaKiemTra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KetQuaKiemTra.cs" />
     <Compile Include="pageCTYeuCauGiaiTrinh.aspx.cs">
       <DependentUpon>pageCTYeuCauGiaiTrinh.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -375,6 +384,34 @@
     <Compile Include="siteAuth.Master.designer.cs">
       <DependentUpon>siteAuth.Master</DependentUpon>
     </Compile>
+    <Compile Include="viewCauHoi\pageDanhGiaKiemTra.aspx.cs">
+      <DependentUpon>pageDanhGiaKiemTra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="viewCauHoi\pageDanhGiaKiemTra.aspx.designer.cs">
+      <DependentUpon>pageDanhGiaKiemTra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="viewCauHoi\pageDanhSachKetQua.aspx.cs">
+      <DependentUpon>pageDanhSachKetQua.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="viewCauHoi\pageDanhSachKetQua.aspx.designer.cs">
+      <DependentUpon>pageDanhSachKetQua.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="viewCauHoi\pageKetQuaKiemTra.aspx.cs">
+      <DependentUpon>pageKetQuaKiemTra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="viewCauHoi\pageKetQuaKiemTra.aspx.designer.cs">
+      <DependentUpon>pageKetQuaKiemTra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="viewCauHoi\pageKetQuaKiemTraChiTiet.aspx.cs">
+      <DependentUpon>pageKetQuaKiemTraChiTiet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="viewCauHoi\pageKetQuaKiemTraChiTiet.aspx.designer.cs">
+      <DependentUpon>pageKetQuaKiemTraChiTiet.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CaNhan.Master" />
@@ -438,6 +475,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505090118573_tableDapAn.resx">
       <DependentUpon>202505090118573_tableDapAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505120047268_tableKetQuaKiemTra.resx">
+      <DependentUpon>202505120047268_tableKetQuaKiemTra.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

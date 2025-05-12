@@ -35,6 +35,7 @@ namespace QuanLyKiemTra
                 LoadThanhVienDonVi(keHoachId);
                 CheckGiaiTrinh(keHoachId);
                 LoadBoCauHoi();
+                LoadBoCauHoiDaThem(keHoachId);
             }
         }
 
@@ -252,7 +253,7 @@ namespace QuanLyKiemTra
 
                 // Làm mới danh sách giải trình
                 CheckGiaiTrinh(keHoachId);
-                Response.Write("<script>alert('Yêu cầu giải trình đã được gửi đến các thành viên của đơn vị!');</script>");
+                Response.Write("<script>alertnicas/Yêu cầu giải trình đã được gửi đến các thành viên của đơn vị!');</script>");
             }
             catch (Exception ex)
             {
@@ -263,27 +264,21 @@ namespace QuanLyKiemTra
         protected void btnXemChiTiet_Click(object sender, EventArgs e)
         {
             string keHoachId = RouteData.Values["Id"]?.ToString();
-            System.Diagnostics.Debug.WriteLine($"btnXemChiTiet_Click - keHoachId: {keHoachId}");
-
             if (!string.IsNullOrEmpty(keHoachId))
             {
                 var giaiTrinh = db.GiaiTrinhs
                     .FirstOrDefault(g => g.KeHoachID == keHoachId);
                 if (giaiTrinh != null)
                 {
-                    string redirectUrl = $"~/chi-tiet-giai-trinh/{giaiTrinh.Id}";
-                    System.Diagnostics.Debug.WriteLine($"Chuyển hướng tới: {redirectUrl}");
-                    Response.Redirect(redirectUrl);
+                    Response.Redirect($"~/chi-tiet-giai-trinh/{giaiTrinh.Id}");
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("Không tìm thấy giải trình");
                     Response.Write("<script>alert('Không tìm thấy giải trình để xem chi tiết!');</script>");
                 }
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("keHoachId rỗng hoặc null");
                 Response.Write("<script>alert('Không tìm thấy ID kế hoạch!');</script>");
             }
         }
@@ -347,11 +342,33 @@ namespace QuanLyKiemTra
                    (nguoiDung.Roles.Ten == "TruongDoan" || nguoiDung.Roles.Ten == "ThanhVien");
         }
 
+        protected string GetRole()
+        {
+            string username = Session["Username"]?.ToString();
+            if (string.IsNullOrEmpty(username)) return "";
+
+            var nguoiDung = db.NguoiDungs
+                .Include("Roles")
+                .FirstOrDefault(u => u.username == username);
+
+            return nguoiDung?.Roles?.Ten ?? "DonVi";
+        }
+
         private void LoadBoCauHoi()
         {
             try
             {
-                var boCauHoiList = db.BoCauHois.ToList();
+                // Lấy danh sách bộ câu hỏi chưa được gắn với kế hoạch
+                string keHoachId = RouteData.Values["Id"]?.ToString();
+                var boCauHoiDaThem = db.BoCauHoi_KeHoachs
+                    .Where(b => b.KeHoachId == keHoachId)
+                    .Select(b => b.BoCauHoiId)
+                    .ToList();
+
+                var boCauHoiList = db.BoCauHois
+                    .Where(b => !boCauHoiDaThem.Contains(b.Id))
+                    .ToList();
+
                 ddlBoCauHoi.DataSource = boCauHoiList;
                 ddlBoCauHoi.DataTextField = "TenBoCauHoi";
                 ddlBoCauHoi.DataValueField = "Id";
@@ -361,6 +378,31 @@ namespace QuanLyKiemTra
             catch (Exception ex)
             {
                 Response.Write($"<script>alert('Lỗi khi tải danh sách bộ câu hỏi: {ex.Message}');</script>");
+            }
+        }
+
+        private void LoadBoCauHoiDaThem(string keHoachId)
+        {
+            try
+            {
+                var boCauHoiList = db.BoCauHoi_KeHoachs
+                    .Include("BoCauHoi")
+                    .Where(b => b.KeHoachId == keHoachId)
+                    .Select(b => new
+                    {
+                        b.Id,
+                        b.BoCauHoiId,
+                        TenBoCauHoi = b.BoCauHoi.TenBoCauHoi,
+                        b.ThoiGianLam
+                    })
+                    .ToList();
+
+                gvBoCauHoi.DataSource = boCauHoiList;
+                gvBoCauHoi.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"<script>alert('Lỗi khi tải danh sách bộ câu hỏi đã thêm: {ex.Message}');</script>");
             }
         }
 
@@ -376,6 +418,13 @@ namespace QuanLyKiemTra
                     return;
                 }
 
+                // Kiểm tra quyền
+                if (GetRole() != "TruongDoan")
+                {
+                    Response.Write("<script>alert('Bạn không có quyền thêm bộ câu hỏi!');</script>");
+                    return;
+                }
+
                 if (string.IsNullOrEmpty(ddlBoCauHoi.SelectedValue))
                 {
                     Response.Write("<script>alert('Vui lòng chọn bộ câu hỏi!');</script>");
@@ -388,7 +437,7 @@ namespace QuanLyKiemTra
                     return;
                 }
 
-                // Tạo bản ghi BoCauHoi_KeHoach
+                // Thêm mới bộ câu hỏi
                 var boCauHoiKeHoach = new BoCauHoi_KeHoach
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -398,38 +447,76 @@ namespace QuanLyKiemTra
                 };
 
                 db.BoCauHoi_KeHoachs.Add(boCauHoiKeHoach);
-
-                // Gửi thông báo đến các thành viên được phân công
-                var thanhVienPhanCong = db.PhanCong_Users
-                    .Where(p => p.KeHoachID == keHoachId)
-                    .ToList();
-
-                foreach (var thanhVien in thanhVienPhanCong)
-                {
-                    var thongBao = new ThongBao_User
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        UserID = thanhVien.UserID,
-                        KeHoachID = keHoachId,
-                        NoiDung = $"Bộ câu hỏi '{ddlBoCauHoi.SelectedItem.Text}' đã được thêm vào kế hoạch '{keHoach.TenKeHoach}'.",
-                        NgayTao = DateTime.Now,
-                        redirectUrl = $"/chi-tiet-ke-hoach/{keHoachId}",
-                        DaXem = false
-                    };
-                    db.ThongBao_Users.Add(thongBao);
-                }
-
                 db.SaveChanges();
-                Response.Write("<script>alert('Thêm bộ câu hỏi và gửi thông báo thành công!');</script>");
+
+                // Làm mới danh sách
+                LoadBoCauHoi();
+                LoadBoCauHoiDaThem(keHoachId);
 
                 // Reset form
                 ddlBoCauHoi.SelectedIndex = 0;
                 txtThoiGianLam.Text = "";
+
+                Response.Write("<script>alert('Thêm bộ câu hỏi thành công!');</script>");
             }
             catch (Exception ex)
             {
                 Response.Write($"<script>alert('Lỗi khi thêm bộ câu hỏi: {ex.Message}');</script>");
             }
+        }
+
+        protected void gvBoCauHoi_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            string keHoachId = RouteData.Values["Id"]?.ToString();
+            if (string.IsNullOrEmpty(keHoachId))
+            {
+                Response.Write("<script>alert('Không tìm thấy ID kế hoạch!');</script>");
+                return;
+            }
+
+            if (GetRole() != "TruongDoan")
+            {
+                Response.Write("<script>alert('Bạn không có quyền thực hiện hành động này!');</script>");
+                return;
+            }
+
+            if (e.CommandName == "Xoa")
+            {
+                try
+                {
+                    string boCauHoiKeHoachId = e.CommandArgument.ToString();
+                    var boCauHoiKeHoach = db.BoCauHoi_KeHoachs.FirstOrDefault(b => b.Id == boCauHoiKeHoachId);
+
+                    if (boCauHoiKeHoach == null)
+                    {
+                        Response.Write("<script>alert('Bộ câu hỏi không tồn tại!');</script>");
+                        return;
+                    }
+
+                    db.BoCauHoi_KeHoachs.Remove(boCauHoiKeHoach);
+                    db.SaveChanges();
+
+                    // Làm mới danh sách
+                    LoadBoCauHoi();
+                    LoadBoCauHoiDaThem(keHoachId);
+                    Response.Write("<script>alert('Xóa bộ câu hỏi thành công!');</script>");
+                }
+                catch (Exception ex)
+                {
+                    Response.Write($"<script>alert('Lỗi khi xóa bộ câu hỏi: {ex.Message}');</script>");
+                }
+            }
+        }
+
+        protected bool DaHoanThanh(string boCauHoiId)
+        {
+            string username = Session["Username"]?.ToString();
+            var nguoiDung = db.NguoiDungs.FirstOrDefault(u => u.username == username);
+            if (nguoiDung == null) return false;
+
+            var ketQua = db.KetQuaKiemTras
+                .FirstOrDefault(k => k.UserId == nguoiDung.Id && k.BoCauHoiId == boCauHoiId && k.TrangThai == "DaHoanThanh");
+            return ketQua != null;
         }
     }
 }

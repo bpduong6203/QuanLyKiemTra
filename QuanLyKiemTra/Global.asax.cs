@@ -87,6 +87,42 @@ namespace QuanLyKiemTra
                 new RouteValueDictionary(),
                 guidConstraint
             );
+
+            routes.MapPageRoute(
+                "DanhGiaKiemTra",
+                "kiem-tra-ke-hoach/{Id}",
+                "~/viewCauHoi/pageDanhGiaKiemTra.aspx",
+                true,
+                new RouteValueDictionary(),
+                guidConstraint
+            );
+
+            routes.MapPageRoute(
+                "DanhSachDApAn",
+                "ket-qua-kiem-tra/{Id}",
+                "~/viewCauHoi/pageKetQuaKiemTra.aspx",
+                true,
+                new RouteValueDictionary(),
+                guidConstraint
+            );
+
+            routes.MapPageRoute(
+                "DanhSachKQ",
+                "danh-sach-ket-qua/{Id}",
+                "~/viewCauHoi/pageDanhSachKetQua.aspx",
+                true,
+                new RouteValueDictionary(),
+                guidConstraint
+            );
+
+            routes.MapPageRoute(
+                "CTKetQuaKiemTra",
+                "chi-tiet-ket-qua-kiem-tra/{Id}",
+                "~/viewCauHoi/pageKetQuaKiemTraChiTiet.aspx",
+                true,
+                new RouteValueDictionary(),
+                guidConstraint
+            );
         }
     }
 }

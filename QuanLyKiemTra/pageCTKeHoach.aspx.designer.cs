@@ -213,6 +213,15 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Label lblChucVuNguoiDaiDienValue;
 
         /// <summary>
+        /// gvThanhVienDonVi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvThanhVienDonVi;
+
+        /// <summary>
         /// pnlBienBan control.
         /// </summary>
         /// <remarks>
@@ -265,15 +274,6 @@ namespace QuanLyKiemTra
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNoBienBan;
-
-        /// <summary>
-        /// gvThanhVienDonVi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvThanhVienDonVi;
 
         /// <summary>
         /// pnlGiaiTrinh control.
@@ -348,6 +348,15 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Button btnXemChiTiet;
 
         /// <summary>
+        /// pnlThemBoCauHoi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlThemBoCauHoi;
+
+        /// <summary>
         /// lblBoCauHoi control.
         /// </summary>
         /// <remarks>
@@ -391,5 +400,14 @@ namespace QuanLyKiemTra
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnThemBoCauHoi;
+
+        /// <summary>
+        /// gvBoCauHoi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvBoCauHoi;
     }
 }
