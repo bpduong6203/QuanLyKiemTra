@@ -12,6 +12,7 @@
         public string TenTaiLieu { get; set; }
         public string linkfile { get; set; }
         public DateTime NgayTao { get; set; }
+        public string LoaiTaiLieu { get; set; }
 
         public virtual ICollection<CTTaiLieu_KeHoach> CTTaiLieu_KeHoach { get; set; }
     }

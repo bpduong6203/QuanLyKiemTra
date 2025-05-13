@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202505120047268_tableKetQuaKiemTra.Designer.cs">
       <DependentUpon>202505120047268_tableKetQuaKiemTra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202505130305576_AddLoaiTaiLieuToTaiLieu.cs" />
+    <Compile Include="Migrations\202505130305576_AddLoaiTaiLieuToTaiLieu.Designer.cs">
+      <DependentUpon>202505130305576_AddLoaiTaiLieuToTaiLieu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\KetQuaKiemTra.cs" />
     <Compile Include="pageCTYeuCauGiaiTrinh.aspx.cs">
       <DependentUpon>pageCTYeuCauGiaiTrinh.aspx</DependentUpon>
@@ -478,6 +482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505120047268_tableKetQuaKiemTra.resx">
       <DependentUpon>202505120047268_tableKetQuaKiemTra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505130305576_AddLoaiTaiLieuToTaiLieu.resx">
+      <DependentUpon>202505130305576_AddLoaiTaiLieuToTaiLieu.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

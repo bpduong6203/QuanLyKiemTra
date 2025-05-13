@@ -775,6 +775,8 @@ input:checked + .slider {
     margin-right: 10px;
 }
 
-
-
-
+.file-type {
+    color: #555;
+    font-size: 14px;
+    margin-right: 5px;
+}

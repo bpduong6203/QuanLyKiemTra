@@ -76,23 +76,46 @@
             </asp:GridView>
         </div>
 
-        <!-- Biên bản kiểm tra -->
-        <div class="form-groups">
-            <h5>Biên Bản Kiểm Tra</h5>
-            <asp:Panel ID="pnlBienBan" runat="server" Visible="false">
-                <div class="form-row">
-                    <asp:Label ID="lblTenBienBan" runat="server" CssClass="form-labels" Text="Tên Biên Bản: " />
-                    <asp:Label ID="lblTenBienBanValue" runat="server" CssClass="form-value" />
-                </div>
-                <div class="form-row">
-                    <asp:Label ID="lblLinkBienBan" runat="server" CssClass="form-labels" Text="File Biên Bản: " />
-                    <asp:HyperLink ID="hlLinkBienBan" runat="server" Text="Tải xuống" Target="_blank" CssClass="form-link" />
-                </div>
-            </asp:Panel>
-            <asp:Label ID="lblNoBienBan" runat="server" Text="Chưa có biên bản kiểm tra." CssClass="message-label warning-message" Visible="true" />
+        <div class="form-group-row">
+            <!-- Danh sách tài liệu/đề cương -->
+            <div class="form-groups lg">
+                <asp:Label ID="lblDocuments" runat="server" Text="Tài liệu và đề cương" CssClass="form-label" />
+                <asp:Repeater ID="rptDocuments" runat="server">
+                    <ItemTemplate>
+                        <div class="file-block">
+                            <span class="file-type">
+                                <i class='<%# GetLoaiTaiLieuIcon(Eval("LoaiTaiLieu")) %>'></i>
+                                <%# GetLoaiTaiLieuText(Eval("LoaiTaiLieu")) %>
+                            </span>
+                            <asp:HyperLink ID="hlFileMau" runat="server" 
+                                Text='<%# HttpUtility.HtmlEncode(Eval("TenTaiLieu").ToString()) %>' 
+                                NavigateUrl='<%# Eval("linkfile") %>' 
+                                Target="_blank" 
+                                CssClass="form-link" />
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+
+            <!-- Biên bản kiểm tra -->
+            <div class="form-groups lg">
+                <h5>Biên Bản Kiểm Tra</h5>
+                <asp:Panel ID="pnlBienBan" runat="server" Visible="false">
+                    <div class="form-row">
+                        <asp:Label ID="lblTenBienBan" runat="server" CssClass="form-labels" Text="Tên Biên Bản: " />
+                        <asp:Label ID="lblTenBienBanValue" runat="server" CssClass="form-value" />
+                    </div>
+                    <div class="form-row">
+                        <asp:Label ID="lblLinkBienBan" runat="server" CssClass="form-labels" Text="File Biên Bản: " />
+                        <asp:HyperLink ID="hlLinkBienBan" runat="server" Text="Tải xuống" Target="_blank" CssClass="form-link" />
+                    </div>
+                </asp:Panel>
+                <asp:Label ID="lblNoBienBan" runat="server" Text="Chưa có biên bản kiểm tra." CssClass="message-label warning-message" Visible="true" />
+            </div>
         </div>
 
         <div class="form-group-row">
+
             <!-- Yêu cầu giải trình -->
             <div class="form-groups lg">
                 <h5>Bảng Giải Trình</h5>

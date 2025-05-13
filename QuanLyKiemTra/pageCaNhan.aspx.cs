@@ -1,87 +1,60 @@
-﻿using System;
-using System.Data;
-using System.Web.UI.WebControls;
+﻿using QuanLyKiemTra.Models;
+using System;
+using System.Linq;
+using System.Web.UI;
 
 namespace QuanLyKiemTra
 {
-    public partial class pageCaNhan : System.Web.UI.Page
+    public partial class pageCaNhan : Page
     {
+        private MyDbContext db = new MyDbContext();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                BindGridView();
+                Page.Title = "Thông tin cá nhân - Quản lý kiểm tra";
+                // Kiểm tra đăng nhập
+                if (Session["Username"] == null)
+                {
+                    Response.Redirect("~/dang-nhap");
+                }
+
+                // Tải thông tin người dùng
+                LoadUserInfo();
             }
         }
 
-        protected void Page_PreInit(object sender, EventArgs e)
+        private void LoadUserInfo()
         {
-            // Điều kiện để chọn Master Page
-            if (Request.QueryString["master"] == "CaNhan")
+            try
             {
-                this.MasterPageFile = "~/CaNhan.Master";
+                string username = Session["Username"]?.ToString();
+                var user = db.NguoiDungs
+                    .Include("DonVi")
+                    .Include("Roles")
+                    .FirstOrDefault(u => u.username == username);
+
+                if (user == null)
+                {
+                    lblMessage.Text = "Không tìm thấy thông tin người dùng!";
+                    lblMessage.Visible = true;
+                    return;
+                }
+
+                // Gán thông tin vào Label
+                lblHoTen.Text = $"Họ và tên: {user.HoTen ?? "Chưa cập nhật"}";
+                lblSoDienThoai.Text = $"Số điện thoại: {user.SoDienThoai ?? "Chưa cập nhật"}";
+                lblDiaChi.Text = $"Địa chỉ: {user.DiaChi ?? "Chưa cập nhật"}";
+                lblDonVi.Text = $"Đơn vị: {user.DonVi?.TenDonVi ?? "Chưa cập nhật"}";
+                lblChucVu.Text = $"Chức vụ: {user.Roles?.Ten ?? "Chưa cập nhật"}";
             }
-            else
+            catch (Exception ex)
             {
-                this.MasterPageFile = "~/Site1.Master";
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi tải thông tin: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                lblMessage.Text = $"Lỗi khi tải thông tin: {ex.Message}";
+                lblMessage.Visible = true;
             }
         }
-
-        private void BindGridView(string statusFilter = "", string typeFilter = "")
-        {
-            // Giả lập dữ liệu (thay bằng truy vấn database thực tế)
-            DataTable dt = new DataTable();
-            dt.Columns.Add("TenKeHoach");
-            dt.Columns.Add("TrangThai");
-            dt.Columns.Add("LoaiTaiLieu");
-            dt.Columns.Add("NgayTao", typeof(DateTime));
-            dt.Columns.Add("TaiLieuUrl");
-
-            // Thêm dữ liệu mẫu
-            dt.Rows.Add("Kế hoạch kiểm tra Q1", "Hoàn thành", "Kế hoạch", DateTime.Now.AddDays(-10), "~/files/kehoach1.pdf");
-            dt.Rows.Add("Giải trình lỗi", "Đang xử lý", "Giải trình", DateTime.Now.AddDays(-5), "~/files/giaitinh1.docx");
-            dt.Rows.Add("Tài liệu hướng dẫn", "Chưa bắt đầu", "Tài liệu", DateTime.Now, "~/files/tailieu1.pdf");
-            dt.Rows.Add("Tài liệu hướng dẫn", "Chưa bắt đầu", "Tài liệu", DateTime.Now, "~/files/tailieu1.pdf");
-            dt.Rows.Add("Tài liệu hướng dẫn", "Chưa bắt đầu", "Tài liệu", DateTime.Now, "~/files/tailieu1.pdf");
-            dt.Rows.Add("Kế hoạch kiểm tra Q1", "Hoàn thành", "Kế hoạch", DateTime.Now.AddDays(-10), "~/files/kehoach1.pdf");
-            dt.Rows.Add("Kế hoạch kiểm tra Q1", "Hoàn thành", "Kế hoạch", DateTime.Now.AddDays(-10), "~/files/kehoach1.pdf");
-
-            // Lọc dữ liệu
-            DataView dv = dt.DefaultView;
-            if (!string.IsNullOrEmpty(statusFilter))
-                dv.RowFilter += $"TrangThai = '{statusFilter}'";
-            if (!string.IsNullOrEmpty(typeFilter))
-                dv.RowFilter += (dv.RowFilter.Length > 0 ? " AND " : "") + $"LoaiTaiLieu = '{typeFilter}'";
-
-            gvKeHoach.DataSource = dv;
-            gvKeHoach.DataBind();
-        }
-
-        protected void ddlStatusFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BindGridView(ddlStatusFilter.SelectedValue, ddlTypeFilter.SelectedValue);
-        }
-
-        protected void ddlTypeFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BindGridView(ddlStatusFilter.SelectedValue, ddlTypeFilter.SelectedValue);
-        }
-
-        protected void gvKeHoach_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvKeHoach.PageIndex = e.NewPageIndex;
-            BindGridView(ddlStatusFilter.SelectedValue, ddlTypeFilter.SelectedValue);
-        }
-
-        protected void lnkTaiLieu_Click(object sender, EventArgs e)
-        {
-            LinkButton lnk = (LinkButton)sender;
-            string fileUrl = lnk.CommandArgument;
-            if (!string.IsNullOrEmpty(fileUrl))
-            {
-                Response.Redirect(fileUrl); // Hoặc logic tải file thực tế
-            }
-        }
-
     }
 }

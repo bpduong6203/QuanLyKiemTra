@@ -22,7 +22,7 @@ namespace QuanLyKiemTra
             {
                 var units = context.DonVis.ToList();
                 ddlUnit.DataSource = units;
-                ddlUnit.DataTextField = "TenDonVi"; // Changed from "Ten" to "TenDonVi"
+                ddlUnit.DataTextField = "TenDonVi";
                 ddlUnit.DataValueField = "Id";
                 ddlUnit.DataBind();
 

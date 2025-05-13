@@ -105,39 +105,39 @@ namespace QuanLyKiemTra
         protected global::System.Web.UI.WebControls.Repeater rptKeHoach;
 
         /// <summary>
-        /// lblThanhVien control.
+        /// lblDocuments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblThanhVien;
+        protected global::System.Web.UI.WebControls.Label lblDocuments;
 
         /// <summary>
-        /// gvThanhVien control.
+        /// rptDocuments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvThanhVien;
+        protected global::System.Web.UI.WebControls.Repeater rptDocuments;
 
         /// <summary>
-        /// lblDaPhanCong control.
+        /// lblPhanCong control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDaPhanCong;
+        protected global::System.Web.UI.WebControls.Label lblPhanCong;
 
         /// <summary>
-        /// gvDaPhanCong control.
+        /// gvPhanCong control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDaPhanCong;
+        protected global::System.Web.UI.WebControls.GridView gvPhanCong;
     }
 }

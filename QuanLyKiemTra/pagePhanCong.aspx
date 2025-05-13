@@ -56,37 +56,73 @@
                 </asp:Repeater>
             </div>
         </div>
-                        <!-- Bước 3: Phân công thành viên (vai trò ThanhVien) -->
-                <div class="form-group">
-                    <asp:Label ID="lblThanhVien" runat="server" Text="Phân công thành viên" CssClass="form-label" />
-                    <asp:GridView ID="gvThanhVien" runat="server" AutoGenerateColumns="False" CssClass="grid-view"
-                        DataKeyNames="Id" OnRowCommand="gvThanhVien_RowCommand">
-                        <Columns>
-                            <asp:BoundField DataField="HoTen" HeaderText="Họ và Tên" />
-                            <asp:BoundField DataField="ChucVu" HeaderText="Chức Vụ" />
-                            <asp:TemplateField HeaderText="Nhiệm Vụ">
-                                <ItemTemplate>
-                                    <asp:TextBox ID="txtNhiemVu" runat="server" CssClass="form-input" Placeholder="Nhập nhiệm vụ" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Chọn">
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="chkSelect" runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                    </asp:GridView>
-                </div>
-                <div class="form-group">
-                    <asp:Label ID="lblDaPhanCong" runat="server" Text="Danh sách đã phân công" CssClass="form-label" />
-                    <asp:GridView ID="gvDaPhanCong" runat="server" AutoGenerateColumns="False" CssClass="grid-view">
-                        <Columns>
-                            <asp:BoundField DataField="NguoiDung.HoTen" HeaderText="Họ và Tên" />
-                            <asp:BoundField DataField="NoiDungCV" HeaderText="Nhiệm Vụ" />
-                            <asp:BoundField DataField="ngayTao" HeaderText="Ngày Phân Công" DataFormatString="{0:dd/MM/yyyy}" />
-                        </Columns>
-                    </asp:GridView>
-                </div>
+
+        <!-- Danh sách tài liệu/đề cương -->
+        <div class="form-group document-list">
+            <asp:Label ID="lblDocuments" runat="server" Text="Tài liệu và đề cương" CssClass="form-label" />
+            <asp:Repeater ID="rptDocuments" runat="server" OnItemCommand="rptDocuments_ItemCommand">
+                <ItemTemplate>
+                    <div class="file-block lg">
+                        <span class="file-type">
+                            <i class='<%# GetLoaiTaiLieuIcon(Eval("LoaiTaiLieu")) %>'></i>
+                            <%# GetLoaiTaiLieuText(Eval("LoaiTaiLieu")) %>
+                        </span>
+                        <asp:HyperLink ID="hlFileMau" runat="server" 
+                            Text='<%# HttpUtility.HtmlEncode(Eval("TenTaiLieu").ToString()) %>' 
+                            NavigateUrl='<%# Eval("linkfile") %>' 
+                            Target="_blank" 
+                            CssClass="form-link" />
+                        <asp:LinkButton ID="btnXoaFile" runat="server" 
+                            Text="X" 
+                            CssClass="btn-detele btn-danger" 
+                            CommandName="XoaFile" 
+                            CommandArgument='<%# Eval("Id") %>' 
+                            Visible='<%# HasEvaluationRights() %>' 
+                            OnClientClick="return confirm('Bạn có chắc muốn xóa file này?');" />
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+
+        <!-- Phân công thành viên -->
+        <div class="form-group">
+            <asp:Label ID="lblPhanCong" runat="server" Text="Phân công thành viên" CssClass="form-label" />
+            <asp:GridView ID="gvPhanCong" runat="server" AutoGenerateColumns="False" CssClass="grid-view"
+                DataKeyNames="UserId" OnRowCommand="gvPhanCong_RowCommand">
+                <Columns>
+                    <asp:TemplateField HeaderText="">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkSelect" runat="server" 
+                                Checked='<%# Eval("IsAssigned") != null && (bool)Eval("IsAssigned") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="HoTen" HeaderText="Họ và Tên" />
+                    <asp:BoundField DataField="ChucVu" HeaderText="Chức Vụ" />
+                    <asp:TemplateField HeaderText="Nhiệm Vụ">
+                        <ItemTemplate>
+                            <asp:TextBox ID="txtNhiemVu" runat="server" CssClass="form-input" 
+                                Text='<%# Eval("NoiDungCV") %>' Placeholder="Nhập nhiệm vụ" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Tệp đính kèm">
+                        <ItemTemplate>
+                            <asp:FileUpload ID="fuLinkFile" runat="server" CssClass="form-input sm" Accept=".doc,.docx,.pdf" />
+                            <asp:HyperLink ID="hlLinkFile" runat="server" 
+                                NavigateUrl='<%# Eval("LinkFile") %>' 
+                                Text='<%# !string.IsNullOrEmpty(Eval("LinkFile")?.ToString()) ? "Xem tệp" : "" %>' 
+                                Target="_blank" Visible='<%# !string.IsNullOrEmpty(Eval("LinkFile")?.ToString()) %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Trạng Thái">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStatus" runat="server" 
+                                Text='<%# Eval("IsAssigned") != null && (bool)Eval("IsAssigned") ? "Đã phân công" : "Chưa phân công" %>' 
+                                CssClass='<%# Eval("IsAssigned") != null && (bool)Eval("IsAssigned") ? "status-success" : "status-warning" %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+        </div>
         <div class="divider"></div>
     </div>
 

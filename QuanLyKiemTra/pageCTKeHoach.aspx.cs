@@ -36,7 +36,53 @@ namespace QuanLyKiemTra
                 CheckGiaiTrinh(keHoachId);
                 LoadBoCauHoi();
                 LoadBoCauHoiDaThem(keHoachId);
+                LoadDocuments(keHoachId);
             }
+        }
+
+        private void LoadDocuments(string keHoachId)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(keHoachId))
+                {
+                    var documents = db.CTTaiLieu_KeHoachs
+                        .Where(ct => ct.KeHoachId == keHoachId)
+                        .Select(ct => new
+                        {
+                            ct.TaiLieu.Id,
+                            ct.TaiLieu.TenTaiLieu,
+                            ct.TaiLieu.linkfile,
+                            ct.TaiLieu.LoaiTaiLieu
+                        })
+                        .OrderBy(d => d.LoaiTaiLieu == "DeCuong" ? 0 : 1)
+                        .ThenBy(d => d.TenTaiLieu)
+                        .ToList();
+                    rptDocuments.DataSource = documents;
+                    rptDocuments.DataBind();
+                }
+                else
+                {
+                    rptDocuments.DataSource = null;
+                    rptDocuments.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write($"Lỗi khi tải danh sách tài liệu: {ex.Message}");
+            }
+        }
+
+        protected string GetLoaiTaiLieuText(object loaiTaiLieu)
+        {
+            string loai = loaiTaiLieu?.ToString();
+            return loai == "DeCuong" ? "Đề cương" : "Tài liệu";
+        }
+
+        protected string GetLoaiTaiLieuIcon(object loaiTaiLieu)
+        {
+            string loai = loaiTaiLieu?.ToString();
+            return loai == "DeCuong" ? "fas fa-book status-danger" : "fas fa-file-alt status-warning";
         }
 
         private void LoadKeHoach(string keHoachId)
