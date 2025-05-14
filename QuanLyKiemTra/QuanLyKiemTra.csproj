@@ -113,6 +113,7 @@
     <Content Include="css\admin.css" />
     <Content Include="css\auth.css" />
     <Content Include="css\profile.css" />
+    <Content Include="pageCongViec.aspx" />
     <Content Include="pageCTYeuCauGiaiTrinh.aspx" />
     <Content Include="Global.asax" />
     <Content Include="pageBoCauHoi.aspx" />
@@ -170,13 +171,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CaNhan.Master.cs">
-      <DependentUpon>CaNhan.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CaNhan.Master.designer.cs">
-      <DependentUpon>CaNhan.Master</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202505050244215_NDGiaiTrinh_GiaiTrinh.cs" />
     <Compile Include="Migrations\202505050244215_NDGiaiTrinh_GiaiTrinh.Designer.cs">
       <DependentUpon>202505050244215_NDGiaiTrinh_GiaiTrinh.cs</DependentUpon>
@@ -206,6 +200,13 @@
       <DependentUpon>202505130305576_AddLoaiTaiLieuToTaiLieu.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\KetQuaKiemTra.cs" />
+    <Compile Include="pageCongViec.aspx.cs">
+      <DependentUpon>pageCongViec.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pageCongViec.aspx.designer.cs">
+      <DependentUpon>pageCongViec.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pageCTYeuCauGiaiTrinh.aspx.cs">
       <DependentUpon>pageCTYeuCauGiaiTrinh.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -241,7 +242,6 @@
     <Compile Include="Models\NDGiaiTrinh.cs" />
     <Compile Include="Models\NguoiDung.cs" />
     <Compile Include="Models\PhanCong_User.cs" />
-    <Compile Include="Models\PhanCong.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\TaiLieu.cs" />
     <Compile Include="Models\ThongBao.cs" />
@@ -418,7 +418,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CaNhan.Master" />
     <None Include="packages.config" />
     <Content Include="Site1.Master" />
     <Content Include="siteAuth.Master" />

@@ -47,7 +47,8 @@ namespace QuanLyKiemTra
                 new { Name = "CaNhan", Url = "ca-nhan", File = "~/pageCaNhan.aspx" },
                 new { Name = "CapNhatCaNhan", Url = "cai-dat-tai-khoan", File = "~/pageCapNhatCaNhan.aspx" },
                 new { Name = "DangXuat", Url = "dang-xuat", File = "~/pageLogout.aspx" },
-                new { Name = "ThongBao", Url = "thong-bao", File = "~/pageThongBao.aspx" }
+                new { Name = "ThongBao", Url = "thong-bao", File = "~/pageThongBao.aspx" },
+                new { Name = "CongViec", Url = "danh-sach-cong-viec", File = "~/pageCongViec.aspx" }
             };
 
             foreach (var route in simpleRoutes)

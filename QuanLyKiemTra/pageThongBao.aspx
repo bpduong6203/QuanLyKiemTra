@@ -9,19 +9,9 @@
             background-color: #f8f9fa; 
         }
 
-        .grid-view tr {
-            cursor: pointer;
-        }
-        .grid-view tr:hover {
-            background-color: #a4a4a4;
-        }
-
         .grid-view td a {
             display: block; 
             color: inherit; 
-            text-decoration: none;
-        }
-        .grid-view td a:hover {
             text-decoration: none;
         }
     </style>

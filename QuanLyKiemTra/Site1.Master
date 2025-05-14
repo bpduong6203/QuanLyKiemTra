@@ -37,7 +37,8 @@
                                 <i class="fas fa-clipboard-list me-2"></i>Kiểm tra</asp:HyperLink>
                             <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-giai-trinh">
                                 <i class="fas fa-file-signature me-2"></i>Giải trình</asp:HyperLink>
-                            <a href="#"><i class="fas fa-briefcase me-2"></i>Công việc</a>
+                            <asp:HyperLink runat="server" Visible='<%# IsRoleAuthorized("ThanhVien") %>' NavigateUrl="~/danh-sach-cong-viec">
+                                <i class="fas fa-briefcase me-2"></i>Công việc</asp:HyperLink>
                         </div>
                     </div>
 
