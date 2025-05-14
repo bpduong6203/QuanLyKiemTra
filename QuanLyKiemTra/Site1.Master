@@ -20,32 +20,46 @@
             <div class="sidebar" id="sidebar">
                 <!-- Phần trên -->
                 <div class="sidebar-top">
-                    <div class="dropdown">
+                    <div class="dropdown" runat="server" Visible='<%# IsRoleAuthorized("TruongDoan", "ThanhVien") %>'>
                         <a href="#" id="btnDanhSachKeHoach" class="dropdown-toggle"><i class="fas fa-calendar-check me-2"></i>Kế hoạch kiểm tra</a>
                         <div class="submenus" id="submenuDanhSachKeHoach">
-                            <asp:HyperLink runat="server" NavigateUrl="~/tao-ke-hoach"><i class="fas fa-file-circle-plus me-2"></i>Tạo kế hoạch</asp:HyperLink>
-                            <asp:HyperLink runat="server" NavigateUrl="~/phan-cong"><i class="fas fa-user-check me-2"></i>Phân công</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/tao-ke-hoach" Visible='<%# IsRoleAuthorized("TruongDoan", "ThanhVien") %>'>
+                                <i class="fas fa-file-circle-plus me-2"></i>Tạo kế hoạch</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/phan-cong" Visible='<%# IsRoleAuthorized("TruongDoan") %>'>
+                                <i class="fas fa-user-check me-2"></i>Phân công</asp:HyperLink>
                         </div>
                     </div>
+
                     <div class="dropdown">
                         <a href="#" id="btnKiemTra" class="dropdown-toggle"><i class="fas fa-laptop-code me-2"></i>Kiểm tra trực tuyến</a>
                         <div class="submenus" id="submenuKiemTra">
-                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-ke-hoach"><i class="fas fa-clipboard-list me-2"></i>Kiểm tra</asp:HyperLink>
-                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-giai-trinh"><i class="fas fa-file-signature me-2"></i>Giải trình</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-ke-hoach">
+                                <i class="fas fa-clipboard-list me-2"></i>Kiểm tra</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-giai-trinh">
+                                <i class="fas fa-file-signature me-2"></i>Giải trình</asp:HyperLink>
                             <a href="#"><i class="fas fa-briefcase me-2"></i>Công việc</a>
                         </div>
                     </div>
-                    <asp:HyperLink runat="server" NavigateUrl="~/thong-bao"><i class="fas fa-bell me-2"></i>Thông báo kiểm tra</asp:HyperLink>
-                    <asp:HyperLink runat="server" NavigateUrl="~/ket-luan-kiem-tra"><i class="fas fa-file-circle-check me-2"></i>Kết luận kiểm tra</asp:HyperLink>
-                    <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-nguoi-dung"><i class="fas fa-users me-2"></i>Danh sách người dùng</asp:HyperLink>
-                    <div class="dropdown">
+
+                    <asp:HyperLink runat="server" NavigateUrl="~/thong-bao">
+                        <i class="fas fa-bell me-2"></i>Thông báo kiểm tra</asp:HyperLink>
+                    <asp:HyperLink runat="server" NavigateUrl="~/ket-luan-kiem-tra" Visible='<%# IsRoleAuthorized("TruongDoan") %>'>
+                        <i class="fas fa-file-circle-check me-2"></i>Kết luận kiểm tra</asp:HyperLink>
+                    <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-nguoi-dung" Visible='<%# IsRoleAuthorized("TruongDoan") %>'>
+                        <i class="fas fa-users me-2"></i>Danh sách người dùng</asp:HyperLink>
+
+                    <div class="dropdown" runat="server" Visible='<%# IsRoleAuthorized("TruongDoan") %>'>
                         <a href="#" id="btnBoCauHoi" class="dropdown-toggle"><i class="fas fa-circle-question me-2"></i>Danh sách câu hỏi</a>
                         <div class="submenus" id="submenuBoCauHoi">
-                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-bo-cau-hoi"><i class="fas fa-book me-2"></i>Bộ câu hỏi</asp:HyperLink>
-                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-cau-hoi"><i class="fas fa-question me-2"></i>Thêm bộ câu hỏi</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-bo-cau-hoi">
+                                <i class="fas fa-book me-2"></i>Bộ câu hỏi</asp:HyperLink>
+                            <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-cau-hoi">
+                                <i class="fas fa-question me-2"></i>Thêm bộ câu hỏi</asp:HyperLink>
                         </div>
                     </div>
-                    <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-don-vi"><i class="fas fa-building me-2"></i>Đơn vị</asp:HyperLink>
+
+                    <asp:HyperLink runat="server" NavigateUrl="~/danh-sach-don-vi" Visible='<%# IsRoleAuthorized("TruongDoan") %>'>
+                        <i class="fas fa-building me-2"></i>Đơn vị</asp:HyperLink>
                 </div>
                 <!-- Phần dưới -->
                 <div class="sidebar-bottom">

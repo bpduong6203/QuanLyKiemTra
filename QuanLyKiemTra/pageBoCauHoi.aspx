@@ -21,11 +21,6 @@
             <asp:GridView ID="gvBoCauHoi" runat="server" AutoGenerateColumns="False" CssClass="grid-view"
                 DataKeyNames="Id" OnRowCommand="gvBoCauHoi_RowCommand">
                 <Columns>
-                    <asp:TemplateField HeaderText="Chọn">
-                        <ItemTemplate>
-                            <input type="checkbox" class="question-checkbox" data-id='<%# Eval("Id") %>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>
                     <asp:BoundField DataField="TenBoCauHoi" HeaderText="Tên bộ câu hỏi" />
                     <asp:BoundField DataField="NgayTao" HeaderText="Ngày tạo" DataFormatString="{0:dd/MM/yyyy}" />
                     <asp:TemplateField HeaderText="Hành động">

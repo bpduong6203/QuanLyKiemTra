@@ -1,7 +1,7 @@
-﻿
-using QuanLyKiemTra.Models;
+﻿using QuanLyKiemTra.Models;
 using System;
 using System.Linq;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace QuanLyKiemTra
@@ -22,24 +22,31 @@ namespace QuanLyKiemTra
             }
         }
 
-
         private void LoadThongBaoList()
         {
             try
             {
                 using (var context = new MyDbContext())
                 {
+                    string username = Session["Username"].ToString();
+                    var user = context.NguoiDungs.FirstOrDefault(u => u.username == username);
+                    if (user == null)
+                    {
+                        ShowError("Người dùng không tồn tại.");
+                        return;
+                    }
+
                     var thongBaos = context.ThongBao_Users
+                        .Where(t => t.UserID == user.Id)
                         .Select(t => new
                         {
                             t.Id,
                             TenKeHoach = t.KeHoach != null ? t.KeHoach.TenKeHoach : "Chưa có kế hoạch",
                             TenDonVi = t.KeHoach != null && t.KeHoach.DonVi != null ? t.KeHoach.DonVi.TenDonVi : "Không xác định",
-                            ChucVuNguoiDaiDien = t.KeHoach != null && t.KeHoach.DonVi != null ? t.KeHoach.DonVi.ChucVuNguoiDaiDien : "Không xác định",
                             t.NoiDung,
                             t.NgayTao,
                             t.DaXem,
-                            LinkFile = t.KeHoach != null && t.KeHoach.BienBanKiemTra != null ? t.KeHoach.BienBanKiemTra.linkfile : null
+                            t.redirectUrl
                         })
                         .OrderByDescending(t => t.NgayTao)
                         .ToList();
@@ -56,34 +63,76 @@ namespace QuanLyKiemTra
 
         protected void gvThongBao_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "ConfirmView")
+            try
             {
-                try
-                {
-                    int rowIndex = Convert.ToInt32(e.CommandArgument);
-                    string thongBaoId = gvThongBao.DataKeys[rowIndex]["Id"].ToString();
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                string thongBaoId = gvThongBao.DataKeys[rowIndex]["Id"].ToString();
 
-                    using (var context = new MyDbContext())
+                using (var context = new MyDbContext())
+                {
+                    var thongBao = context.ThongBao_Users.FirstOrDefault(t => t.Id == thongBaoId);
+                    if (thongBao == null)
                     {
-                        var thongBao = context.ThongBao_Users.FirstOrDefault(t => t.Id == thongBaoId);
-                        if (thongBao != null && !thongBao.DaXem)
+                        ShowError("Thông báo không tồn tại.");
+                        return;
+                    }
+
+                    if (e.CommandName == "Redirect")
+                    {
+                        // Đánh dấu đã xem nếu chưa xem
+                        if (!thongBao.DaXem)
                         {
                             thongBao.DaXem = true;
                             context.SaveChanges();
                             ShowSuccess("Xác nhận đã xem thành công!");
-                            LoadThongBaoList();
+                        }
+
+                        // Chuyển hướng đến redirectUrl nếu có
+                        if (!string.IsNullOrEmpty(thongBao.redirectUrl))
+                        {
+                            Response.Redirect(thongBao.redirectUrl);
                         }
                         else
                         {
-                            ShowError("Thông báo không tồn tại hoặc đã được xác nhận.");
+                            ShowError("Không có liên kết để chuyển hướng.");
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    ShowError($"Lỗi khi xác nhận đã xem: {ex.Message}");
-                }
+
+                LoadThongBaoList();
             }
+            catch (Exception ex)
+            {
+                ShowError($"Lỗi: {ex.Message}");
+            }
+        }
+
+        protected void gvThongBao_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvThongBao.PageIndex = e.NewPageIndex;
+            LoadThongBaoList();
+        }
+
+        protected void gvThongBao_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                bool daXem = (bool)DataBinder.Eval(e.Row.DataItem, "DaXem");
+                e.Row.CssClass = daXem ? "read" : "unread";
+            }
+        }
+
+        protected string FormatTimeAgo(DateTime dateTime)
+        {
+            TimeSpan timeSpan = DateTime.Now - dateTime;
+            if (timeSpan.TotalMinutes < 1)
+                return "Vừa xong";
+            else if (timeSpan.TotalHours < 1)
+                return $"{(int)timeSpan.TotalMinutes} phút trước";
+            else if (timeSpan.TotalDays < 1)
+                return $"{(int)timeSpan.TotalHours} giờ trước";
+            else
+                return dateTime.ToString("dd/MM/yyyy HH:mm");
         }
 
         private void ShowError(string message)

@@ -7,12 +7,22 @@ namespace QuanLyKiemTra
 {
     public partial class Site1 : System.Web.UI.MasterPage
     {
+        private MyDbContext db = new MyDbContext();
         protected int NotificationCount { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                if (Session["Username"] != null)
+                {
+                    LoadNotifications();
+                }
+                else
+                {
+                    Response.Redirect("dang-nhap");
+                }
+
                 LoadNotifications();
                 this.DataBind();
             }
@@ -130,6 +140,21 @@ namespace QuanLyKiemTra
                 hfMessageType.Value = "error";
                 hfMessage.Value = "Đã xảy ra lỗi khi xử lý thông báo.";
             }
+        }
+
+        // Phương thức kiểm tra vai trò
+        protected bool IsRoleAuthorized(params string[] allowedRoles)
+        {
+            if (Session["Username"] == null) return false;
+
+            string username = Session["Username"].ToString();
+            var user = db.NguoiDungs.FirstOrDefault(u => u.username == username);
+            if (user == null || user.RoleID == null) return false;
+
+            var role = db.Roles.FirstOrDefault(r => r.Id == user.RoleID);
+            if (role == null) return false;
+
+            return allowedRoles.Contains(role.Ten);
         }
     }
 }
